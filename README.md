@@ -1,7 +1,7 @@
-[Hux Blog](https://Jan-nku.me)
+[Jan-nku Blog](https://Jan-nku.github.io)
 ================================
 
-> I never expect this becomes popular.
+> ??copy from https://github.com/Huxpro/huxpro.github.io
 
 ![](http://Jan-nku.me/img/blog-desktop.jpg)
 
