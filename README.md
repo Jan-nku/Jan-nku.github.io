@@ -1,7 +1,7 @@
 [Jan-nku Blog](https://Jan-nku.github.io)
 ================================
 
-> ??copy from https://github.com/Huxpro/huxpro.github.io
+> copy from https://github.com/Huxpro/huxpro.github.io
 
 ![](http://Jan-nku.me/img/blog-desktop.jpg)
 
