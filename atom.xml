@@ -3,11 +3,11 @@
   <title>Jan&#39;s Blog</title>
   
   <subtitle>Jan&#39;s Blog</subtitle>
-  <link href="https://github.com/Jan-nku/Jan-nku.github.io/atom.xml" rel="self"/>
+  <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
-  <link href="https://github.com/Jan-nku/Jan-nku.github.io/"/>
+  <link href="https://jan-nku.github.io/"/>
   <updated>2023-03-20T10:44:34.157Z</updated>
-  <id>https://github.com/Jan-nku/Jan-nku.github.io/</id>
+  <id>https://jan-nku.github.io/</id>
   
   <author>
     <name>Jan</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>入侵检测系统</title>
-    <link href="https://github.com/Jan-nku/Jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/"/>
-    <id>https://github.com/Jan-nku/Jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/</id>
+    <link href="https://jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/"/>
+    <id>https://jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/</id>
     <published>2023-03-21T05:48:30.000Z</published>
     <updated>2023-03-20T10:44:34.157Z</updated>
     
@@ -28,19 +28,19 @@
     
     
     
-    <category term="搭建博客" scheme="https://github.com/Jan-nku/Jan-nku.github.io/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <category term="搭建博客" scheme="https://jan-nku.github.io/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
     
     
-    <category term="Hexo" scheme="https://github.com/Jan-nku/Jan-nku.github.io/tags/Hexo/"/>
+    <category term="Hexo" scheme="https://jan-nku.github.io/tags/Hexo/"/>
     
-    <category term="Markdown" scheme="https://github.com/Jan-nku/Jan-nku.github.io/tags/Markdown/"/>
+    <category term="Markdown" scheme="https://jan-nku.github.io/tags/Markdown/"/>
     
   </entry>
   
   <entry>
     <title>Jan-first-blog</title>
-    <link href="https://github.com/Jan-nku/Jan-nku.github.io/2023/03/20/jan-first-blog/"/>
-    <id>https://github.com/Jan-nku/Jan-nku.github.io/2023/03/20/jan-first-blog/</id>
+    <link href="https://jan-nku.github.io/2023/03/20/jan-first-blog/"/>
+    <id>https://jan-nku.github.io/2023/03/20/jan-first-blog/</id>
     <published>2023-03-20T05:48:30.000Z</published>
     <updated>2023-03-20T05:56:28.165Z</updated>
     
@@ -56,8 +56,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="https://github.com/Jan-nku/Jan-nku.github.io/2023/03/20/hello-world/"/>
-    <id>https://github.com/Jan-nku/Jan-nku.github.io/2023/03/20/hello-world/</id>
+    <link href="https://jan-nku.github.io/2023/03/20/hello-world/"/>
+    <id>https://jan-nku.github.io/2023/03/20/hello-world/</id>
     <published>2023-03-20T05:37:48.085Z</published>
     <updated>2023-03-20T05:34:10.142Z</updated>
     
