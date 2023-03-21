@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-03-20T10:44:34.157Z</updated>
+  <updated>2023-03-21T02:11:48.960Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -17,61 +17,202 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>入侵检测系统</title>
-    <link href="https://jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/"/>
-    <id>https://jan-nku.github.io/2023/03/21/ru-qin-jian-ce-xi-tong/</id>
-    <published>2023-03-21T05:48:30.000Z</published>
-    <updated>2023-03-20T10:44:34.157Z</updated>
+    <title>WEB渗透实战</title>
+    <link href="https://jan-nku.github.io/2023/03/17/web-shen-tou-shi-zhan/"/>
+    <id>https://jan-nku.github.io/2023/03/17/web-shen-tou-shi-zhan/</id>
+    <published>2023-03-16T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:48.960Z</updated>
     
     
-    <summary type="html">Jan的网络安全技术笔记之入侵检测系统</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;文件上传漏洞&quot;&gt;&lt;a href=&quot;#文件上传漏洞&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
-    <category term="搭建博客" scheme="https://jan-nku.github.io/categories/%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/"/>
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
     
     
-    <category term="Hexo" scheme="https://jan-nku.github.io/tags/Hexo/"/>
-    
-    <category term="Markdown" scheme="https://jan-nku.github.io/tags/Markdown/"/>
+    <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
     
   </entry>
   
   <entry>
-    <title>Jan-first-blog</title>
-    <link href="https://jan-nku.github.io/2023/03/20/jan-first-blog/"/>
-    <id>https://jan-nku.github.io/2023/03/20/jan-first-blog/</id>
-    <published>2023-03-20T05:48:30.000Z</published>
-    <updated>2023-03-20T05:56:28.165Z</updated>
+    <title>WEB安全基础</title>
+    <link href="https://jan-nku.github.io/2023/03/16/web-an-quan-ji-chu/"/>
+    <id>https://jan-nku.github.io/2023/03/16/web-an-quan-ji-chu/</id>
+    <published>2023-03-15T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:36.726Z</updated>
     
     
-    <summary type="html">&lt;p&gt;大家好，我是Jan-nku~&lt;/p&gt;
-&lt;p&gt;本文记录个人博客搭建过程&lt;/p&gt;
-&lt;p&gt;以后将会在这里记录我的个人cs-blog&lt;/p&gt;</summary>
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;WEB基础&quot;&gt;&lt;a href=&quot;#WEB基础&quot; class=&quot;headerlink&quot; title=&quot;WEB基础&quot;&gt;&lt;/a&gt;WEB基础&lt;/h1&gt;&lt;h2 id=&quot;HTTP协议&quot;&gt;&lt;a href=&quot;#HTTP协议&quot; class=&quot;headerlink&quot;</summary>
+        
+      
     
     
     
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
     
   </entry>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://jan-nku.github.io/2023/03/20/hello-world/"/>
-    <id>https://jan-nku.github.io/2023/03/20/hello-world/</id>
-    <published>2023-03-20T05:37:48.085Z</published>
-    <updated>2023-03-20T05:34:10.142Z</updated>
+    <title>漏洞挖掘篇</title>
+    <link href="https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/"/>
+    <id>https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/</id>
+    <published>2023-03-14T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:24.067Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+    <summary type="html">&lt;h1 id=&quot;方法概述&quot;&gt;&lt;a href=&quot;#方法概述&quot; class=&quot;headerlink&quot; title=&quot;方法概述&quot;&gt;&lt;/a&gt;方法概述&lt;/h1&gt;&lt;h2 id=&quot;漏洞挖掘方法分类&quot;&gt;&lt;a href=&quot;#漏洞挖掘方法分类&quot; class=&quot;headerlink&quot;</summary>
         
       
     
     
     
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>漏洞利用篇</title>
+    <link href="https://jan-nku.github.io/2023/03/14/lou-dong-li-yong-pian/"/>
+    <id>https://jan-nku.github.io/2023/03/14/lou-dong-li-yong-pian/</id>
+    <published>2023-03-13T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:13.997Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;漏洞利用概念及示例&quot;&gt;&lt;a href=&quot;#漏洞利用概念及示例&quot; class=&quot;headerlink&quot; title=&quot;漏洞利用概念及示例&quot;&gt;&lt;/a&gt;漏洞利用概念及示例&lt;/h1&gt;&lt;h2 id=&quot;漏洞利用概念&quot;&gt;&lt;a href=&quot;#漏洞利用概念&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>软件漏洞篇</title>
+    <link href="https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/"/>
+    <id>https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/</id>
+    <published>2023-03-12T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:02.210Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;漏洞&quot;&gt;&lt;a href=&quot;#漏洞&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>软件调试基础</title>
+    <link href="https://jan-nku.github.io/2023/03/12/ruan-jian-diao-shi-ji-chu/"/>
+    <id>https://jan-nku.github.io/2023/03/12/ruan-jian-diao-shi-ji-chu/</id>
+    <published>2023-03-11T16:00:00.000Z</published>
+    <updated>2023-03-21T02:10:48.620Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;PE文件格式&quot;&gt;&lt;a href=&quot;#PE文件格式&quot; class=&quot;headerlink&quot; title=&quot;PE文件格式&quot;&gt;&lt;/a&gt;PE文件格式&lt;/h1&gt;&lt;h2 id=&quot;文件格式&quot;&gt;&lt;a href=&quot;#文件格式&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="调试" scheme="https://jan-nku.github.io/tags/%E8%B0%83%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>软件安全预备知识</title>
+    <link href="https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/"/>
+    <id>https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/</id>
+    <published>2023-03-10T16:00:00.000Z</published>
+    <updated>2023-03-21T02:10:43.646Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h1&gt;&lt;h2 id=&quot;病毒和木马&quot;&gt;&lt;a href=&quot;#病毒和木马&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="预备知识" scheme="https://jan-nku.github.io/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>汇编语言与逆向技术</title>
+    <link href="https://jan-nku.github.io/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/"/>
+    <id>https://jan-nku.github.io/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/</id>
+    <published>2023-02-20T16:00:00.000Z</published>
+    <updated>2023-03-21T02:11:56.274Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;汇编语言基础知识&quot;&gt;&lt;a href=&quot;#汇编语言基础知识&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="汇编语言" scheme="https://jan-nku.github.io/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    
+    
+    <category term="汇编语言" scheme="https://jan-nku.github.io/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
     
   </entry>
   

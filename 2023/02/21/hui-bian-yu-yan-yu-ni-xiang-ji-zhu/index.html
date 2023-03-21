@@ -1,0 +1,2628 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>汇编语言与逆向技术 | Jan&#39;s Blog</title>
+
+  <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('true') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+        <script src="/js/valine/index.js"></script>
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Jan's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+  
+  <!-- 依赖于jquery和vue -->
+  
+    
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+
+  
+
+  
+    
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+
+  
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader_2" id="loader">
+  <div class="loader"></div>
+</div>
+
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">Jan&#39;s Blog</h3>
+      <h5 class="drawer-box-head_desc">千磨万击还坚劲，任尔东西南北风</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/tags" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/about" class="drawer-menu-item-link">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/resume" class="drawer-menu-item-link">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">Jan&#39;s Blog</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/tags" class="menu-item-link" title="标签">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/about" class="menu-item-link" title="关于">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/resume" class="menu-item-link" title="简历">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        汇编语言与逆向技术
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-02-21 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" class="post-detail-header_category">
+              汇编语言
+            </a>
+          
+        </span>
+      
+
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="汇编语言基础知识"><a href="#汇编语言基础知识" class="headerlink" title="汇编语言基础知识"></a>汇编语言基础知识</h1><p><strong>汇编语言的特点</strong></p>
+<ul>
+<li>助记符代替机器语言中的二进制操作码</li>
+<li>地址符号或标号，代替指令或操作数的二进制地址</li>
+</ul>
+<p><strong>C++中也可以使用汇编语言</strong></p>
+<ul>
+<li>使用高级结构和访问底层细节之间提供了一种折中方案</li>
+<li>直接访问硬件，会使C++程序完全丧失可移植性</li>
+</ul>
+<p><strong>汇编语言的应用场景</strong></p>
+<ul>
+<li>嵌入式系统：内存空间小，汇编语言可以节省内存空间</li>
+<li>实时系统：汇编语言可以完全控制机器码，执行速度快</li>
+<li>游戏机：有专用的系统，要求程序在大小和运行速度两方面都要做高度优化</li>
+<li>驱动程序</li>
+<li>加密算法：高级语言的种种限制阻碍位操作、数据加密等底层操作的有效实现，汇编语言会加快数据的加密速度</li>
+<li>底层操作</li>
+</ul>
+<p><strong>逆向分析</strong></p>
+<ul>
+<li>软件调试</li>
+<li>软件漏洞挖掘</li>
+<li>计算机病毒分析</li>
+<li>软件知识产权保护</li>
+</ul>
+<p><strong>虚拟机</strong></p>
+<ul>
+<li>抽象出计算机软硬件之间的相互关系</li>
+<li>对于每个语言层次，将其想象成一台假想的计算机</li>
+<li>高层虚拟机的程序，通过解释或翻译的方式，在底层虚拟机上执行</li>
+</ul>
+<blockquote>
+<p>翻译方式：高层虚拟机的程序被整体翻译成底层虚拟机程序，然后在底层虚拟机上执行</p>
+<p>解释方式：低层虚拟机对高层虚拟机的程序，逐条指令进行解码并执行</p>
+</blockquote>
+<p><strong>虚拟机的层次</strong></p>
+<ul>
+<li>第0层：数字逻辑</li>
+<li>第1层：微结构（芯片上特殊的微结构指令）</li>
+<li>第2层：指令集体系结构（固化在处理器内部的指令集）</li>
+<li>第3层：操作系统（定义交互界面的虚拟机）</li>
+<li>第4层：汇编语言（助记符）</li>
+<li>第5层：高级语言（功能强大）</li>
+</ul>
+<p><strong>字符集</strong></p>
+<p>字符集是一个系统支持的所有抽象字符的集合。</p>
+<ul>
+<li>ASCII字符集</li>
+<li>Unicode（在Windows中用两字节对其进行编码，因此也被称为宽字符集）</li>
+</ul>
+<p><strong>字节序</strong></p>
+<p>endian：表示数据在存储器中的存放顺序。</p>
+<ul>
+<li>大端字节序：一个多字节组成的数据，最高位被存储在内存的低地址上。网络中的通信数据使用大端字节序，也称为网络字节序。</li>
+<li>小端字节序：一个多字节组成的数据，最低位被存储在内存的低地址上。Windows程序中使用小端字节序。</li>
+</ul>
+<h1 id="IA-32处理器体系结构"><a href="#IA-32处理器体系结构" class="headerlink" title="IA-32处理器体系结构"></a>IA-32处理器体系结构</h1><p><strong>指令执行周期</strong></p>
+<ul>
+<li>取指令：指令指针IP</li>
+<li>解码：控制单元CU确定执行什么操作</li>
+<li>取操作数：从内存读操作数</li>
+<li>执行：算术逻辑单元ALU</li>
+<li>存储输出操作数：向内存写入</li>
+</ul>
+<p><strong>IA-32英特尔32位体系结构</strong></p>
+<ul>
+<li>1985年 80386CPU首次使用</li>
+<li>32位内存地址</li>
+<li>32位数据操作数</li>
+</ul>
+<p><strong>工作模式</strong></p>
+<ul>
+<li>实地址模式（Real-Address Mode）<blockquote>
+<p>16位，8086程序设计环境</p>
+<ul>
+<li>20条地址线</li>
+<li>存储空间1MB（2^20）</li>
+</ul>
+</blockquote>
+</li>
+<li>保护模式（Protected Mode）<blockquote>
+<p>32位，IA-32程序设计环境（虚拟8086模式：执行8086程序）</p>
+<ul>
+<li>多任务操作系统</li>
+<li>程序有独立的4GB内存存储空间（2^32）</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<p><strong>寄存器</strong></p>
+<ul>
+<li>通用寄存器</li>
+<li>段寄存器</li>
+<li>EFLAGS寄存器</li>
+<li>指令指针寄存器（EIP）存放下一条机器指令的内存地址</li>
+</ul>
+<p><strong>IA-32内存管理</strong></p>
+<p>IA-32保护模式的内存管理比实地址模式要复杂</p>
+<ul>
+<li>多任务</li>
+<li>多用户</li>
+<li>段模式、页模式</li>
+<li>页模式也是基于段模式，通常称为段页式</li>
+</ul>
+<p><strong>段管理</strong></p>
+<ul>
+<li>一般保护模式的程序有3个段，段是一块内存空间<ul>
+<li>代码段CS</li>
+<li>数据段DS</li>
+<li>堆栈段SS</li>
+</ul>
+</li>
+<li>GDT全局描述符表<ul>
+<li>整个系统只有一个GDT（64bit）</li>
+<li>Intel提供了一个寄存器GDTR用于存放GDT的入口地址</li>
+</ul>
+</li>
+<li>LDT局部描述符表<ul>
+<li>每个程序都有自己的LDT</li>
+<li>IA-32为LDT的入口地址也提供了一个寄存器LDTR</li>
+<li>因为在任何时刻都只有一个任务在运行，所以LDTR也只需要一个</li>
+</ul>
+</li>
+</ul>
+<p><font color=red>全局/局部描述符表作用是什么？</font></p>
+<p><strong>段寄存器</strong></p>
+<ul>
+<li>index（13bits），段描述符在表中的索引</li>
+<li>TI（1bit）,0是GDT，1是LDT</li>
+<li>RPL（2bits）,Request Privilege Level，权限<ul>
+<li>Ring 0，kernel Mode</li>
+<li>Ring 3，User Mode</li>
+</ul>
+</li>
+</ul>
+<p><strong>分页机制</strong></p>
+<ul>
+<li>段又被分割成内存页（page）</li>
+<li>内存页统一为4096字节的内存块（2^12，4K）</li>
+<li>提高内存的利用率，减少内存碎片</li>
+<li>页交换，不使用的内存页被交换到硬盘上<ul>
+<li>虚拟内存空间大于实际的物理内存空间</li>
+<li>页交换降低程序执行速度</li>
+</ul>
+</li>
+<li>多级页表的分页机制</li>
+</ul>
+<p><img src="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/7ad4cc72ff7812fcb3f082c0eddee3bc.png" class="lazyload placeholder" data-srcset="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/7ad4cc72ff7812fcb3f082c0eddee3bc.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h1 id="汇编语言基础"><a href="#汇编语言基础" class="headerlink" title="汇编语言基础"></a>汇编语言基础</h1><p>本文介绍的是Intel x86汇编</p>
+<h2 id="汇编语言的基本元素"><a href="#汇编语言的基本元素" class="headerlink" title="汇编语言的基本元素"></a>汇编语言的基本元素</h2><p><strong>整数常量</strong></p>
+<ul>
+<li>[{+|-}]数字[基数]，基数后缀（Radix）</li>
+<li>h十六进制、q/o八进制、d十进制、b二进制、 r编码实数</li>
+<li>如果整数常量后面没有基数后缀，默认是十进制整数</li>
+<li>以字母开头的十六进制常量前面必须加0</li>
+</ul>
+<p><strong>实数常量</strong></p>
+<ul>
+<li>十进制实数<ul>
+<li>-1.11E-5、2.、+3.0、2.E5</li>
+<li>十进制实数常量由符号sign、整数、小数点、小数和指数组成</li>
+<li>[sign]integer.[integer][exponent]</li>
+<li>至少要有一个数字和一个小数点</li>
+</ul>
+</li>
+<li>编码（十六进制）实数<ul>
+<li>编码实数是以十六进制数表示一个实数，遵循IEEE浮点数格式</li>
+</ul>
+</li>
+</ul>
+<p><strong>字符常量</strong></p>
+<ul>
+<li>单引号或者双引号括起来的单个字符</li>
+<li>汇编器会将其转化为ASCII编码</li>
+</ul>
+<p><strong>字符串常量</strong></p>
+<ul>
+<li>以单引号或者双引号括起来的一串字符</li>
+<li>嵌套引号</li>
+</ul>
+<p><strong>保留字</strong></p>
+<ul>
+<li>指令助记符：是一个简短的单词，用于表示一条指令（MOV、ADD）</li>
+<li>伪指令：伪指令内嵌在汇编语言源代码中，由汇编器识别、执行相应动作的命令，用于定义变量、段、过程、汇编器选项等。（INCLUDE、PROC）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">定义变量</span><br><span class="line">my_var DWORD 100h;  DWORD伪指令</span><br><span class="line">mov eax,my_var; mov指令</span><br><span class="line">定义段（Segment）</span><br><span class="line">.data、.code、.stack</span><br><span class="line">定义过程</span><br><span class="line">PROC、ENDP</span><br><span class="line">允许或禁止汇编器的某些特性</span><br><span class="line">OPTION、.386、.MODEL</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>属性：BYTE、WORD</li>
+<li>预定义符号：$、？</li>
+</ul>
+<p><strong>标识符</strong></p>
+<p>标识符是程序员选择用来标识变量、常量、过程、代码的<strong>标号</strong></p>
+<ul>
+<li>包含1~247个字符</li>
+<li>大小写不敏感（MASM默认）</li>
+<li>第一个字符必须是字母、下划线、@、？或$</li>
+<li>第一个字符不能是数字（对比十六进制整数）</li>
+</ul>
+<p><strong>标号</strong></p>
+<p>标号是充当指令或数据位置标记的标识符</p>
+<ul>
+<li>数据标号<ul>
+<li>标识变量的地址，方便变量的引用<ul>
+<li>count DWORD 100</li>
+<li>array DWORD 100, 101, 102, 103</li>
+<li>相对.data数据段在内存起始地址的偏移</li>
+</ul>
+</li>
+<li>OFFSET可以获取数据标号的内存偏移地址</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  str_hello BYTE “Hello World!”, 0</span><br><span class="line">.code</span><br><span class="line">  mov eax,OFFSET str_hello</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>代码标号<ul>
+<li>标识代码的地址，必须以冒号(:)结尾</li>
+<li>通常用作跳转、循环指令的目标地址</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">target:</span><br><span class="line">  mov eax,100h</span><br><span class="line">  ...</span><br><span class="line">  jmp target</span><br></pre></td></tr></table></figure>
+
+<p><strong>注释</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">单行注释</span><br><span class="line">mov count ebx;save result to count</span><br><span class="line">块注释:COMMENT伪指令和用户定义的符号</span><br><span class="line">COMMENT !</span><br><span class="line">  this is a comment</span><br><span class="line">!</span><br></pre></td></tr></table></figure>
+
+<p><strong>NOP指令</strong></p>
+<ul>
+<li>NOP指令，空操作</li>
+<li>用于记时循环</li>
+<li>NOP指令占用1个字节的内存<ul>
+<li>用于后继指令的对其</li>
+<li>IA-32处理器从偶数双字地址处加载代码和数据时更加快速</li>
+</ul>
+</li>
+</ul>
+<h2 id="定义数据"><a href="#定义数据" class="headerlink" title="定义数据"></a>定义数据</h2><p><strong>内部数据类型</strong></p>
+<ul>
+<li>MASM内部以<strong>数据位的个数</strong>定义了多种数据类型    <ul>
+<li>BYTE，db，8</li>
+<li>WORD，dw，16</li>
+<li>DWORD，dd，32</li>
+<li>QWORD，dq，64</li>
+</ul>
+</li>
+<li>MASM汇编器默认情况下，大小写不敏感</li>
+</ul>
+<p><strong>数据定义语句</strong></p>
+<ul>
+<li>为变量在内存中保留存储空间</li>
+<li>为变量指定一个名字（数据标号）</li>
+<li>[变量名] 数据定义伪指令 初始值</li>
+</ul>
+<p><strong>初始值</strong></p>
+<ul>
+<li>数据定义语句中要指令初始值</li>
+<li>多个初始值用逗号隔开<code>my_var DWORD 0, 1, 2, 3</code></li>
+<li>可以指定初始值为0</li>
+<li>?标识在程序运行时初始化该变量</li>
+</ul>
+<p><strong>数据声明的位置</strong></p>
+<ul>
+<li>.data段声明初始化的变量</li>
+<li>.data?段声明未初始化的变量</li>
+</ul>
+<p><strong>定义字符串</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str_hello BYTE “Hello World!”, 0Dh, 0Ah, </span><br><span class="line">          BYTE “I love assembly language”, </span><br><span class="line">          BYTE 0Dh, 0Ah, 0</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>0Dh和0Ah是CR/LF（回车、换行）的ASCII编码</li>
+<li>字符串的结尾是0</li>
+</ul>
+<p><strong>DUP伪指令</strong></p>
+<ul>
+<li>为字符串或数组分配内存空间</li>
+<li>BYTE 20 DUP（0）；20个字节的内存空间</li>
+<li>BYTE 4 DUP（“Hello”）：20个字节，连续的4个“Hello”，每个“Hello”5字节</li>
+</ul>
+<h2 id="符号常量"><a href="#符号常量" class="headerlink" title="符号常量"></a>符号常量</h2><p><strong>符号常量</strong></p>
+<ul>
+<li>将标识符与整数表达式或文本联系起来</li>
+<li>符号常量不占用存储空间</li>
+<li>变量占用存储空间</li>
+</ul>
+<p><strong>等号伪指令</strong></p>
+<ul>
+<li>将符号名和整数表达式联系起来</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COUNT = 500</span><br><span class="line">mov eax, COUNT</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>易于阅读维护，减少程序修改时的查找与替换次数</li>
+</ul>
+<p><strong>计算数组和字符串的大小</strong></p>
+<ul>
+<li>MASM用$运算符存储当前语句的地址偏移值</li>
+<li>$可以用来计算数组或字符串的大小</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">计算字符串的大小</span><br><span class="line">str_hello BYTE “Hello World!”, 0Dh, 0Ah, </span><br><span class="line">          BYTE “I love assembly language”, </span><br><span class="line">          BYTE 0Dh, 0Ah, 0</span><br><span class="line">str_size = ($ - str_hello)</span><br><span class="line">计算数组大小</span><br><span class="line">dw_array DWORD 0, 1, 2, 3, 4</span><br><span class="line">array_size = ($ - dw_array)/4</span><br></pre></td></tr></table></figure>
+
+<p><strong>EQU伪指令</strong></p>
+<p>EQU伪指令将符号名与整数表达式或任意文本联系起来</p>
+<p><code>name EQU expression/symbol/&lt;text&gt;</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">PI EQU &lt;3.1415926&gt;</span><br><span class="line">press_key EQU &lt;“Press any key to continue…”, 0&gt;</span><br><span class="line">.data</span><br><span class="line">prompt BYTE pressKey ; 变量</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>EQU伪指令不能在程序中重定义</li>
+<li>“=”伪指令可以在程序中重定义</li>
+</ul>
+<h1 id="数据传送与寻址"><a href="#数据传送与寻址" class="headerlink" title="数据传送与寻址"></a>数据传送与寻址</h1><h2 id="数据传送指令"><a href="#数据传送指令" class="headerlink" title="数据传送指令"></a>数据传送指令</h2><p><strong>操作数</strong></p>
+<ul>
+<li>类型：寄存器、内存、立即数、I/O端口</li>
+<li>寄存器操作数的简写符号：r8、r16、r32、reg（任意的通用寄存器）、sreg（16位段寄存器）</li>
+<li>立即数操作数的简写符号：imm、imm8、imm16、imm32</li>
+<li>内存操作数的简写符号：m8、m16、m32、mem</li>
+</ul>
+<p><strong>MOV指令</strong></p>
+<ul>
+<li>MOV指令从源操作数向目的操作数复制数据<code>mov destination，source</code></li>
+<li>两个操作数尺寸必须一致</li>
+<li>两个操作数不可同时为内存操作数（内存之间的数据移动需要结合寄存器）</li>
+<li>目的操作数不能是CS、EIP、IP</li>
+<li>立即数不能直接送至段寄存器</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mov byte ptr [var], 5</span><br></pre></td></tr></table></figure>
+
+<p><strong>直接内存操作数</strong></p>
+<p>变量名（数据标号）：数据段内偏移地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  var1 DWORD 1000h;内存偏移00403000h</span><br><span class="line">.code</span><br><span class="line">  mov EAX,var1;机器指令A100304000</span><br></pre></td></tr></table></figure>
+
+<p><strong>内存寻址操作</strong></p>
+<ul>
+<li>masm32使用方括号表示内存寻址操作<code> mov eax, [var1]</code></li>
+<li>直接内存操作数可以不使用中括号<code>mov eax, var1</code></li>
+<li>涉及到算术表达式时，使用中括号<code> mov eax，[var1+5]</code></li>
+</ul>
+<p><strong>整数的零扩展</strong></p>
+<ul>
+<li>复制尺寸较小的操作数到尺寸较大的操作数</li>
+<li>MOVZX(move with zero-extend)</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">movzx r32,r/m8</span><br><span class="line">movzx r32,r/m16</span><br><span class="line">movzx r16,r/m8</span><br></pre></td></tr></table></figure>
+
+<p><strong>符号扩展传送指令</strong></p>
+<ul>
+<li>MOVSX（move with sign-extend）符号扩展传送指令，最高位循<br>环填充所有扩展位</li>
+<li>有符号整数的存储空间扩展</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">movsx r32,r/m8</span><br><span class="line">movsx r32,r/m16</span><br><span class="line">movsx r16,r/m8</span><br></pre></td></tr></table></figure>
+
+<p><strong>LAHF指令</strong></p>
+<p>LAHF（load status flags into AH）指令把EFLAGS寄存器的低字节复制到AH寄存器。</p>
+<ul>
+<li>符号标志(SF)</li>
+<li>零标志(ZF)</li>
+<li>辅助进位标志(AF)</li>
+<li>奇偶标志(PF)</li>
+<li>进位标志(CF)</li>
+</ul>
+<p><strong>SAHF指令</strong></p>
+<ul>
+<li>SAHF（store AH into status flags）指令复制AH寄存器的值至EFLAGS寄存器的低字节</li>
+<li>修改CPU的符号标志（SF）、零标志(ZF)、辅助进位标志(AF)、奇偶标志(PF)、进位标志(CF)</li>
+</ul>
+<p><strong>XCHG指令</strong></p>
+<p>XCHG（exchange data）指令交换两个操作数的内容，可配合寄存器的使用交换两个内存的值。</p>
+<ul>
+<li>XCHG reg, reg</li>
+<li>XCHG reg, mem</li>
+<li>XCHG mem, reg</li>
+</ul>
+<p><strong>直接偏移操作数</strong></p>
+<ul>
+<li>在变量名后面加上一个偏移值，可以创建直接偏移（direct-offset）操作数</li>
+<li>访问没有显式标号的内存</li>
+</ul>
+<p><img src="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/f46f1347963fc0702a99f01d6f721e54.png" class="lazyload placeholder" data-srcset="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/f46f1347963fc0702a99f01d6f721e54.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<h2 id="加法和减法"><a href="#加法和减法" class="headerlink" title="加法和减法"></a>加法和减法</h2><p><strong>INC指令</strong></p>
+<p>INC（increment）指令从操作数中加1</p>
+<ul>
+<li>inc &lt;reg&gt;</li>
+<li>inc &lt;mem&gt;</li>
+</ul>
+<p><strong>DEC指令</strong></p>
+<p>DEC（decrement）指令从操作数中减1</p>
+<ul>
+<li>dec &lt;reg&gt;</li>
+<li>dec &lt;mem&gt;</li>
+</ul>
+<p><strong>ADD指令</strong></p>
+<p>ADD指令将同尺寸的源操作数和目的操作数相加。相加的结果存储在目的操作数中，影响标志位CF、ZF、SF、OF、AF、PF</p>
+<ul>
+<li>add &lt;reg&gt;,&lt;reg&gt;</li>
+<li>add &lt;reg&gt;,&lt;mem&gt;</li>
+<li>add &lt;mem&gt;,&lt;reg&gt;</li>
+<li>add &lt;reg&gt;,&lt;imm&gt;</li>
+<li>add &lt;mem&gt;,&lt;imm&gt;</li>
+</ul>
+<p><strong>SUB指令</strong></p>
+<p>SUB指令将源操作数从目的操作数中减掉，影响标志位CF、ZF、SF、OF、AF、PF</p>
+<ul>
+<li>sub &lt;reg&gt;,&lt;reg&gt;</li>
+<li>sub &lt;reg&gt;,&lt;mem&gt;</li>
+<li>sub &lt;mem&gt;,&lt;reg&gt;</li>
+<li>sub &lt;reg&gt;,&lt;imm&gt;</li>
+<li>sub &lt;mem&gt;,&lt;imm&gt;</li>
+</ul>
+<p><strong>NEG指令</strong></p>
+<p>NEG（negate）指令通过将数字转换为对应的补码而求得其相反数，影响标志位CF、ZF、SF、OF、AF、PF</p>
+<ul>
+<li>neg &lt;reg&gt;</li>
+<li>neg &lt;mem&gt;</li>
+</ul>
+<h2 id="和数据相关的操作符和伪指令"><a href="#和数据相关的操作符和伪指令" class="headerlink" title="和数据相关的操作符和伪指令"></a>和数据相关的操作符和伪指令</h2><p><strong>OFFSET操作符</strong></p>
+<ul>
+<li>OFFSET操作符返回数据标号的偏移地址</li>
+<li>偏移地址表示标号距离<strong>数据段</strong>开始的距离<ul>
+<li>CS的值一般是0</li>
+<li>CS为零的时候，OFFSET等同内存虚拟地址</li>
+</ul>
+</li>
+</ul>
+<p><strong>ALIGN伪指令</strong></p>
+<ul>
+<li>ALIGN指令将变量的位置按BYTE、WORD、DWORD边界对齐</li>
+<li>ALIGN 边界值可以是1、2、4、8或16（ a power of 2 ）</li>
+<li>数据段由0填充，代码段由NOP空指令填充</li>
+</ul>
+<p><img src="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/37434f2c65a6f87dd10ddc880b185b07.png" class="lazyload placeholder" data-srcset="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/37434f2c65a6f87dd10ddc880b185b07.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
+<p><strong>PTR操作符</strong></p>
+<p>PTR操作符可以重载操作数声明的默认尺寸</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  .data</span><br><span class="line">    var1 DWORD 12345678h</span><br><span class="line">  .code</span><br><span class="line">start:</span><br><span class="line">  movzx eax,BYTE PTR var1</span><br><span class="line">  movzx ebx,BYTE PTR [var1+1]</span><br><span class="line">  invoke ExitProcess,0</span><br></pre></td></tr></table></figure>
+
+<p><strong>TYPE操作符</strong></p>
+<p>TYPE操作符返回<strong>变量的字节数</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  var1 BYTE 0</span><br><span class="line">  var2 WORD 0</span><br><span class="line">  var3 DWORD 0</span><br><span class="line">.code</span><br><span class="line">  mov eax,TYPE var2</span><br></pre></td></tr></table></figure>
+
+<p><strong>LENGTHOF操作符</strong></p>
+<p>LENGTHOF操作符<strong>计算数组中元素的数目</strong>，元素由出现在<strong>同一行</strong>的值定义</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  var1 DWORD 0,1,2,3</span><br><span class="line">       DWORD 4,5,6,7</span><br><span class="line">.code</span><br><span class="line">  mov eax,LENGTHOF var1;结果是4</span><br><span class="line">  </span><br><span class="line">.data</span><br><span class="line">  var1 DWORD 0,1,2,3,</span><br><span class="line">       DWORD 4,5,6,7</span><br><span class="line">.code</span><br><span class="line">  mov eax,LENGTHOF var1;结果是8</span><br><span class="line">第一行的最后加一个逗号，连接下一行的初始值</span><br></pre></td></tr></table></figure>
+
+<p><strong>SIZEOF操作符</strong></p>
+<p>SIZEOF操作符的返回值等于LENGTHOF和TYPE返回值的乘积</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  var1 DWORD 0,1,2,3,</span><br><span class="line">       DWORD 4,5,6,7</span><br><span class="line">.code</span><br><span class="line">  mov eax,SIZEOF var1;结果是4*8</span><br></pre></td></tr></table></figure>
+
+<p><strong>LABEL伪指令</strong></p>
+<ul>
+<li>LABEL伪指令允许插入一个标号，并赋予其尺寸属性而无须分配任何实际的存储空间。</li>
+<li>为数据段内其后定义的变量提供一个别名</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  dw_var LABEL DWORD</span><br><span class="line">  var1 WORD 1234h</span><br><span class="line">  var2 WORD 5678h</span><br><span class="line">.code</span><br><span class="line">  mov eax, dw_var;eax等于56781234h</span><br></pre></td></tr></table></figure>
+
+<h2 id="间接寻址"><a href="#间接寻址" class="headerlink" title="间接寻址"></a>间接寻址</h2><p><strong>间接寻址</strong></p>
+<p>用寄存器作为<strong>指针</strong>并控制该寄存器的值称为间接寻址（indirect addressing）</p>
+<p><strong>间接操作数</strong></p>
+<p>如果一个操作数使用的是间接寻址，就称之为间接操作数（indirect operand）。</p>
+<p>任何一个 32 位通用寄存器（EAX、EBX、ECX、EDX、ESI、EDI、EBP 和 ESP）加上方括号就能构成一个间接操作数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  val DWORD 12345678h</span><br><span class="line">.code</span><br><span class="line">  mov esi, OFFSET val</span><br><span class="line">  mov eax, DWORD PTR [esi]</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  array_dw DWORD 10000h, 20000h, 30000h</span><br><span class="line">.code</span><br><span class="line">  mov esi, OFFSET array_dw</span><br><span class="line">  mov eax, [esi] ;（第一个数）</span><br><span class="line">  add esi, 4</span><br><span class="line">  add eax, [esi] ;（第二个数）</span><br><span class="line">  add esi, 4</span><br><span class="line">  add eax, [esi] ;（第三个数）</span><br></pre></td></tr></table></figure>
+
+<p><strong>变址操作数</strong></p>
+<p>变址操作数（indexed operand）把常量和寄存器相加以得到一个有效地址</p>
+<p>任何32位通用寄存器都可以作为变址寄存器<code>constant[reg]、[constant+reg]</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  array_dw DWORD 10000h, 20000h, 30000h</span><br><span class="line">.code</span><br><span class="line">  mov esi, 0</span><br><span class="line">  mov eax, array_dw[esi] ;（第一个数）</span><br><span class="line">  add esi, 4</span><br><span class="line">  add eax, array_dw[esi] ;（第二个数）</span><br><span class="line">  add esi, 4</span><br><span class="line">  add eax, array_dw[esi] ;（第三个数）</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  array_dw DWORD 10000h, 20000h, 30000h</span><br><span class="line">.code</span><br><span class="line">  mov esi, OFFSET array_dw</span><br><span class="line">  mov eax, [esi] ;（第一个数）</span><br><span class="line">  add eax, [esi+4] ;（第二个数）</span><br><span class="line">  add eax, [esi+8] ;（第三个数）</span><br><span class="line">  </span><br><span class="line">  ;变址操作数的比例因子</span><br><span class="line">.data</span><br><span class="line">  array_dw DWORD 10000h, 20000h, 30000h</span><br><span class="line">.code</span><br><span class="line">  mov esi, 0 </span><br><span class="line">  mov eax, array_dw[esi*TYPE array_dw] ;</span><br><span class="line">  mov esi, 1 </span><br><span class="line">  add eax, array_dw[esi* TYPE array_dw] </span><br><span class="line">  mov esi, 2 </span><br><span class="line">  add eax, array_dw[esi* TYPE array_dw]</span><br></pre></td></tr></table></figure>
+
+<p><strong>指针</strong></p>
+<p>如果一个变量包含另一个变量的地址，则该变量称为指针</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">  array_b BYTE 10h, 20h, 30h, 40h</span><br><span class="line">  array_w WORD 1000h, 2000h, 3000h</span><br><span class="line">  ptr_b DWORD array_b</span><br><span class="line">  ptr_w DWORD array_w</span><br><span class="line">  </span><br><span class="line">;另一种方式</span><br><span class="line">.data</span><br><span class="line">  array_b BYTE 10h, 20h, 30h, 40h</span><br><span class="line">  array_w WORD 1000h, 2000h, 3000h</span><br><span class="line">  ptr_b DWORD OFFSET array_b</span><br><span class="line">  ptr_w DWORD OFFSET array_w</span><br></pre></td></tr></table></figure>
+
+<p><strong>TYPEDEF</strong></p>
+<p>TYPEDEF操作符允许创建用户自定义的类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">PBYTE TYPEDEF PTR BYTE ;字节指针</span><br><span class="line">PWORD TYPEDEF PTR WORD ;字指针</span><br><span class="line">PDWORD TYPEDEF PTR DWORD ;双字指针</span><br><span class="line">.data</span><br><span class="line">array1 DWORD 1000h, 2000h, 3000h, 4000h</span><br><span class="line">ptr1 PDWORD array1</span><br></pre></td></tr></table></figure>
+
+<h1 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h1><h2 id="JMP和LOOP指令"><a href="#JMP和LOOP指令" class="headerlink" title="JMP和LOOP指令"></a>JMP和LOOP指令</h2><p><strong>控制转移</strong></p>
+<p>控制转移（transfer of control）是一种改变汇编语句执行顺序的方法。</p>
+<ul>
+<li>无条件转移</li>
+<li>条件转移</li>
+</ul>
+<p><strong>无条件转移</strong></p>
+<p>将CPU控制权直接转移到指定的汇编语句</p>
+<ul>
+<li>修改EIP为指定的内存地址</li>
+<li>CPU从EIP指定的内存地址读取下一条机器指令</li>
+</ul>
+<p><strong>JMP指令</strong></p>
+<ul>
+<li>JMP 目的地址</li>
+<li>JMP指令实现CPU控制权的无条件跳转</li>
+<li>目的地址是代码标号<ul>
+<li>代码标号被汇编器翻译成内存地址</li>
+<li>CPU看到的是内存地址，不是代码标号</li>
+</ul>
+</li>
+</ul>
+<p><strong>CMP指令</strong></p>
+<p>比较目的操作数和源操作数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CMP reg, reg</span><br><span class="line">CMP reg, imm</span><br><span class="line">CMP mem, reg</span><br><span class="line">CMP mem, imm</span><br><span class="line">CMP reg, mem</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>执行<strong>从源操作数中减掉目的操作数</strong>的减法操作</li>
+<li>设置相应的标志位，不改变操作数（不保存减法结果）</li>
+<li>标志位：OF、SF、ZF、AF、PF、CF</li>
+</ul>
+<p><strong>条件转移指令</strong></p>
+<ul>
+<li>JA</li>
+<li>JB</li>
+<li>JE</li>
+<li>JNE</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">  MOV EAX，100h</span><br><span class="line">  MOV EBX, 200h</span><br><span class="line">  CMP EAX, EBX</span><br><span class="line">  JA L1</span><br><span class="line">  INVOKE StdOut， ADDR str1</span><br><span class="line">  JMP L2</span><br><span class="line">L1：</span><br><span class="line">  INVOKE StdOut，ADDR str2</span><br><span class="line">L2：</span><br><span class="line">  INVOKE ExitProcess，0</span><br></pre></td></tr></table></figure>
+
+<p><strong>LOOP指令</strong></p>
+<ul>
+<li>LOOP 目的地址</li>
+<li>LOOP指令可以指定循环执行的次数<ul>
+<li>ECX寄存器作为循环寄存器</li>
+<li>LOOP指令执行时，ECX减一</li>
+<li>如果ECX不等于0，跳转到目的地址</li>
+<li>如果ECX等于0，不跳转，顺序执行</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  MOV EAX 10h</span><br><span class="line">  MOV ECX 10h</span><br><span class="line">L1：</span><br><span class="line">  INC EAX</span><br><span class="line">  LOOP L1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">;循环的嵌套</span><br><span class="line">.data</span><br><span class="line">  count DWORD 0</span><br><span class="line">.code</span><br><span class="line">  MOV ECX, 100； L1 循环100次</span><br><span class="line">L1：</span><br><span class="line">  MOV count, ECX</span><br><span class="line">  MOV ECX, 10 ; L2 循环10次</span><br><span class="line">L2:</span><br><span class="line">  ... ....</span><br><span class="line">  LOOP L2</span><br><span class="line">  MOV ECX， count</span><br><span class="line">  LOOP L1</span><br><span class="line">  </span><br><span class="line">;数组求和</span><br><span class="line">.data</span><br><span class="line">  array DWORD 100h, 200h, 300h, 400h</span><br><span class="line">.code</span><br><span class="line">  MOV ECX, LENGTHOF array ; 循环次数</span><br><span class="line">  MOV EDI，OFFSET array</span><br><span class="line">  MOV EAX，0</span><br><span class="line">L1：</span><br><span class="line">  ADD EAX，[EDI]</span><br><span class="line">  ADD EDI, TYPE array</span><br><span class="line">  LOOP L1</span><br><span class="line">  </span><br><span class="line">;字符串赋值</span><br><span class="line">.data</span><br><span class="line">  src BYTE “Hello World”, 0Dh, 0Ah, 0</span><br><span class="line">  dst BYTE SIZEOF src DUP(0), 0</span><br><span class="line">.code</span><br><span class="line">  MOV ECX, SIZEOF src</span><br><span class="line">  MOV ESI, 0</span><br><span class="line">L1:</span><br><span class="line">  MOV AL, BYTE PTR src[ESI]</span><br><span class="line">  MOV BYTE PTR dst[ESI], AL</span><br><span class="line">  INC ESI</span><br><span class="line">  LOOP L1</span><br><span class="line">  </span><br><span class="line">.data</span><br><span class="line">  num BYTE 1， 2， 3， 4， 5， 6， 7， 8， 9， 0</span><br><span class="line">.code</span><br><span class="line">  MOV ECX, 10</span><br><span class="line">  MOV ESI, 0</span><br><span class="line">L1:</span><br><span class="line">  MOV AL, BYTE PTR num[ESI]</span><br><span class="line">  ADD AL，30h</span><br><span class="line">  MOV BYTE PTR num[ESI], AL</span><br><span class="line">  INC ESI</span><br><span class="line">  LOOP L1</span><br></pre></td></tr></table></figure>
+
+<h2 id="过程的定义和使用"><a href="#过程的定义和使用" class="headerlink" title="过程的定义和使用"></a>过程的定义和使用</h2><p><strong>过程</strong></p>
+<p>汇编语言把过程定义为以返回语句结束的命名语句块。</p>
+<ul>
+<li>使用PROC和ENDP伪指令来声明过程</li>
+<li>必须定义一个过程名字（标识符）</li>
+<li>除启动过程之外，其它过程以ret指令结束<ul>
+<li>将CPU控制权转移到过程被调用的地方</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">my_proc PROC</span><br><span class="line">  ... ...</span><br><span class="line">  ret</span><br><span class="line">my_proc ENDP</span><br></pre></td></tr></table></figure>
+
+<p><strong>启动过程(main)</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">main PROC</span><br><span class="line">  ... ...</span><br><span class="line">main ENDP</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>启动过程（main）的返回语句是<ul>
+<li>INVOKE ExitProcess, 0</li>
+<li>将CPU的控制权转移给Windows操作系统</li>
+</ul>
+</li>
+</ul>
+<p><strong>过程的定义</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">;计算寄存器EAX、EBX、ECX之和</span><br><span class="line">MyProc PROC</span><br><span class="line">  ADD EAX，EBX</span><br><span class="line">  ADD EAX，ECX</span><br><span class="line">  RET</span><br><span class="line">MyProc ENDP</span><br></pre></td></tr></table></figure>
+
+<p><strong>过程的调用与返回</strong></p>
+<ul>
+<li><strong>CALL</strong>指令将CPU的控制权转移到新的内存地址执行指令，实现过程的调用</li>
+<li><strong>RET</strong>指令将CPU的控制权返回到程序中过程被调用的地方继续执行</li>
+<li>过程返回地址的保存<ul>
+<li>CALL指令调用之后，将过程的返回地址压入堆栈，将过程入口地址赋值<br>给EIP，实现CPU控制权的转移</li>
+<li>RET指令调用之后，将过程的返回地址赋值给EIP寄存器，实现CPU控制<br>权的转移</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">main PROC</span><br><span class="line">  MOV EAX, 1000h</span><br><span class="line">  MOV EBX, 1000h</span><br><span class="line">  MOV ECX, 1000h</span><br><span class="line">  CALL MyProc</span><br><span class="line">  INVOKE ExitProcess, 0</span><br><span class="line">main ENDP</span><br><span class="line">MyProc PROC</span><br><span class="line">  ADD EAX, EBX</span><br><span class="line">  ADD EAX, ECX</span><br><span class="line">  RET</span><br><span class="line">MyProc ENDP</span><br></pre></td></tr></table></figure>
+
+<h2 id="调用链接库中的函数"><a href="#调用链接库中的函数" class="headerlink" title="调用链接库中的函数"></a>调用链接库中的函数</h2><p><strong>PROTO伪指令</strong></p>
+<ul>
+<li>PROTO伪指令用于声明链接库中的过程</li>
+<li>StdOut        PROTO :DWORD</li>
+<li>StdIn     PROTO :DWORD, :DWORD</li>
+<li>ExitProcess PROTO STDCALL :DWORD</li>
+</ul>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/" class="">
+              汇编语言
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>Jan</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/" target="_blank" title="汇编语言与逆向技术">https://Jan-nku.github.io/2023/02/21/hui-bian-yu-yan-yu-ni-xiang-ji-zhu/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">软件安全预备知识</div>
+      </div>
+      
+      <!-- <div class="content">
+        基本概念病毒和木马病毒(computer Virus)”指编制或者在计算机程序中插入的破坏计算机功能或者破坏数据，影响计
+      </div> -->
+    </a>
+  </div>
+
+
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      
+<section id="comments" style="padding: 1em;"
+	class="animated bounceInUp">
+	<div id="vcomment" class="comment"></div>
+</section>
+<style>
+	#comments {
+		background: rgba(255,255,255,0.9);
+	}
+	#veditor {
+		background-image: url('https://img.zcool.cn/community/01a253594c71cfa8012193a329a77f.gif');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: right;
+		background-color: rgba(255, 255, 255, 0);
+		resize: vertical;
+	}
+	#veditor:focus{
+		background-position-y: 200px;
+		transition: all 0.2s ease-in-out 0s;
+	}
+	#vcomment .vcards .vcard .vh .vhead .vtag.vvisitor {
+		background-color: #42b983;
+	}
+	.v[data-class=v] .vbtn:active, .v[data-class=v] .vbtn:hover {
+		color: #42b983;
+		border-color: #42b983;
+	}
+	#vcomment .vcards .vcard .vhead .vsys i {
+		display: none;
+	}
+	/* 底部valine链接 */
+	#vcomment .vpower {
+		display: none;
+	}
+	
+	/* 底下注释是修改 名称和邮箱和网址输入框的样式 */
+	/* #vcomment .vheader {
+		display: flex;
+		justify-content: space-around;
+	}
+	
+	#vcomment .vheader .vnick {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vmail {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	}
+
+	#vcomment .vheader .vlink {
+		width: 31%;
+		border: 2px solid #dedede;
+		padding-left: 10px;
+		padding-right: 10px;
+		border-radius: 5px
+	} */
+
+	img.vimg {
+		transition: all 1s;
+		/* 头像旋转时间为 1s */
+	}
+
+	img.vimg:hover {
+		transform: rotate(360deg);
+		-webkit-transform: rotate(360deg);
+		-moz-transform: rotate(360deg);
+		-o-transform: rotate(360deg);
+		-ms-transform: rotate(360deg);
+	}
+
+	#vcomment .vcards .vcard {
+		padding: 15px 20px 0 20px;
+		border-radius: 10px;
+		margin-bottom: 15px;
+		box-shadow: 0 0 4px 1px rgba(0, 0, 0, .12);
+		transition: all .3s
+	}
+
+	#vcomment .vcards .vcard:hover {
+		box-shadow: 0 0 8px 3px rgba(0, 0, 0, .12)
+	}
+
+	#vcomment .vcards .vcard .vh .vcard {
+		border: none;
+		box-shadow: none;
+	}
+</style>
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  
+<aside id='l_side'>
+  
+    
+      
+        <section class="widget side_blogger">
+  <div class='content'>
+    
+    
+      <div class='text'>
+        
+          <h2>NKU-Jan</h2>
+        
+        
+          <p>CS Blog</p>
+
+        
+        
+          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/jan_nku@163.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+      
+    
+  
+  
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86"><span class="toc-text">汇编语言基础知识</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#IA-32%E5%A4%84%E7%90%86%E5%99%A8%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84"><span class="toc-text">IA-32处理器体系结构</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80"><span class="toc-text">汇编语言基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0"><span class="toc-text">汇编语言的基本元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89%E6%95%B0%E6%8D%AE"><span class="toc-text">定义数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%A6%E5%8F%B7%E5%B8%B8%E9%87%8F"><span class="toc-text">符号常量</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E4%B8%8E%E5%AF%BB%E5%9D%80"><span class="toc-text">数据传送与寻址</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%81%E6%8C%87%E4%BB%A4"><span class="toc-text">数据传送指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8A%A0%E6%B3%95%E5%92%8C%E5%87%8F%E6%B3%95"><span class="toc-text">加法和减法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%92%8C%E6%95%B0%E6%8D%AE%E7%9B%B8%E5%85%B3%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6%E5%92%8C%E4%BC%AA%E6%8C%87%E4%BB%A4"><span class="toc-text">和数据相关的操作符和伪指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%97%B4%E6%8E%A5%E5%AF%BB%E5%9D%80"><span class="toc-text">间接寻址</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B"><span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#JMP%E5%92%8CLOOP%E6%8C%87%E4%BB%A4"><span class="toc-text">JMP和LOOP指令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%87%E7%A8%8B%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">过程的定义和使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E9%93%BE%E6%8E%A5%E5%BA%93%E4%B8%AD%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-text">调用链接库中的函数</span></a></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/17/web-shen-tou-shi-zhan/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-17</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/17/web-shen-tou-shi-zhan/">WEB渗透实战</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/16/web-an-quan-ji-chu/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-16</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/16/web-an-quan-ji-chu/">WEB安全基础</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/15/lou-dong-wa-jue-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-15</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/15/lou-dong-wa-jue-pian/">漏洞挖掘篇</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/14/lou-dong-li-yong-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-14</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/14/lou-dong-li-yong-pian/">漏洞利用篇</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/13/ruan-jian-lou-dong-pian/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-13</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/13/ruan-jian-lou-dong-pian/">软件漏洞篇</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2019 - 2020 <a target="_blank" rel="noopener" href="https://github.com/yuang01">yuang01</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/yuang01/theme">Bamboo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="/js/fancybox/jquery.fancybox.min.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+   
+
+<!-- 评论所需js -->
+
+  
+    <!-- 弹幕所需的css和js -->
+    
+<!-- 具体js，请前往valine/script.ejs查看 -->
+
+    <script>
+  var requiredFields = '';
+  requiredFields = requiredFields.split(',');
+  comment_el = '.comment';
+  let looperValine = null;
+  load_valine = function () {
+    if ($(comment_el).length) {
+      var valine = new Valine({
+        el: '#vcomment',
+        path: window.location.pathname,
+        notify: false,
+        verify: false,
+        app_id: "",
+        app_key: "",
+        placeholder: "客官，说点什么吧",
+        avatar: "",
+        master: "",   //博主邮箱md5
+        tagMeta: ["博主","小伙伴","访客"],     //标识字段名
+        friends: "",
+        metaPlaceholder: { "nick": "昵称/QQ号", "mail": "邮箱" },
+        requiredFields: requiredFields,
+        enableQQ: true,
+      });
+      function debounce(fn) {
+        var timerID = null
+        return function () {
+          var arg = arguments[0]   //获取事件
+          if (timerID) {
+            clearTimeout(timerID)
+          }
+          timerID = setTimeout(function () {
+            fn(arg)              //事件传入函数
+          }, 200)
+        }
+      }
+      //查询评论 valine.Q('*').limit(7) -- 查询所有，限制7条, 下面的的代码是查询当前页面
+      var themeDanmu = eval('false');
+      var themeLoop = eval('false');
+      var themeLooperTime = '5000' || 5000;
+      var speed = '40' || 20;
+      var isBarrager = true;
+      if (themeDanmu == true) {
+        do_barrager();
+        if ($('.danmuBox').length <= 0) {
+          $('.navbar').append('<div class="danmuBox"><div class="danmuBtn open"><span class="danmuCircle"></span><span class="danmuText">弹幕</span></div></div>');
+        }
+        $('.danmuBtn').on('click', debounce(
+          function () {
+            if ($('.danmuBtn').hasClass('open')) {
+              $('.danmuBtn').removeClass('open')
+              clearInterval(looperValine);
+              $.fn.barrager.removeAll();
+            } else {
+              $('.danmuBtn').addClass("open");
+              do_barrager();
+            }
+          }
+        ))
+      }
+      function do_barrager() {
+        isBarrager && valine.Q(window.location.pathname).find().then(function (comments) {
+          // var num = 0; // 可以记录条数，循环调用的时候只取最新的评论放入弹幕中
+          var run_once = true;
+          var looper_time = themeLooperTime;
+          var total = comments.length;
+          // var looper = null;
+          var index = 0;
+          if (total > 0) {
+            barrager();
+          } else {
+            // 当评论数为0的时候，自动关闭弹幕
+            // $('.danmuBtn').removeClass('open');
+          }
+          function barrager() {
+            if (run_once) {
+              //如果是首次执行,则设置一个定时器,并且把首次执行置为false
+              looperValine = setInterval(barrager, looper_time);
+              run_once = false;
+            }
+            var content = comments[index]._serverData.comment;
+            var email = comments[index]._serverData.mail;
+            var link = comments[index]._serverData.link;
+            var newcontent = content.substring(0, 50).replace(/<[^>]+>/g, "");
+            //发布一个弹幕
+            const item = {
+              img: `https://q1.qlogo.cn/g?b=qq&nk=${email}&s=640`, //图片 
+              info: newcontent, //文字 
+              href: link, //链接 
+              close: true, //显示关闭按钮 
+              speed: speed, //延迟,单位秒,默认6 
+              color: '#fff', //颜色,默认白色 
+              old_ie_color: '#000000', //ie低版兼容色,不能与网页背景相同,默认黑色
+            }
+            $('body').barrager(item);
+            //索引自增
+            index++;
+            //所有弹幕发布完毕，清除计时器。
+            if (index == total) {
+              clearInterval(looperValine);
+              if (themeLoop === true) {
+                setTimeout(function () {
+                  do_barrager();
+                }, 5000);
+              } else {
+                $('.danmuBtn').removeClass('open');
+              }
+              return false;
+            }
+
+          }
+        })
+      }
+    }
+  };
+  $(document).ready(load_valine);
+  document.addEventListener('pjax:send', function (e) {
+    
+  })
+  document.addEventListener('pjax:complete', function () {
+    load_valine();
+  });
+</script>
+
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>
