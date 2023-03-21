@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-03-21T02:11:48.960Z</updated>
+  <updated>2023-03-21T03:45:15.701Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -15,6 +15,85 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>入侵检测系统</title>
+    <link href="https://jan-nku.github.io/2023/03/20/ru-qin-jian-ce-xi-tong/"/>
+    <id>https://jan-nku.github.io/2023/03/20/ru-qin-jian-ce-xi-tong/</id>
+    <published>2023-03-19T16:00:00.000Z</published>
+    <updated>2023-03-21T03:45:15.701Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;入侵检测基本概念&quot;&gt;&lt;a href=&quot;#入侵检测基本概念&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="入侵检测" scheme="https://jan-nku.github.io/tags/%E5%85%A5%E4%BE%B5%E6%A3%80%E6%B5%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>抗恶意软件</title>
+    <link href="https://jan-nku.github.io/2023/03/19/kang-e-yi-ruan-jian/"/>
+    <id>https://jan-nku.github.io/2023/03/19/kang-e-yi-ruan-jian/</id>
+    <published>2023-03-18T16:00:00.000Z</published>
+    <updated>2023-03-21T03:44:43.167Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;病毒&quot;&gt;&lt;a href=&quot;#病毒&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
+    
+    <category term="病毒" scheme="https://jan-nku.github.io/tags/%E7%97%85%E6%AF%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络边防</title>
+    <link href="https://jan-nku.github.io/2023/03/18/wang-luo-bian-fang/"/>
+    <id>https://jan-nku.github.io/2023/03/18/wang-luo-bian-fang/</id>
+    <published>2023-03-17T16:00:00.000Z</published>
+    <updated>2023-03-21T03:43:30.438Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;防火墙概述&quot;&gt;&lt;a href=&quot;#防火墙概述&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="network" scheme="https://jan-nku.github.io/tags/network/"/>
+    
+    <category term="防火墙" scheme="https://jan-nku.github.io/tags/%E9%98%B2%E7%81%AB%E5%A2%99/"/>
+    
+  </entry>
   
   <entry>
     <title>WEB渗透实战</title>
@@ -38,6 +117,31 @@
     
     
     <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>云安全</title>
+    <link href="https://jan-nku.github.io/2023/03/17/yun-an-quan/"/>
+    <id>https://jan-nku.github.io/2023/03/17/yun-an-quan/</id>
+    <published>2023-03-16T16:00:00.000Z</published>
+    <updated>2023-03-21T03:42:42.221Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;云计算服务模式&quot;&gt;&lt;a href=&quot;#云计算服务模式&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="云安全" scheme="https://jan-nku.github.io/tags/%E4%BA%91%E5%AE%89%E5%85%A8/"/>
     
   </entry>
   
@@ -67,6 +171,33 @@
   </entry>
   
   <entry>
+    <title>无线网安全性</title>
+    <link href="https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/"/>
+    <id>https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/</id>
+    <published>2023-03-15T16:00:00.000Z</published>
+    <updated>2023-03-21T03:41:59.599Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;无线局域网标准&quot;&gt;&lt;a href=&quot;#无线局域网标准&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
+    
+    <category term="无线网" scheme="https://jan-nku.github.io/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/"/>
+    
+  </entry>
+  
+  <entry>
     <title>漏洞挖掘篇</title>
     <link href="https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/"/>
     <id>https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/</id>
@@ -88,6 +219,33 @@
     
     
     <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>实用网络安全协议</title>
+    <link href="https://jan-nku.github.io/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/"/>
+    <id>https://jan-nku.github.io/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/</id>
+    <published>2023-03-14T16:00:00.000Z</published>
+    <updated>2023-03-21T03:41:16.525Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;密码算法在网络各层中的部署&quot;&gt;&lt;a href=&quot;#密码算法在网络各层中的部署&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="network" scheme="https://jan-nku.github.io/tags/network/"/>
+    
+    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
     
   </entry>
   
@@ -117,6 +275,33 @@
   </entry>
   
   <entry>
+    <title>数据认证</title>
+    <link href="https://jan-nku.github.io/2023/03/14/shu-ju-ren-zheng/"/>
+    <id>https://jan-nku.github.io/2023/03/14/shu-ju-ren-zheng/</id>
+    <published>2023-03-13T16:00:00.000Z</published>
+    <updated>2023-03-21T03:40:24.677Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;散列函数&quot;&gt;&lt;a href=&quot;#散列函数&quot; class=&quot;headerlink&quot; title=&quot;散列函数&quot;&gt;&lt;/a&gt;散列函数&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
+    
+    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>软件漏洞篇</title>
     <link href="https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/"/>
     <id>https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/</id>
@@ -138,6 +323,31 @@
     
     
     <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>公钥密码体系的基本概念</title>
+    <link href="https://jan-nku.github.io/2023/03/13/gong-yao-mi-ma-ti-xi-he-mi-yao-guan-li/"/>
+    <id>https://jan-nku.github.io/2023/03/13/gong-yao-mi-ma-ti-xi-he-mi-yao-guan-li/</id>
+    <published>2023-03-12T16:00:00.000Z</published>
+    <updated>2023-03-21T03:38:07.222Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;公钥密码体系的基本概念&quot;&gt;&lt;a href=&quot;#公钥密码体系的基本概念&quot; class=&quot;headerlink&quot; title=&quot;公钥密码体系的基本概念&quot;&gt;&lt;/a&gt;公钥密码体系的基本概念&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
     
   </entry>
   
@@ -167,6 +377,31 @@
   </entry>
   
   <entry>
+    <title>数据加密算法</title>
+    <link href="https://jan-nku.github.io/2023/03/12/shu-ju-jia-mi-suan-fa/"/>
+    <id>https://jan-nku.github.io/2023/03/12/shu-ju-jia-mi-suan-fa/</id>
+    <published>2023-03-11T16:00:00.000Z</published>
+    <updated>2023-03-21T03:39:17.347Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;什么是加密&quot;&gt;&lt;a href=&quot;#什么是加密&quot; class=&quot;headerlink&quot; title=&quot;什么是加密&quot;&gt;&lt;/a&gt;什么是加密&lt;/h2&gt;&lt;p&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
+    
+  </entry>
+  
+  <entry>
     <title>软件安全预备知识</title>
     <link href="https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/"/>
     <id>https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/</id>
@@ -185,6 +420,31 @@
     
     
     <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="预备知识" scheme="https://jan-nku.github.io/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络安全概论</title>
+    <link href="https://jan-nku.github.io/2023/03/11/wang-luo-an-quan-gai-lun/"/>
+    <id>https://jan-nku.github.io/2023/03/11/wang-luo-an-quan-gai-lun/</id>
+    <published>2023-03-10T16:00:00.000Z</published>
+    <updated>2023-03-21T03:38:36.456Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;为什么会存在网络安全问题&quot;&gt;&lt;a href=&quot;#为什么会存在网络安全问题&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
     
     
     <category term="预备知识" scheme="https://jan-nku.github.io/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
