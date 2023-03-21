@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>实用网络安全协议 | Jan&#39;s Blog</title>
+  <title>分类: 计算机网络 | Jan&#39;s Blog</title>
 
   <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -513,664 +513,108 @@
 </header>
         <!-- 内容区域 -->
         
- <!-- prismjs 代码高亮 -->
- 
 
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-categoryDetail" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
 
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-
-  <!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
-  
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        实用网络安全协议
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2023-03-15 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" class="post-detail-header_category">
-              网络安全技术
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 96 |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 1分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
-    
+<div class="category-header"  style="background-image:url('https://pic3.zhimg.com/80/v2-98dcd81cb0d1fee52a807c13cedb8338_1440w.jpg?source=1940ef5c')">
+  <div class="category-header-title">
+    category
   </div>
-  
-  
-    <script src="/js/bubble/bubble.js"></script>
-  
+  <div class="category-header-desc">
+    
+      <span class="title" id="category-header-desc"></span>
+      <script>
+  function typedFn() {
+    const el = '#category-header-desc';
+    const type = 'categoryDetail';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  }
+  typedFn();
+</script>
+      
+  </div>
+  <div class="mask-box"></div>
 </div>
 
 
+<div class="category">
+  <div class="category-name">
+    <div class="name" style="background-color: #A3E4D7;">计算机网络 分类</div>
+  </div>
+  <!-- 每一篇文章卡片 -->
+  <!-- hash算法 -->
+
+<section class="posts">
+  
+    
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2023-03-21</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2023/03/21/wang-luo-bian-cheng/">网络编程</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket/" rel="tag">socket</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a>
+</div>
 
 
-
-<div class="post-detail-content post-row" 
-  style="padding-top: 0px;">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <h2 id="密码算法在网络各层中的部署"><a href="#密码算法在网络各层中的部署" class="headerlink" title="密码算法在网络各层中的部署"></a>密码算法在网络各层中的部署</h2><p><strong>网络安全协议的构造</strong></p>
-<ul>
-<li>加密和认证算法是构造网络安全协议的基本模块</li>
-<li>在不同的层次实施加密算法具有不同的效果</li>
-<li>应该在网络体系中的哪一个层次部署安全协议？</li>
-</ul>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/e4be91464b3b8e240d6157cdea4b5444.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/e4be91464b3b8e240d6157cdea4b5444.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/02fb6464246b4ebe166143ee786ce9b7.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/02fb6464246b4ebe166143ee786ce9b7.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/def7f0aa75cb9f4616d8104a1808ad30.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/def7f0aa75cb9f4616d8104a1808ad30.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/21241c5f4e96a506e444263abd043919.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/21241c5f4e96a506e444263abd043919.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/cf89bf5038613adb8cb891abccc8f215.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/cf89bf5038613adb8cb891abccc8f215.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/c4d53795bd0983627f5bd1e62380e9cd.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/c4d53795bd0983627f5bd1e62380e9cd.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="公钥基础设施"><a href="#公钥基础设施" class="headerlink" title="公钥基础设施"></a>公钥基础设施</h2><p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/ca0f5e9f360adaaa1f37fe25d4f78f29.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/ca0f5e9f360adaaa1f37fe25d4f78f29.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9bf2a5b0c99cd710456cfd887eb39a99.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9bf2a5b0c99cd710456cfd887eb39a99.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/fc6b62d3d4850485dbf404b32e838651.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/fc6b62d3d4850485dbf404b32e838651.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/0ae819892c877d0accf5d39fe5c9dd1c.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/0ae819892c877d0accf5d39fe5c9dd1c.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="IPsec协议"><a href="#IPsec协议" class="headerlink" title="IPsec协议"></a>IPsec协议</h2><p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/d219784bf101ec6fb9be65f8a4c2b8bd.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/d219784bf101ec6fb9be65f8a4c2b8bd.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8a1c1ab41f0d0704db4d3ab299aef273.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8a1c1ab41f0d0704db4d3ab299aef273.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/7b5028b6456df98f863f187548d48d18.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/7b5028b6456df98f863f187548d48d18.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/0f295f9bf058b1fee460e54b8585d0d7.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/0f295f9bf058b1fee460e54b8585d0d7.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/ccd06e9e09d971089592604ab67215cb.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/ccd06e9e09d971089592604ab67215cb.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/5fd440ad9eee58ab4319e0b7aa302a6b.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/5fd440ad9eee58ab4319e0b7aa302a6b.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/4a600e2c0e726a6630e9c330f1218c85.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/4a600e2c0e726a6630e9c330f1218c85.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/72b3f5c19da230a86e63b81105061177.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/72b3f5c19da230a86e63b81105061177.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9a9ae4b3b82db7e9c71485552beef769.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9a9ae4b3b82db7e9c71485552beef769.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/2d248e977e9e6c0404b8efe85070f15a.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/2d248e977e9e6c0404b8efe85070f15a.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/fffca245db7102041a4f5a8014391d08.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/fffca245db7102041a4f5a8014391d08.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9486000fe00156a6301df8c8fcb37e7c.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9486000fe00156a6301df8c8fcb37e7c.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/45faf335c65feaad6fcf030ca79056af.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/45faf335c65feaad6fcf030ca79056af.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="SSL-TLS协议"><a href="#SSL-TLS协议" class="headerlink" title="SSL TLS协议"></a>SSL TLS协议</h2><p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/b6e301751984461192e5fe3853134baf.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/b6e301751984461192e5fe3853134baf.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3ced0b47c4117c4c59d25bed5f7c5fb1.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3ced0b47c4117c4c59d25bed5f7c5fb1.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/6217be7a2007a8f16c4eeeec8ca8b0ed.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/6217be7a2007a8f16c4eeeec8ca8b0ed.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p> <img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/feb87baf438f6431cd06358d44ebcd9f.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/feb87baf438f6431cd06358d44ebcd9f.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/85004a1eb364b4c894d3c179167ab7b1.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/85004a1eb364b4c894d3c179167ab7b1.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/359a5096cec0ede426982d8e7f21886a.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/359a5096cec0ede426982d8e7f21886a.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/58e3afd7cd718f23af01c4744a4e2d20.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/58e3afd7cd718f23af01c4744a4e2d20.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/689844a1928f6c6d0a7a1a25e192a8f5.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/689844a1928f6c6d0a7a1a25e192a8f5.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/08a624297825b833b3090bc34363baff.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/08a624297825b833b3090bc34363baff.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3d34cd516a0f75f82f1968f2cb9062bf.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3d34cd516a0f75f82f1968f2cb9062bf.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/6fe03e265999917353690cb1e04cae05.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/6fe03e265999917353690cb1e04cae05.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/104a8ebd881a8a78c558fee53a6872ca.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/104a8ebd881a8a78c558fee53a6872ca.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8bacb11a5085b9fb4d12b5c4091ae10e.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8bacb11a5085b9fb4d12b5c4091ae10e.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/18294a5a03724e28018276506cc78f93.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/18294a5a03724e28018276506cc78f93.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/03ce26744eee33e3d026fd81dd8332a2.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/03ce26744eee33e3d026fd81dd8332a2.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9197f5e65736ca2bf6b048dc8ed82df1.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/9197f5e65736ca2bf6b048dc8ed82df1.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="kerberos"><a href="#kerberos" class="headerlink" title="kerberos"></a>kerberos</h2><p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/423e921e87ed75bb4d5353e610a666bd.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/423e921e87ed75bb4d5353e610a666bd.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/780d49233276da567fcc5731908c8a5b.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/780d49233276da567fcc5731908c8a5b.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/63eddef7717d82eb52c7ad5991cb5e82.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/63eddef7717d82eb52c7ad5991cb5e82.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/079c3a2a8c669f12620bd2e1adf49d2b.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/079c3a2a8c669f12620bd2e1adf49d2b.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/4f3564344c20db27d9ce4f2d996f2e84.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/4f3564344c20db27d9ce4f2d996f2e84.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/a58bde96793e93b34e8237d56f4526bb.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/a58bde96793e93b34e8237d56f4526bb.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3ef977da970bc4229dd32156f1e8a3c3.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/3ef977da970bc4229dd32156f1e8a3c3.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8b34ad3b30076fa096d03fed31a0bc04.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/8b34ad3b30076fa096d03fed31a0bc04.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/d2d2d13089c0adfe402d91db7f5509e3.png" class="lazyload placeholder" data-srcset="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/d2d2d13089c0adfe402d91db7f5509e3.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/network/" class="">
-              network
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2023/03/21/wang-luo-bian-cheng/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
             </a>
-          
-            <a href="/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/" class="">
-              安全协议
-            </a>
-          
+          </div>
+          <div class="post-content">
+            Socket编程TCP和UDP使用UDP服务的应用程序编写步骤使用TCP服务的应用程序编写步骤
+C中常用的socket函数包括：WSAStartup、WSAcleanup、socket、bind、listen、connect、accept、
+          </div>
         </div>
-        
+        <div class="post-more">
+          <a href="/2023/03/21/wang-luo-bian-cheng/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
       </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Jan</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/" target="_blank" title="实用网络安全协议">https://Jan-nku.github.io/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
+      <div class="post-img">
+        <a href="/2023/03/21/wang-luo-bian-cheng/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+        </a>
+      </div>
     </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
   
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-    </div>
-    <a href="/2023/03/15/lou-dong-wa-jue-pian/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">漏洞挖掘篇</div>
-      </div>
-      
-      <!-- <div class="content">
-        方法概述漏洞挖掘方法分类静态分析技术方法：词法分析、数据流分析、控制流分析、模型检查、定理证明、符号执行、污点传播分析等
-      </div> -->
-    </a>
-  </div>
-
-
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
-    </div>
-    <a href="/2023/03/14/lou-dong-li-yong-pian/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">漏洞利用篇</div>
-      </div>
-      <!-- <div class="content">
-        漏洞利用概念及示例漏洞利用概念漏洞利用（exploit）是指针对已有的漏洞，根据漏洞的类型和特点而采取相应的技术方案，进
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
-  }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      <div id="gitment-ctn"></div> 
-
-<!-- 修改css与js文件如下即可-->
-<!-- <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-<script src="https://billts.site/js/gitment.js"></script> -->
-<link rel='stylesheet' href='https://unpkg.com/gitment@0.0.3/style/default.css'>
-
-
-<style>
-  .gitment-comment-header {
-    margin: 0;
-    padding: 5px;
-  }
-</style>
-
-    
-  </div>
-
-<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
-
-
-  </div>
-
-  <!-- 目录 -->
-  
-<aside id='l_side'>
-  
-    
-      
-        <section class="widget side_blogger">
-  <div class='content'>
-    
-    
-      <div class='text'>
-        
-          <h2>NKU-Jan</h2>
-        
-        
-          <p>CS Blog</p>
-
-        
-        
-          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/jan_nku@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
-              class="social fab fa-qq flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
 </section>
-
-      
-    
-  
-  
-  
-    
-  
-
-  <div class="layout_sticky">    
-    
-      
-<section class="widget side_toc">
-  
-  <header>
-    
-      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="toc-main">
-      <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E5%9C%A8%E7%BD%91%E7%BB%9C%E5%90%84%E5%B1%82%E4%B8%AD%E7%9A%84%E9%83%A8%E7%BD%B2"><span class="toc-text">密码算法在网络各层中的部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD"><span class="toc-text">公钥基础设施</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IPsec%E5%8D%8F%E8%AE%AE"><span class="toc-text">IPsec协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SSL-TLS%E5%8D%8F%E8%AE%AE"><span class="toc-text">SSL TLS协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#kerberos"><span class="toc-text">kerberos</span></a></li></ol> -->
-        <div class="toc"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 手机端目录按钮 -->
-<div id="toc-mobile-btn">
-  <i class="fas fa-list-ul" aria-hidden="true"></i>
 </div>
-
-      
-  <section class="widget side_recent_post">
-    
-  <header>
-    
-      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      
-      <!-- hash算法 -->
-      
-      <div class="aside-list">
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/21/wang-luo-bian-cheng/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-21</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/21/wang-luo-bian-cheng/">网络编程</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/20/ru-qin-jian-ce-xi-tong/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-20</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/20/ru-qin-jian-ce-xi-tong/">入侵检测系统</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/19/kang-e-yi-ruan-jian/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-19</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/19/kang-e-yi-ruan-jian/">抗恶意软件</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/18/wang-luo-bian-fang/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-18</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/18/wang-luo-bian-fang/">网络边防</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/17/web-shen-tou-shi-zhan/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" class="lazyload placeholder" data-srcset="https://pica.zhimg.com/80/v2-573ac3e25de03fad9c32add5a05e5cfc_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-17</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/17/web-shen-tou-shi-zhan/">WEB渗透实战</a>
-            </div>
-          </div>
-        
-      </div>
-    </div>
-  </section>
-
-    
-  </div>
-</aside>
-
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script src="/js/wrapImage.js"></script>
-</div>
-
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
-</script>
-
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
-
-
-
-
-  <script>
-  function loadMermaid() {
-    if (document.getElementsByClassName('mermaid').length) {
-      if (window.mermaidJsLoad) mermaid.init()
-      else {
-        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
-          window.mermaidJsLoad = true
-          mermaid.initialize({
-            theme: 'default',
-          })
-          if ('true') {
-            mermaid.init();
-          }
-        })
-      }
-    }
-  };
-  document.addEventListener("DOMContentLoaded", function () {
-    loadMermaid();
-  })
-
-  document.addEventListener('pjax:complete', function () {
-    loadMermaid();
-  })
+<div class="w-70">
   
-</script>
-
+</div>
 
       </main>
     </div>
@@ -1787,7 +1231,7 @@ comment_el = '#gitment-ctn';
 load_gitment = function () {
   if ($(comment_el).length) {
     var gitment = new Gitment({
-      id: "2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/",
+      id: "categories/计算机网络/index.html",
       owner: '',
       repo: '',
       oauth: {
