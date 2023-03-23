@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-03-21T13:51:23.692Z</updated>
+  <updated>2023-03-23T08:45:41.785Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pytorch深度学习</title>
+    <link href="https://jan-nku.github.io/2023/03/22/pytorch-shen-du-xue-xi/"/>
+    <id>https://jan-nku.github.io/2023/03/22/pytorch-shen-du-xue-xi/</id>
+    <published>2023-03-22T15:04:11.000Z</published>
+    <updated>2023-03-23T08:45:41.785Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Pytorch学习&quot;&gt;&lt;a href=&quot;#Pytorch学习&quot; class=&quot;headerlink&quot; title=&quot;Pytorch学习&quot;&gt;&lt;/a&gt;Pytorch学习&lt;/h1&gt;&lt;h2 id=&quot;Python学习法宝函数&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>网络编程</title>
