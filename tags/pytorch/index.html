@@ -11,7 +11,7 @@
   <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-  <title>抗恶意软件 | Jan&#39;s Blog</title>
+  <title>标签: pytorch | Jan&#39;s Blog</title>
 
   <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
   <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
@@ -513,874 +513,116 @@
 </header>
         <!-- 内容区域 -->
         
- <!-- prismjs 代码高亮 -->
- 
 
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"></div>
+<div class="bg-light-floor-tagDetail" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -3;"></div>
 
-<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
-
-
-  <!-- 文章详情页顶部图片和标题 -->
-
-
-
-
-<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
-  background-position: center center;position: relative;background-image:url('https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp')">
-  <div class="post-detail-header-mask"></div>
-  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+<div class="tag-header" style="background-image: url('https://pic1.zhimg.com/80/v2-604a15cef201cf177943af2d915eb2e7_1440w.jpg?source=1940ef5c');">
+  <div class="tag-header-title">
+    tag
+  </div>
+  <div class="tag-header-desc">
   
-  <div class="post-detail-header_info-box">
-    <div class="title-box">
-      <span class="title">
-        抗恶意软件
-      </span>
-    </div>
-    
-    
-      
-        <span class="post-detail-header_date">
-          <i class="fas fa-calendar"></i> 发表于：2023-03-19 |
-        </span>
-      
-
-      
-        <span class="post-detail-header_categories">
-          <i class="iconfont iconbookmark1"></i> 分类：
-          
-            <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/" class="post-detail-header_category">
-              网络安全技术
-            </a>
-          
-        </span>
-      
-
-      
-        <div class="post-detail-header_wordcount">
-          <span class="totalcount">
-            <i class="fas fa-file-text-o"></i> 字数统计: 2.4k |
-          </span>
-  
-          <span class="min2read">
-            <i class="fas fa-clock"></i> 阅读时长: 8分钟 |
-          </span>
-  
-          
-            <span class="reading">
-              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
-            </span>
-          
-        </div>
-      
+    <span class="title" id="tag-header-desc"></span>
+    <script>
+  function typedFn() {
+    const el = '#tag-header-desc';
+    const type = 'tagDetail';
+    let desc = '愿你如风，被人温柔以待'
+    var typed = new Typed(el, {
+      strings: [desc],
+      startDelay: 100,
+      typeSpeed: 100,
+      loop: true,
+      backSpeed: 50,
+      showCursor: true
+    });
+  }
+  typedFn();
+</script>
     
   </div>
-  
-  
-    <script src="/js/bubble/bubble.js"></script>
-  
+  <div class="mask-box"></div>
 </div>
 
 
 
+<div class="tag">
+  <div class="tag-name">
+    <div class="name" style="background-color: #D5F5E3;">pytorch 分类</div>
+  </div>
+  <!-- 每一篇文章卡片 -->
+  <!-- hash算法 -->
+
+<section class="posts">
+  
+    
+    <article class="post reveal" style="flex-direction: row-reverse;   ">
+      <div class="post-main">
+        <div class="post-info">
+          <div class="post-time">
+            <i class="fas fa-clock" aria-hidden="true"></i>
+            <span class="post-time">2023-03-22</span>
+          </div>
+          <div class="post-title">
+            <a class="post-title-link" href="/2023/03/22/pytorch-shen-du-xue-xi/">Pytorch深度学习</a>
+          </div>
+          <div class="post-meta">
+            <div class="post-tags">
+              <!-- 文章详情页的标签 -->
+
+    <i class="iconfont icontag"></i>
+    <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/pytorch/" rel="tag">pytorch</a></li></ul>
+
+            </div>
+            <div class="post-categories">
+              <!-- 文章详情页的分类 -->
+
+<div class="article-category">
+  <i class="iconfont iconbookmark1"></i>
+  <a class="article-category-link" href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">深度学习</a>
+</div>
 
 
-<div class="post-detail-content post-row" 
-  style="padding-top: 0px;">
-  <div class="main-content">
-    <article class="post post-detail">
-      <div class="post-content">
-        <h2 id="病毒"><a href="#病毒" class="headerlink" title="病毒"></a>病毒</h2><p>病毒是一段隐藏在程序中的代码，<strong>可以自我复制（需要用户点击）</strong>或者将自己嵌入其它程序。</p>
-<ol>
-<li><strong>不能自我传播</strong>，需要用户点击才能执行</li>
-<li>需要一个主机程序寄生</li>
-<li>含毒载体（带毒载体）：被病毒感染的主机程序</li>
-<li>健康载体：没有被病毒感染的主机程序</li>
-<li>已消毒载体：曾经感染了病毒但目前清除了的主机程序</li>
-<li>病毒的制作是针对于<ol>
-<li>特定的文件系统，文件格式和操作系统</li>
-<li>特定的体系结构，CPU，语言，宏，脚本，调试器，和其它程序或系统环境</li>
-<li>离开了特定的系统和体系结构等因素，病毒会失效</li>
-</ol>
-</li>
-</ol>
-<br/>
-
-<p><strong>病毒类型</strong></p>
-<p>基于载体类别分类</p>
-<ol>
-<li>引导区病毒<ol>
-<li>在引导区感染引导程序</li>
-<li>利用引导序列激活自己</li>
-<li>修改操作系统，拦截磁盘访问，并感染其它磁盘</li>
-<li>也能感染PC中可以升级的BIOS</li>
-</ol>
-</li>
-<li>文件系统病毒<ol>
-<li>文件系统包含一个指针表，指向一个文件的第一个块</li>
-<li>感染文件指针表，修改指针值，或者将自己复制到其他文件系统中</li>
-</ol>
-</li>
-<li>文件格式病毒<ol>
-<li>感染特定格式的文件如EXE病毒感染.exe扩展二进制文件</li>
-</ol>
-</li>
-<li>宏病毒<ol>
-<li>感染包含宏指令的文档吗，如微软的Word、Excel、Powerpoint等</li>
-</ol>
-</li>
-<li>脚本病毒<ol>
-<li>感染脚本文件，如VBScript，JScript，UNIX Shell等</li>
-<li>常以电子邮件，办公文档和Web文档的方式自我复制</li>
-</ol>
-</li>
-<li>注册表病毒<ol>
-<li>感染微软Windows系统的注册表</li>
-</ol>
-</li>
-<li>内存病毒<ol>
-<li>感染在内存中执行的程序</li>
-</ol>
-</li>
-</ol>
-<br/>
-
-<p>基于生存形式分类</p>
-<ol>
-<li>隐蔽型病毒<ol>
-<li>试图躲在载体内不被发现，通常用压缩来实现</li>
-</ol>
-</li>
-<li><strong>多态病毒</strong>    <ol>
-<li>通过改变指令执行顺序或者用不同秘钥将病毒加密，使同一病毒呈现多种形式</li>
-</ol>
-</li>
-<li><strong>变形病毒</strong><ol>
-<li>在复制过程中自动改写成不同形式</li>
-</ol>
-</li>
-</ol>
-<br/>
-
-<p><strong>病毒感染机制</strong></p>
-<ul>
-<li>改写载体中的某部分程序或者嵌入到载体中</li>
-<li>改写或者嵌入的位置可以是载体的首部，中部和尾部</li>
-<li>部分病毒将自己分为多片，并改写或嵌入到载体的不同位置</li>
-<li>病毒和载体程序具有相同的访问权限</li>
-</ul>
-<p>当带毒载体被执行时，通过自我复制到所在系统其他健康载体上，或者通过网络复制到联网计算机中其他健康载体上。</p>
-<p>病毒生命周期：潜伏期（通常什么也不做）、传染期（自我复制）和发作期（破坏）</p>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/9a9b786e4dc21649dbe4ae6f477ea66a.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/9a9b786e4dc21649dbe4ae6f477ea66a.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<p><strong>病毒结构</strong></p>
-<p>有四个主要的子程序构成</p>
-<ol>
-<li>感染子程序：搜索还未被感染的载体，并将病毒代码植入其中</li>
-<li>感染条件子程序：检查是否具备执行感染子程序的条件</li>
-<li>发作子程序：执行具体的破坏工作</li>
-<li>发作条件子程序：检查是否具备执行发作子程序的条件</li>
-</ol>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/5abd1e50b854fc54e5b4de90a2145e3b.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/5abd1e50b854fc54e5b4de90a2145e3b.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<p><strong>载体压缩病毒</strong></p>
-<ul>
-<li>一个被感染的载体文件通常会变大</li>
-<li>载体压缩病毒试图掩盖这种变化<ul>
-<li>在感染期间<strong>压缩载体文件</strong></li>
-<li>在发作期间<strong>解压缩文件</strong></li>
-</ul>
-</li>
-<li>如果被压缩的载体文件加上病毒代码仍小于文件的原始大小，则需要填充</li>
-</ul>
-<br/>
-
-<p><strong>病毒的传播</strong></p>
-<ul>
-<li>通过便携存储设备传播（传统的传播方式）<ul>
-<li>移动硬盘，U盘.</li>
-</ul>
-</li>
-<li>通过电子邮件附件和下载程序传播（目前的传播方式）<ul>
-<li>Email是重要的传播途径，因为许多电子邮件用户通常会盲目打开附件</li>
-</ul>
-</li>
-</ul>
-<br/>
-
-<p><strong>Win32病毒感染剖析</strong></p>
-<p>Wi32病毒感染微软的可移植可执行PE)文件格式。一个PE文件包含：</p>
-<ol>
-<li>PE分段：.text段（存储可执行代码），.data段(存储全局变量)，.rsrc段（存储资源），输入表和输出表</li>
-<li>PE头部：提供可执行映像的重要信息（如<strong>AddressOfEntryPoint</strong>值域存储程序代码运行起点，病毒需要修改指向自己)</li>
-</ol>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/4a74c9a22b740810502b5a9df201ec75.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/4a74c9a22b740810502b5a9df201ec75.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="蠕虫和病毒防御"><a href="#蠕虫和病毒防御" class="headerlink" title="蠕虫和病毒防御"></a>蠕虫和病毒防御</h2><p><strong>蠕虫</strong></p>
-<p>是一个独立的程序，可以<strong>自我复制（无需用户点击），自我执行（无需用户点击）</strong></p>
-<blockquote>
-<p>可视为一种<strong>特殊的病毒</strong>，通过<strong>网络传播</strong></p>
-</blockquote>
-<p>大多数蠕虫程序由下列组成：目标定位子程序（找到新的目标主机进行感染）、传播子程序（将蠕虫复制到目标主机中）</p>
-<br/>
-
-<p><strong>常见蠕虫类型</strong></p>
-<ul>
-<li>批量邮件蠕虫<ul>
-<li>通过<strong>电子邮件附件</strong>自我繁殖</li>
-<li>在命名时通常在名字后面加上“@mm“</li>
-</ul>
-</li>
-<li>兔子蠕虫<ul>
-<li>迅速自我复制，导致系统因为资源耗尽而崩溃</li>
-<li>通常藏在一个隐藏文件目录里或者以正常的文件名来伪装自己</li>
-</ul>
-</li>
-</ul>
-<br/>
-
-<p><strong>蠕虫实例</strong></p>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/3e5754a529b4337a8163b6c547e18f54.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/3e5754a529b4337a8163b6c547e18f54.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<p><strong>电子邮件附件</strong></p>
-<p>电子邮件附件可以分为三类</p>
-<ol>
-<li>安全附件：不可执行，不是宏指令</li>
-<li>谨防附件：包含宏指令的文件，安全性依赖于发送者</li>
-<li>危险附件：可自行程序代码，不能打开</li>
-</ol>
-<br/>
-
-<p>红色代码蠕虫（缓冲区溢出漏洞）</p>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/d00c77a73504a5693fd5dd2cdb542b3f.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/d00c77a73504a5693fd5dd2cdb542b3f.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<p><strong>病毒防御</strong></p>
-<ol>
-<li>预防：阻止病毒进入健康系统<ol>
-<li>及时安装<strong>软件补丁</strong></li>
-<li>不要从<strong>不可信的Web站点</strong>下载软件</li>
-<li>不要打开<strong>危险的邮件附件</strong></li>
-</ol>
-</li>
-<li>恢复：修复受感染系统<ol>
-<li>用一个<strong>杀毒软件扫描</strong>文件</li>
-<li>保持系统和用户文件的<strong>备份</strong></li>
-</ol>
-</li>
-</ol>
-<br/>
-
-<p><strong>病毒扫描方法</strong></p>
-<ol>
-<li>基本扫描<ol>
-<li>在主机文件中搜索已知病毒的特征</li>
-<li>检查系统中可执行文件的大小是否改变</li>
-</ol>
-</li>
-<li>启发式扫描<ol>
-<li>在可执行文件中搜索<strong>可疑代码片段</strong>，多用于发现<strong>多态病毒</strong>（病毒用秘钥将自己加密）</li>
-</ol>
-</li>
-<li>完整性校验值检查(ICV)<ol>
-<li>对每个可执行文件计算ICV，附在文件后以备校验</li>
-</ol>
-</li>
-<li>行为监控<ol>
-<li>评估可执行程序的行为</li>
-</ol>
-</li>
-</ol>
-<br/>
-
-<p><strong>仿真杀毒（沙盒技术）</strong></p>
-<p>用专门的软件模拟硬件环境来评估可疑程序。</p>
-<p>沙盒就是创造一个运行存在潜在安全风险的应用程序的隔离环境，可以把沙盒看做是一个虚拟的容器，让不是很安全的程序在运行在其中，不对操作系统和其他程序造成威胁，能阻止恶意软件感染正常系统。虚拟化技术的普及让沙盒技术变得更加容易实现。</p>
-<p>1997年BM提出数字免疫系统概念</p>
-<ol>
-<li>局域网主机发现嫌疑病毒，送给管理主机</li>
-<li>管理主机加密嫌疑病毒，发送给病毒分析机</li>
-<li>病毒分析机在仿真环境（沙盒环境）中运行嫌疑文件，观察行为，确定是否为病毒</li>
-<li>病毒分析及将结论发送给局域网主机</li>
-</ol>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/ad02771fe390c4f03ee55c87ea34e85c.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/ad02771fe390c4f03ee55c87ea34e85c.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<p><img src="/2023/03/19/kang-e-yi-ruan-jian/10a8c6da99c25f31cc710d9e096dbe01.png" class="lazyload placeholder" data-srcset="/2023/03/19/kang-e-yi-ruan-jian/10a8c6da99c25f31cc710d9e096dbe01.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp"></p>
-<br/>
-
-<h2 id="Web安全"><a href="#Web安全" class="headerlink" title="Web安全"></a>Web安全</h2><p><strong>Web文档的基本类型</strong></p>
-<ul>
-<li><p>静态文件：一个没有可执行代码的Web文档，下载是安全的</p>
-</li>
-<li><p>动态文件：包含可执行代码的Web文档（JSP，ASP，PHP），在服务器执行，下载执行结果给客户端</p>
-</li>
-<li><p>主动文件：包含可执行代码（主要指JavaScript)，但运行在客户端主机，下载完整的代码运行</p>
-</li>
-</ul>
-<br/>
-
-<p><strong>Web文件的安全性</strong></p>
-<p>服务端：服务器漏洞被动态文件利用遭受攻击</p>
-<p>安全措施：升级到最新Web服务器程序，严格管理CGI程序，禁止普通用户提交CGI到Web服务器目录</p>
-<p>客户端：Web浏览器漏洞被主动文件利用遭受攻击</p>
-<p>安全措施：安装浏览器补丁、禁用浏览器的JavaScript、Java applets</p>
-<br/>
-
-<p><strong>Cookies</strong></p>
-<ul>
-<li>Web浏览器是无状态的<ul>
-<li>每个URL请求，浏览器都会建立一个新的连接。对于并发的页面，需要建立不同的不相关的TCP连接。若待访问页面需要认证，用户需要为每个连接输入相同的用户名和密码。</li>
-<li>服务器采用cookie保存用户的信息（可包含用户名、IP地址、操作系统以及曾经访问过的网页地址等)，并发送给浏览器</li>
-<li>浏览器下次访问，连同cookie和请求一起发送给服务器，无需重复输入用户名和密码</li>
-</ul>
-</li>
-<li>服务器：必须确保cookies不被恶意使用</li>
-<li>客户机：定期清除缓存的cookies</li>
-</ul>
-<br/>
-
-<p><strong>间谍软件</strong></p>
-<p>恶意软件未经用户许可的情况下，以一个插件模块安装在Web浏览器上</p>
-<p>间谍软件可能会收集用户的信息并发送给攻击者、监控用户的Web访问情况并弹出广告、修改浏览器的缺省配置并且重定向到特定的网页。</p>
-<p>对策：配置防火墙来阻止攻击者植入间谍软件、及时安装软件补丁、安装反间谍软件程序</p>
-<br/>
-
-<p><strong>安全上网</strong></p>
-<ul>
-<li>只从可信的Web站点下载软件</li>
-<li>不要点击弹出窗口的任何按钮<ul>
-<li>在安装和运行软件之前，阅读隐私说明、授权说明和安全警告，找出可能存在的风险</li>
-<li>不要从受密码保护的站点内访问其他不同地址的站点</li>
-</ul>
-</li>
-<li>不要访问可疑的Web站点</li>
-</ul>
-
-      </div>
-      <div class="post-tags-categories">
-        
-        <div class="tags">
-          
-            <a href="/tags/WEB/" class="">
-              WEB
+            </div>
+          </div>
+          <div class="post-img-mobile">
+            <a href="/2023/03/22/pytorch-shen-du-xue-xi/" style="background-size: cover; 
+              background-position: center center;">
+              <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
             </a>
-          
-            <a href="/tags/%E7%97%85%E6%AF%92/" class="">
-              病毒
-            </a>
-          
+          </div>
+          <div class="post-content">
+            Pytorch学习Python学习法宝函数学会使用dir()和help()
+Pytorch加载数据
+Dataset：提供一种方式去获取数据及其label
+如何获取每一个数据及其label
+告诉我们总共有多少数据
+
+
+Dataloader：为
+          </div>
         </div>
-        
+        <div class="post-more">
+          <a href="/2023/03/22/pytorch-shen-du-xue-xi/">
+            <i class="iconfont iconmore" pointer style="float: right;  " title="阅读更多"></i>
+          </a>
+        </div>
       </div>
-      
-        <div class="copyright">
-  <ul class="post-copyright">
-    <li class="post-copyright-author">
-    <strong>作者:  </strong>Jan</a>
-    </li>
-    <li class="post-copyright-link">
-    <strong>文章链接:  </strong>
-    <a href="/2023/03/19/kang-e-yi-ruan-jian/" target="_blank" title="抗恶意软件">https://Jan-nku.github.io/2023/03/19/kang-e-yi-ruan-jian/</a>
-    </li>
-    <li class="post-copyright-license">
-      <strong>版权声明:   </strong>
-      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
-      许可协议。转载请注明出处!
-    </li>
-  </ul>
-<div>
-      
+      <div class="post-img">
+        <a href="/2023/03/22/pytorch-shen-du-xue-xi/" style="background-size: cover; 
+          background-position: center center;">
+          <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+        </a>
+      </div>
     </article>
-    <!-- 上一篇文章和下一篇文章 -->
-    
-      <!-- 文章详情页的上一页和下一页 -->
-<div class="post-nav">
-
-
-
   
-  <div class="post-nav-prev post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-    </div>
-    <a href="/2023/03/20/ru-qin-jian-ce-xi-tong/" class="post-nav-link">
-      <div class="title">
-        <i class="fas fa-angle-left"></i> 上一篇:
-        <div class="title-text">入侵检测系统</div>
-      </div>
-      
-      <!-- <div class="content">
-        入侵检测基本概念什么是入侵？
-通过计算机网络非法进入他人计算机系统
-例如：入侵者获取Alice的用户名和密码来假冒Ali
-      </div> -->
-    </a>
-  </div>
-
-
-
-  
-  <div class="post-nav-next post-nav-item">
-    <div class="post-nav-img" style="background-size: cover; 
-      background-position: center center;">
-      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-9c50d3af0bc62a0e8b6e89e24c769317_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
-    </div>
-    <a href="/2023/03/18/wang-luo-bian-fang/" class="post-nav-link">
-      <div class="title">
-        下一篇: <i class="fas fa-angle-right"></i>
-        <div class="title-text">网络边防</div>
-      </div>
-      <!-- <div class="content">
-        防火墙概述防火墙概述
-LANs（局域网）、WANs（广域网）、WLANs（无线局域网）都属于互联网的边缘网（内网）
-可能
-      </div> -->
-    </a>
-  </div>
-
-</div>
-
-    
-    
-
-    <!-- 打赏 -->
-    
-
-    <!-- 分享 -->
-    
-      <!-- https://github.com/overtrue/share.js -->
-<!-- 文章详情页的分享 -->
-<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
-
-<script src="/js/shareJs/social-share.min.js"></script>
-</script>
-
-<style>
-  .social-share {
-    margin: 20px 0;
-  }
-</style>
-
-
-    
-    
-    <!-- 评论 -->
-    <!-- 评论 -->
-
-  <div id="myComment">
-    
-      <div id="gitment-ctn"></div> 
-
-<!-- 修改css与js文件如下即可-->
-<!-- <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
-<script src="https://billts.site/js/gitment.js"></script> -->
-<link rel='stylesheet' href='https://unpkg.com/gitment@0.0.3/style/default.css'>
-
-
-<style>
-  .gitment-comment-header {
-    margin: 0;
-    padding: 5px;
-  }
-</style>
-
-    
-  </div>
-
-<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
-
-
-  </div>
-
-  <!-- 目录 -->
-  
-<aside id='l_side'>
-  
-    
-      
-        <section class="widget side_blogger">
-  <div class='content'>
-    
-    
-      <div class='text'>
-        
-          <h2>NKU-Jan</h2>
-        
-        
-          <p>CS Blog</p>
-
-        
-        
-          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/jan_nku@163.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
-              class="social fab fa-qq flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
 </section>
-
-      
-    
-  
-  
-  
-    
-  
-
-  <div class="layout_sticky">    
-    
-      
-<section class="widget side_toc">
-  
-  <header>
-    
-      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="toc-main">
-      <div class="toc-content">
-        <!-- <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%97%85%E6%AF%92"><span class="toc-text">病毒</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A0%95%E8%99%AB%E5%92%8C%E7%97%85%E6%AF%92%E9%98%B2%E5%BE%A1"><span class="toc-text">蠕虫和病毒防御</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web%E5%AE%89%E5%85%A8"><span class="toc-text">Web安全</span></a></li></ol> -->
-        <div class="toc"></div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- 手机端目录按钮 -->
-<div id="toc-mobile-btn">
-  <i class="fas fa-list-ul" aria-hidden="true"></i>
 </div>
 
-      
-  <section class="widget side_recent_post">
-    
-  <header>
-    
-      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      
-      <!-- hash算法 -->
-      
-      <div class="aside-list">
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/24/pandas-xue-xi/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-24</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/24/pandas-xue-xi/">pandas学习</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/22/pytorch-shen-du-xue-xi/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-22</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/22/pytorch-shen-du-xue-xi/">Pytorch深度学习</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/21/wang-luo-bian-cheng/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-e434e3a2888fb4efb1844845b8791d1f_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-21</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/21/wang-luo-bian-cheng/">网络编程</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/20/ru-qin-jian-ce-xi-tong/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-20</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/20/ru-qin-jian-ce-xi-tong/">入侵检测系统</a>
-            </div>
-          </div>
-        
-          <div class="aside-list-item">
-            
-            
-            
-
-            <div class="post-img-box">
-              <a href="/2023/03/19/kang-e-yi-ruan-jian/" class="post-img " style="background-size: cover; 
-                background-position: center center;">
-                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-7cfc909ebe8d83683909846edd6b5232_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
-              </a>
-            </div>
-            <div class="post-date-title">
-              <div>
-                
-                  <span class="post-date">03-19</span>
-                
-              </div>
-              <a class="post-title" href="/2023/03/19/kang-e-yi-ruan-jian/">抗恶意软件</a>
-            </div>
-          </div>
-        
-      </div>
-    </div>
-  </section>
-
-    
-  </div>
-</aside>
-
-
-  <!-- 图片放大 Wrap images with fancybox support -->
-  <script src="/js/wrapImage.js"></script>
-</div>
-
-<!-- 文章详情页背景图 -->
-<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
-	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
-	<transition-group tag="ul" :name="names">
-		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
-			<img :src="image" class="bg-swiper-img no-lazy">
-		</li>
-	</transition-group>
-</div>
-<script>
-	var vm = new Vue({
-		el: '#appBgSwiper',
-		data: {
-			names: '' || 'fade' || 'fade', // translate-fade fade
-			mark: 0,
-			img: [],
-			bgColor: '',
-			time: null
-		},
-		methods: {   //添加方法
-			change(i, m) {
-				if (i > m) {
-					// this.names = 'fade';
-				} else if (i < m) {
-					// this.names = 'fade';
-				} else {
-					return;
-				}
-				this.mark = i;
-			},
-			prev() {
-				// this.names = 'fade';
-				this.mark--;
-				if (this.mark === -1) {
-					this.mark = 3;
-					return
-				}
-			},
-			next() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			autoPlay() {
-				// this.names = 'fade';
-				this.mark++;
-				if (this.mark === this.img.length) {
-					this.mark = 0;
-					return
-				}
-			},
-			play() {
-				let bgImgDelay = '' || '180000'
-				let delay = parseInt(bgImgDelay) || 180000;
-				this.time = setInterval(this.autoPlay, delay);
-			},
-			enter() {
-				clearInterval(this.time);
-			},
-			leave() {
-				this.play();
-			}
-		},
-		created() {
-			this.play()
-		},
-		beforeDestroy() {
-			clearInterval(this.time);
-		},
-		mounted() {
-			let prop = '' || '';
-			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
-			if (isImg) {
-				let img = prop.split(',');
-				let configRoot = '/'
-				let arrImg = [];
-				img.forEach(el => {
-					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
-					var objExp = new RegExp(Expression);
-
-					if (objExp.test(el)) {
-						// http or https
-						arrImg.push(el);
-					} else {
-						// 非http or https开头
-						// 本地文件
-						let firstStr = el.charAt(0);
-						if (firstStr == '/') {
-							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
-						}
-						el = configRoot + el;
-						arrImg.push(el);
-					}
-				})
-				this.img = arrImg;
-			} else {
-				this.bgColor = prop;
-			}
-		}
-	})
-</script>
-
-<style>
-	.bg-swiper-box {
-		position: absolute;
-		display: block;
-		width: 100%;
-		height: 100%;
-	}
-
-	.bg-swiper-img {
-		object-fit: cover;
-		width: 100%;
-		height: 100%;
-	}
-</style>
-
-
-
-
-  <script>
-  function loadMermaid() {
-    if (document.getElementsByClassName('mermaid').length) {
-      if (window.mermaidJsLoad) mermaid.init()
-      else {
-        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
-          window.mermaidJsLoad = true
-          mermaid.initialize({
-            theme: 'default',
-          })
-          if ('true') {
-            mermaid.init();
-          }
-        })
-      }
-    }
-  };
-  document.addEventListener("DOMContentLoaded", function () {
-    loadMermaid();
-  })
-
-  document.addEventListener('pjax:complete', function () {
-    loadMermaid();
-  })
+<div class="w-70">
   
-</script>
-
+</div>
 
       </main>
     </div>
@@ -1997,7 +1239,7 @@ comment_el = '#gitment-ctn';
 load_gitment = function () {
   if ($(comment_el).length) {
     var gitment = new Gitment({
-      id: "2023/03/19/kang-e-yi-ruan-jian/",
+      id: "tags/pytorch/index.html",
       owner: '',
       repo: '',
       oauth: {
