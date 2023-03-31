@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-03-24T06:51:42.859Z</updated>
+  <updated>2023-03-31T04:52:02.228Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -15,6 +15,235 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ch6实战网络层，自定义拓扑结构</title>
+    <link href="https://jan-nku.github.io/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/"/>
+    <id>https://jan-nku.github.io/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/</id>
+    <published>2023-03-30T16:00:00.000Z</published>
+    <updated>2023-03-31T04:52:02.228Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;自定义网络拓扑结构&quot;&gt;&lt;a href=&quot;#自定义网络拓扑结构&quot; class=&quot;headerlink&quot; title=&quot;自定义网络拓扑结构&quot;&gt;&lt;/a&gt;自定义网络拓扑结构&lt;/h2&gt;&lt;figure class=&quot;highlight</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ch5实战链路层</title>
+    <link href="https://jan-nku.github.io/2023/03/30/ch5-shi-zhan-lian-lu-ceng/"/>
+    <id>https://jan-nku.github.io/2023/03/30/ch5-shi-zhan-lian-lu-ceng/</id>
+    <published>2023-03-30T07:54:38.000Z</published>
+    <updated>2023-03-31T04:54:20.840Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;简单的链路层转发&quot;&gt;&lt;a href=&quot;#简单的链路层转发&quot; class=&quot;headerlink&quot; title=&quot;简单的链路层转发&quot;&gt;&lt;/a&gt;简单的链路层转发&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ch4实战 Reflector &amp; Repeater</title>
+    <link href="https://jan-nku.github.io/2023/03/30/ch4-shi-zhan-reflector-repeater/"/>
+    <id>https://jan-nku.github.io/2023/03/30/ch4-shi-zhan-reflector-repeater/</id>
+    <published>2023-03-30T06:54:38.000Z</published>
+    <updated>2023-03-31T04:54:16.291Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;环境配置&quot;&gt;&lt;a href=&quot;#环境配置&quot; class=&quot;headerlink&quot; title=&quot;环境配置&quot;&gt;&lt;/a&gt;环境配置&lt;/h2&gt;&lt;p&gt;一个完整的 P4 开发环境里，我们需要编译 P4 的代码（用 p4c 编译），把编译好的文件跑在软件交换机上（我们会用</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ch3控制逻辑与完整的工作流</title>
+    <link href="https://jan-nku.github.io/2023/03/29/ch3-kong-zhi-luo-ji-yu-wan-zheng-de-gong-zuo-liu/"/>
+    <id>https://jan-nku.github.io/2023/03/29/ch3-kong-zhi-luo-ji-yu-wan-zheng-de-gong-zuo-liu/</id>
+    <published>2023-03-28T16:00:00.000Z</published>
+    <updated>2023-03-31T04:51:17.145Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt; P4 里最主要的部分就是 Match-Action Pipeline 了，这部分是实现各种不同 protocol 花式转发逻辑的精髓。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Tables（表）&lt;/li&gt;
+&lt;li&gt;Actions（动作）&lt;/li&gt;
+&lt;li&gt;Control</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ch2基础语法和parser</title>
+    <link href="https://jan-nku.github.io/2023/03/28/ch2-ji-chu-yu-fa-he-parser/"/>
+    <id>https://jan-nku.github.io/2023/03/28/ch2-ji-chu-yu-fa-he-parser/</id>
+    <published>2023-03-28T07:54:38.000Z</published>
+    <updated>2023-03-31T04:53:48.895Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h2 id=&quot;P4的基本数据类型&quot;&gt;&lt;a href=&quot;#P4的基本数据类型&quot; class=&quot;headerlink&quot; title=&quot;P4的基本数据类型&quot;&gt;&lt;/a&gt;P4的基本数据类型&lt;/h2&gt;&lt;p&gt;和很多静态的语言类似，P4 最基本的数据类型放在了下面，P4 不支持的数据类型有</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ch1导论</title>
+    <link href="https://jan-nku.github.io/2023/03/28/ch1-dao-lun/"/>
+    <id>https://jan-nku.github.io/2023/03/28/ch1-dao-lun/</id>
+    <published>2023-03-28T06:54:38.000Z</published>
+    <updated>2023-03-31T04:53:36.651Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Openflow&quot;&gt;&lt;a href=&quot;#Openflow&quot; class=&quot;headerlink&quot; title=&quot;Openflow&quot;&gt;&lt;/a&gt;Openflow&lt;/h1&gt;&lt;p&gt;&lt;img</summary>
+        
+      
+    
+    
+    
+    <category term="P4" scheme="https://jan-nku.github.io/categories/P4/"/>
+    
+    
+    <category term="p4" scheme="https://jan-nku.github.io/tags/p4/"/>
+    
+    <category term="可编程硬件" scheme="https://jan-nku.github.io/tags/%E5%8F%AF%E7%BC%96%E7%A8%8B%E7%A1%AC%E4%BB%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>leetcode刷题</title>
+    <link href="https://jan-nku.github.io/2023/03/24/leetcode-shua-ti/"/>
+    <id>https://jan-nku.github.io/2023/03/24/leetcode-shua-ti/</id>
+    <published>2023-03-24T08:30:53.000Z</published>
+    <updated>2023-03-24T08:30:53.795Z</updated>
+    
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Python学习</title>
+    <link href="https://jan-nku.github.io/2023/03/24/python-xue-xi/"/>
+    <id>https://jan-nku.github.io/2023/03/24/python-xue-xi/</id>
+    <published>2023-03-24T06:57:27.000Z</published>
+    <updated>2023-03-24T07:00:21.586Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Python学习&quot;&gt;&lt;a href=&quot;#Python学习&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://jan-nku.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="Python" scheme="https://jan-nku.github.io/tags/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NumPy学习</title>
+    <link href="https://jan-nku.github.io/2023/03/24/numpy-xue-xi/"/>
+    <id>https://jan-nku.github.io/2023/03/24/numpy-xue-xi/</id>
+    <published>2023-03-24T06:54:38.000Z</published>
+    <updated>2023-03-24T06:56:46.426Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Numpy学习&quot;&gt;&lt;a href=&quot;#Numpy学习&quot; class=&quot;headerlink&quot;</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://jan-nku.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="numpy" scheme="https://jan-nku.github.io/tags/numpy/"/>
+    
+  </entry>
   
   <entry>
     <title>pandas学习</title>
@@ -38,6 +267,31 @@
     
     
     <category term="pandas" scheme="https://jan-nku.github.io/tags/pandas/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>《Python编程：从入门到实践》</title>
+    <link href="https://jan-nku.github.io/2023/03/24/python-bian-cheng-cong-ru-men-dao-shi-jian/"/>
+    <id>https://jan-nku.github.io/2023/03/24/python-bian-cheng-cong-ru-men-dao-shi-jian/</id>
+    <published>2023-03-23T16:00:00.000Z</published>
+    <updated>2023-03-24T07:14:56.438Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;字符串&quot;&gt;&lt;a href=&quot;#字符串&quot; class=&quot;headerlink&quot; title=&quot;字符串&quot;&gt;&lt;/a&gt;字符串&lt;/h1&gt;&lt;figure class=&quot;highlight python&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td</summary>
+        
+      
+    
+    
+    
+    <category term="深度学习" scheme="https://jan-nku.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="python" scheme="https://jan-nku.github.io/tags/python/"/>
     
   </entry>
   
@@ -271,260 +525,6 @@
     <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
     
     <category term="无线网" scheme="https://jan-nku.github.io/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>漏洞挖掘篇</title>
-    <link href="https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/"/>
-    <id>https://jan-nku.github.io/2023/03/15/lou-dong-wa-jue-pian/</id>
-    <published>2023-03-14T16:00:00.000Z</published>
-    <updated>2023-03-21T02:11:24.067Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;方法概述&quot;&gt;&lt;a href=&quot;#方法概述&quot; class=&quot;headerlink&quot; title=&quot;方法概述&quot;&gt;&lt;/a&gt;方法概述&lt;/h1&gt;&lt;h2 id=&quot;漏洞挖掘方法分类&quot;&gt;&lt;a href=&quot;#漏洞挖掘方法分类&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>实用网络安全协议</title>
-    <link href="https://jan-nku.github.io/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/"/>
-    <id>https://jan-nku.github.io/2023/03/15/shi-yong-wang-luo-an-quan-xie-yi/</id>
-    <published>2023-03-14T16:00:00.000Z</published>
-    <updated>2023-03-21T03:41:16.525Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;密码算法在网络各层中的部署&quot;&gt;&lt;a href=&quot;#密码算法在网络各层中的部署&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="network" scheme="https://jan-nku.github.io/tags/network/"/>
-    
-    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>漏洞利用篇</title>
-    <link href="https://jan-nku.github.io/2023/03/14/lou-dong-li-yong-pian/"/>
-    <id>https://jan-nku.github.io/2023/03/14/lou-dong-li-yong-pian/</id>
-    <published>2023-03-13T16:00:00.000Z</published>
-    <updated>2023-03-21T02:11:13.997Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;漏洞利用概念及示例&quot;&gt;&lt;a href=&quot;#漏洞利用概念及示例&quot; class=&quot;headerlink&quot; title=&quot;漏洞利用概念及示例&quot;&gt;&lt;/a&gt;漏洞利用概念及示例&lt;/h1&gt;&lt;h2 id=&quot;漏洞利用概念&quot;&gt;&lt;a href=&quot;#漏洞利用概念&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据认证</title>
-    <link href="https://jan-nku.github.io/2023/03/14/shu-ju-ren-zheng/"/>
-    <id>https://jan-nku.github.io/2023/03/14/shu-ju-ren-zheng/</id>
-    <published>2023-03-13T16:00:00.000Z</published>
-    <updated>2023-03-21T03:40:24.677Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;散列函数&quot;&gt;&lt;a href=&quot;#散列函数&quot; class=&quot;headerlink&quot; title=&quot;散列函数&quot;&gt;&lt;/a&gt;散列函数&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
-    
-    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>软件漏洞篇</title>
-    <link href="https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/"/>
-    <id>https://jan-nku.github.io/2023/03/13/ruan-jian-lou-dong-pian/</id>
-    <published>2023-03-12T16:00:00.000Z</published>
-    <updated>2023-03-21T02:11:02.210Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;漏洞&quot;&gt;&lt;a href=&quot;#漏洞&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="软件漏洞" scheme="https://jan-nku.github.io/tags/%E8%BD%AF%E4%BB%B6%E6%BC%8F%E6%B4%9E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>公钥密码体系的基本概念</title>
-    <link href="https://jan-nku.github.io/2023/03/13/gong-yao-mi-ma-ti-xi-he-mi-yao-guan-li/"/>
-    <id>https://jan-nku.github.io/2023/03/13/gong-yao-mi-ma-ti-xi-he-mi-yao-guan-li/</id>
-    <published>2023-03-12T16:00:00.000Z</published>
-    <updated>2023-03-21T03:38:07.222Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;公钥密码体系的基本概念&quot;&gt;&lt;a href=&quot;#公钥密码体系的基本概念&quot; class=&quot;headerlink&quot; title=&quot;公钥密码体系的基本概念&quot;&gt;&lt;/a&gt;公钥密码体系的基本概念&lt;/h2&gt;&lt;p&gt;&lt;img</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>软件调试基础</title>
-    <link href="https://jan-nku.github.io/2023/03/12/ruan-jian-diao-shi-ji-chu/"/>
-    <id>https://jan-nku.github.io/2023/03/12/ruan-jian-diao-shi-ji-chu/</id>
-    <published>2023-03-11T16:00:00.000Z</published>
-    <updated>2023-03-21T02:10:48.620Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;PE文件格式&quot;&gt;&lt;a href=&quot;#PE文件格式&quot; class=&quot;headerlink&quot; title=&quot;PE文件格式&quot;&gt;&lt;/a&gt;PE文件格式&lt;/h1&gt;&lt;h2 id=&quot;文件格式&quot;&gt;&lt;a href=&quot;#文件格式&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="调试" scheme="https://jan-nku.github.io/tags/%E8%B0%83%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>数据加密算法</title>
-    <link href="https://jan-nku.github.io/2023/03/12/shu-ju-jia-mi-suan-fa/"/>
-    <id>https://jan-nku.github.io/2023/03/12/shu-ju-jia-mi-suan-fa/</id>
-    <published>2023-03-11T16:00:00.000Z</published>
-    <updated>2023-03-21T03:39:17.347Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;什么是加密&quot;&gt;&lt;a href=&quot;#什么是加密&quot; class=&quot;headerlink&quot; title=&quot;什么是加密&quot;&gt;&lt;/a&gt;什么是加密&lt;/h2&gt;&lt;p&gt;</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="密码" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>软件安全预备知识</title>
-    <link href="https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/"/>
-    <id>https://jan-nku.github.io/2023/03/11/ruan-jian-an-quan-yu-bei-zhi-shi/</id>
-    <published>2023-03-10T16:00:00.000Z</published>
-    <updated>2023-03-21T02:10:43.646Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;基本概念&quot;&gt;&lt;a href=&quot;#基本概念&quot; class=&quot;headerlink&quot; title=&quot;基本概念&quot;&gt;&lt;/a&gt;基本概念&lt;/h1&gt;&lt;h2 id=&quot;病毒和木马&quot;&gt;&lt;a href=&quot;#病毒和木马&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="软件安全" scheme="https://jan-nku.github.io/categories/%E8%BD%AF%E4%BB%B6%E5%AE%89%E5%85%A8/"/>
-    
-    
-    <category term="预备知识" scheme="https://jan-nku.github.io/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>网络安全概论</title>
-    <link href="https://jan-nku.github.io/2023/03/11/wang-luo-an-quan-gai-lun/"/>
-    <id>https://jan-nku.github.io/2023/03/11/wang-luo-an-quan-gai-lun/</id>
-    <published>2023-03-10T16:00:00.000Z</published>
-    <updated>2023-03-21T03:38:36.456Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;为什么会存在网络安全问题&quot;&gt;&lt;a href=&quot;#为什么会存在网络安全问题&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="预备知识" scheme="https://jan-nku.github.io/tags/%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86/"/>
     
   </entry>
   

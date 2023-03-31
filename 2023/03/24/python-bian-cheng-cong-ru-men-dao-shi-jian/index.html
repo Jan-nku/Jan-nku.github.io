@@ -1,0 +1,2054 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>《Python编程：从入门到实践》 | Jan&#39;s Blog</title>
+
+  <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('true') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Jan's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+  
+  <!-- 依赖于jquery和vue -->
+  
+    
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+
+  
+
+  
+    
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+
+  
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader_2" id="loader">
+  <div class="loader"></div>
+</div>
+
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">Jan&#39;s Blog</h3>
+      <h5 class="drawer-box-head_desc">千磨万击还坚劲，任尔东西南北风</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/tags" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/about" class="drawer-menu-item-link">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/resume" class="drawer-menu-item-link">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">Jan&#39;s Blog</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/tags" class="menu-item-link" title="标签">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/about" class="menu-item-link" title="关于">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/resume" class="menu-item-link" title="简历">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        《Python编程：从入门到实践》
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-03-24 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-detail-header_category">
+              深度学习
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 7k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 28分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&quot;ada lovelace&quot;</span></span><br><span class="line">name.title()<span class="comment">#首字母大写</span></span><br><span class="line">name.upper()<span class="comment">#转换成大写</span></span><br><span class="line">name.lower()<span class="comment">#转换成小写</span></span><br><span class="line">\t制表符</span><br><span class="line">\n换行符</span><br><span class="line">name=<span class="string">&#x27; python &#x27;</span></span><br><span class="line">name.rstrip()<span class="comment">#去掉字符串末尾空白</span></span><br><span class="line">name.lstrip()<span class="comment">#去掉字符串开头空白</span></span><br><span class="line">name.strip()<span class="comment">#去掉字符串两端空白</span></span><br><span class="line"><span class="comment">#以后方法返回一个新的字符串，不修改原字符串的值</span></span><br><span class="line"><span class="built_in">str</span>()<span class="comment">#类型转换函数，避免类型错误</span></span><br><span class="line">name.replaced(<span class="string">&#x27;ada&#x27;</span>, <span class="string">&#x27;Ada&#x27;</span>)<span class="comment">#替换字符串中内容</span></span><br><span class="line">name.split()<span class="comment">#分隔单词，返回一个列表</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h1><h2 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a>添加和删除元素</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加元素</span></span><br><span class="line">append()<span class="comment">#在列表末尾添加元素</span></span><br><span class="line">ls=[]<span class="comment">#创建空列表</span></span><br><span class="line">insert(i,num)<span class="comment">#在索引i处插入元素num</span></span><br><span class="line"><span class="comment">#删除元素</span></span><br><span class="line"><span class="keyword">del</span> ls[<span class="number">0</span>]<span class="comment">#删除列表任意位置的元素，前提是知道索引</span></span><br><span class="line">ls.pop()<span class="comment">#删除列表末尾元素并返回</span></span><br><span class="line">ls.pop(i)<span class="comment">#删除索引为i处的元素并返回</span></span><br><span class="line">ls.remove(num)<span class="comment">#根据值删除元素，只删除第一个指定的值，删除多个要用循环判断</span></span><br></pre></td></tr></table></figure>
+<h2 id="组织列表"><a href="#组织列表" class="headerlink" title="组织列表"></a>组织列表</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#sort()对列表进行永久性排序</span></span><br><span class="line">ls.sort()<span class="comment">#顺序排列</span></span><br><span class="line">ls.sort(reverse=<span class="literal">True</span>)<span class="comment">#逆序排列</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#sorted()对列表进行临时排序</span></span><br><span class="line"><span class="built_in">sorted</span>(ls)</span><br><span class="line"><span class="built_in">sorted</span>(ls,reverse=<span class="literal">True</span>)</span><br><span class="line">ls.reverse()<span class="comment">#永久将列表反转</span></span><br><span class="line"><span class="built_in">len</span>(ls)<span class="comment">#返回列表长度</span></span><br></pre></td></tr></table></figure>
+<h2 id="创建数字列表"><a href="#创建数字列表" class="headerlink" title="创建数字列表"></a>创建数字列表</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#使用函数range()</span></span><br><span class="line"><span class="built_in">range</span>(<span class="number">1</span>,<span class="number">5</span>)<span class="comment">#生成序列1，2，3，4</span></span><br><span class="line"><span class="built_in">range</span>(<span class="number">2</span>,<span class="number">11</span>,<span class="number">2</span>)<span class="comment">#指定步长为2</span></span><br><span class="line"><span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">1</span>,<span class="number">5</span>))<span class="comment">#将range的结果转换为列表</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">min</span>(ls)</span><br><span class="line"><span class="built_in">max</span>(ls)</span><br><span class="line"><span class="built_in">sum</span>(ls)</span><br><span class="line"></span><br><span class="line"><span class="comment">#列表解析</span></span><br><span class="line"><span class="comment">#将for循环和创建新元素的代码合并为一行，并自动附加新元素</span></span><br><span class="line">ls=[value**<span class="number">2</span> <span class="keyword">for</span> value <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">11</span>)]</span><br></pre></td></tr></table></figure>
+<h2 id="使用列表的一部分"><a href="#使用列表的一部分" class="headerlink" title="使用列表的一部分"></a>使用列表的一部分</h2><p>处理列表的部分元素，python称之为切片。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ls[<span class="number">0</span>:<span class="number">3</span>]<span class="comment">#返回下标为0、1、2的元素组成的列表</span></span><br><span class="line">ls[:<span class="number">3</span>]<span class="comment">#未指定起始索引，python将自动从列表开头开始</span></span><br><span class="line">ls[<span class="number">0</span>:]<span class="comment">#未指定终止索引，python将返回从0到列表末尾的所有元素</span></span><br><span class="line">ls[-<span class="number">3</span>:]<span class="comment">#返回倒数后三个元素</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#复制列表</span></span><br><span class="line"><span class="comment">#使用切片，切片会生成一个新的副本</span></span><br><span class="line">ls_copy=ls[:]</span><br><span class="line"><span class="comment">#直接复制，其实指向同一个列表</span></span><br><span class="line">ls_copy=ls</span><br></pre></td></tr></table></figure>
+<h2 id="元组"><a href="#元组" class="headerlink" title="元组"></a>元组</h2><p>列表是可以修改的，有时需要创建一系列不可修改的元素，元组可以满足这种需求。python将不能修改的值称为不可变的，而不可变的列表被称为元组。<br>虽然不能修改元组的元素，但是可以给存储元组的变量赋值。</p>
+<hr>
+<h1 id="字典"><a href="#字典" class="headerlink" title="字典"></a>字典</h1><p>字典可以用来高效模拟现实世界中的情形。字典可以用来存储一个对象的多种信息，也可以用来存储众多对象的同一种信息。<br>在python中，字典是一系列键-值对。<br>字典是一种动态结构，可随时在其中添加键-值对。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>=&#123;<span class="string">&#x27;color&#x27;</span>:<span class="string">&#x27;green&#x27;</span>,<span class="string">&#x27;point&#x27;</span>:<span class="number">5</span>&#125;</span><br><span class="line"><span class="built_in">dict</span>[<span class="string">&#x27;color&#x27;</span>]<span class="comment">#访问字典中的值</span></span><br><span class="line"><span class="built_in">dict</span>[x_position] = <span class="number">0</span><span class="comment">#添加键值对</span></span><br><span class="line"><span class="built_in">dict</span>=&#123;&#125;<span class="comment">#创建空字典</span></span><br><span class="line"><span class="comment">#删除键值对，使用del</span></span><br><span class="line"><span class="keyword">del</span> <span class="built_in">dict</span>[<span class="string">&#x27;color&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">#将较大的字典存储在多行中,注意缩进</span></span><br><span class="line"><span class="built_in">dict</span>=&#123;</span><br><span class="line">	<span class="string">&#x27;jen&#x27;</span>:<span class="string">&#x27;python&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;sarch&#x27;</span>:<span class="string">&#x27;c&#x27;</span>,</span><br><span class="line">	<span class="string">&#x27;phil&#x27;</span>:<span class="string">&#x27;C++&#x27;</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#将较长的print语句分成多行，在合适的地方拆分，每行末尾加上拼接运算符(+)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Sarch&#x27;s favorite language is &quot;</span>+</span><br><span class="line">	<span class="built_in">dict</span>[<span class="string">&#x27;sarah&#x27;</span>].title()+</span><br><span class="line">	<span class="string">&quot;.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="遍历字典"><a href="#遍历字典" class="headerlink" title="遍历字典"></a>遍历字典</h2><p>items()、keys()、values()</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">dict</span>.items()<span class="comment">#返回一个键值对列表</span></span><br><span class="line"><span class="keyword">for</span> k,v <span class="keyword">in</span> <span class="built_in">dict</span>.items()<span class="comment">#注意键值对的返回顺序与存储顺序不同</span></span><br><span class="line"><span class="comment">#python不关心键值对的存储顺序，只关心其关联关系</span></span><br><span class="line"><span class="built_in">dict</span>.keys()<span class="comment">#返回键列表</span></span><br><span class="line"><span class="built_in">sorted</span>(<span class="built_in">dict</span>.keys())<span class="comment">#对键列表排序</span></span><br><span class="line"><span class="built_in">dict</span>.values()<span class="comment">#返回值列表</span></span><br><span class="line"><span class="built_in">set</span>()<span class="comment">#集合，不包含重复值</span></span><br><span class="line"><span class="built_in">set</span>(<span class="built_in">dict</span>.values())<span class="comment">#剔除值列表中的重复值</span></span><br></pre></td></tr></table></figure>
+<h2 id="嵌套"><a href="#嵌套" class="headerlink" title="嵌套"></a>嵌套</h2><h3 id="字典列表"><a href="#字典列表" class="headerlink" title="字典列表"></a>字典列表</h3><p>经常需要在列表中包含大量的字典，而其中每个字典都包含特定对象的众多信息。</p>
+<h3 id="在字典中存储列表"><a href="#在字典中存储列表" class="headerlink" title="在字典中存储列表"></a>在字典中存储列表</h3><p>每当需要在字典中将<strong>一个键关联到多个值</strong>时，都可以在字典中嵌套一个列表。</p>
+<h3 id="在字典中存储字典"><a href="#在字典中存储字典" class="headerlink" title="在字典中存储字典"></a>在字典中存储字典</h3><p>比如，一个网站把用户信息存储在一个字典中，字典的键是用户名，字典的值是用户的个人信息，也是一个字典。</p>
+<hr>
+<h1 id="输入与循环"><a href="#输入与循环" class="headerlink" title="输入与循环"></a>输入与循环</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">input</span>()<span class="comment">#python将输入解读为字符串</span></span><br><span class="line"><span class="built_in">int</span>()<span class="comment">#将变量的类型转换成数字</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="使用标志"><a href="#使用标志" class="headerlink" title="使用标志"></a>使用标志</h2><p>在要求很多条件都满足才继续运行的程序中，可定义一个变量，用于判断整个程序是否处于活动状态。这个变量称为标志，充当了程序的交通信号灯。</p>
+<hr>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">文档字符串</span></span><br><span class="line"><span class="string">python使用它们生成程序中函数的文档</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h2 id="传递实参"><a href="#传递实参" class="headerlink" title="传递实参"></a>传递实参</h2><p>位置实参：要求实参的顺序与形参的顺序相同。<br>关键字实参：形参名=实参这种形式传递参数。<br>默认值：有默认值的形参要放在最后。可以让实参变为可选的。</p>
+<h3 id="传递列表"><a href="#传递列表" class="headerlink" title="传递列表"></a>传递列表</h3><p>将列表传递给函数后，函数就可以对其进行修改，在函数中对这个列表所做的任何修改都是永久性的，这可以让你高效地处理大量的数据。</p>
+<h4 id="禁止函数修改列表"><a href="#禁止函数修改列表" class="headerlink" title="禁止函数修改列表"></a>禁止函数修改列表</h4><p>可以向函数传递列表的副本而不是原件，这样函数所做的修改都只影响副本，而不影响原件。<br><code>function_name(list_name[:])</code><br>虽然向函数传递列表的副本可以保留原始列表的内容，但是会花费时间和内存创建副本，从而影响效率，尤其是在处理大型列表时。因此没有充足理由还是不要传递副本。</p>
+<h3 id="传递任意数量的实参"><a href="#传递任意数量的实参" class="headerlink" title="传递任意数量的实参"></a>传递任意数量的实参</h3><p><code>def make_pizza(*toppings):</code><br>形参名<code>*toppings</code>中的星号让python创建一个名为toppings的<strong>空元组</strong>，并将收到的所有值都封装在这个元组中。<br>python将实参封装到一个元组中，即便函数只收到一个值也如此。</p>
+<p><code>def build_profile(first,last,**user_info):</code><br><code>**user_info</code>接受任意数量的关键字实参，类型是<strong>字典</strong>。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h2><p>使用return语句<br>函数可以返回任何类型的值，包括<strong>列表</strong>和<strong>字典</strong>等较复杂的数据结构。</p>
+<h2 id="将函数存储在模块中"><a href="#将函数存储在模块中" class="headerlink" title="将函数存储在模块中"></a>将函数存储在模块中</h2><p>将函数存储在被称为<strong>模块</strong>的独立文件中，再将模块导入到主程序中。<br>模块是扩展名为**.py**的文件，包含要导入到程序中的代码。<br>所导入模块要与程序在同一目录下。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;导入整个模块&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> pizza</span><br><span class="line">module_name.function_name()<span class="comment">#使用模块中的某个函数</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;导入特定的函数&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> function_1,function_2</span><br><span class="line">function_1()<span class="comment">#无需使用句点，在import语句中显式地导入了函数</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;使用as给函数指定别名&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> pizza <span class="keyword">import</span> make_pizza <span class="keyword">as</span> mp</span><br><span class="line"><span class="string">&quot;&quot;&quot;使用as给模块指定别名&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> pizza <span class="keyword">as</span> p</span><br><span class="line"><span class="string">&quot;&quot;&quot;导入模块中所有函数&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> pizza <span class="keyword">import</span> *</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在并非自己编写的大型模块中，最好不要导入模块中所有函数。<br>如果模块中有函数的名称与你的项目中使用的名称相同，可能会导致意想不到的结果：python可能遇到多个名称相同的函数或变量，进而覆盖函数，而不是分别导入所有的函数。<br><strong>最佳的做法</strong>：要么只导入你需要的函数，要么导入整个模块并使用句点表示法</p>
+</blockquote>
+<hr>
+<h1 id="类"><a href="#类" class="headerlink" title="类"></a>类</h1><p><strong>面向对象编程</strong>是最有效的软件编写方法之一。它可以用来模拟现实情景，其逼真程度超乎你想象。</p>
+<h2 id="创建和使用类"><a href="#创建和使用类" class="headerlink" title="创建和使用类"></a>创建和使用类</h2><h3 id="创建Dog类"><a href="#创建Dog类" class="headerlink" title="创建Dog类"></a>创建Dog类</h3><blockquote>
+<p>根据约定，在python中，首字母大写的名称指的是类。<br>类中的函数称为方法，与函数的差别是<strong>调用方法的方式</strong>。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Dog</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;一次模拟小狗的简单尝试&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;初始化属性name和age&quot;&quot;&quot;</span></span><br><span class="line">		self.name = name</span><br><span class="line">		self.age = age</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">sit</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;模拟小狗被命令时蹲下&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(self.name.title() + <span class="string">&quot; is now sitting.&quot;</span>)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">roll_over</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;模拟小狗被命令时打滚&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(self.name.title() + <span class="string">&quot; rolled over!&quot;</span>)</span><br><span class="line"><span class="comment">#方法sit()和roll_over()所做的有限，它们只是打印一条消息，指出小狗正蹲下或打滚。</span></span><br><span class="line"><span class="comment">#但可以扩展这些方法以模拟实际情况，可以创建小狗蹲下和打滚动画效果的代码等。</span></span><br></pre></td></tr></table></figure>
+<h4 id="方法-init"><a href="#方法-init" class="headerlink" title="方法__init__()"></a>方法__init__()</h4><blockquote>
+<p>__init__是一个特殊的方法，每当你根据Dog类创建新实例时，python都会自动运行它。<br>在这个方法的名称中，开头和结尾各有两个下划线，这是一种约定，旨在避免python默认方法与普通方法发生名称冲突。<br>我们将方法__init__()定义成了包含三个形参：self、name和age。在这个方法的定义中，形参self必不可少，还必须位于其他形参的前面。</p>
+</blockquote>
+<p><strong><code>为何必须在方法定义中包含形参self呢？</code></strong></p>
+<blockquote>
+<p>因为python调用这个__init__()方法来创建Dog实例时，将自动传入实参self。<strong>每个与类相关联的方法调用都自动传递实参self，它是一个指向实例本身的引用，让实例能够访问类中的属性和方法。</strong></p>
+</blockquote>
+<h3 id="根据类创建实例"><a href="#根据类创建实例" class="headerlink" title="根据类创建实例"></a>根据类创建实例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">my_dog =  Dog(<span class="string">&#x27;willie&#x27;</span>, <span class="number">6</span>)</span><br><span class="line"><span class="comment">#调用属性</span></span><br><span class="line">my_dog.name</span><br><span class="line"><span class="comment">#调用方法</span></span><br><span class="line">my_dog.sit()</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用类和实例"><a href="#使用类和实例" class="headerlink" title="使用类和实例"></a>使用类和实例</h2><h3 id="给属性指定默认值"><a href="#给属性指定默认值" class="headerlink" title="给属性指定默认值"></a>给属性指定默认值</h3><p>类中的每个属性都必须有初始值，哪怕这个值是0或空字符串。在这种情况下，如设置默认值时，在方法__init__()内指定这种初始值是可行的。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,name,age</span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;初始化属性name和age&quot;&quot;&quot;</span></span><br><span class="line">	self.name = name</span><br><span class="line">	self.age = age</span><br><span class="line">	self.value = <span class="number">0</span><span class="comment">#指定默认值为0</span></span><br></pre></td></tr></table></figure>
+<h3 id="修改属性的值"><a href="#修改属性的值" class="headerlink" title="修改属性的值"></a>修改属性的值</h3><ul>
+<li>直接修改属性的值</li>
+<li>通过方法修改属性的值</li>
+<li>通过方法对属性的值进行递增</li>
+</ul>
+<h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><ul>
+<li>编写类时，并非总是要从空白开始。如果你要编写的类是另一个类现成类的特殊版本，可使用<strong>继承</strong>。</li>
+<li>一个类继承另一个类时，它将自动获得另一个类的<code>所有属性和方法</code>；原有的类称为<code>父类</code>，而新类称为<code>子类</code>。父类也称为超类（superclass）</li>
+<li><code>super()</code>是一个特殊函数，帮助Python将父类与子类关联起来。</li>
+<li>子类继承了其父类所有的属性和方法，同时还可以定义自己的属性和方法。定义子类时，必须在括号中指定父类的名称。</li>
+<li><strong>创建子类时，父类必须包含在当前文件中，且位于子类前面。</strong><h3 id="子类的方法-init"><a href="#子类的方法-init" class="headerlink" title="子类的方法__init__()"></a>子类的方法__init__()</h3></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ElectricCar</span>(<span class="title class_ inherited__">Car</span>):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">	电动汽车的独特之处</span></span><br><span class="line"><span class="string">	初始化父类的属性，再初始化电动汽车特有的属性</span></span><br><span class="line"><span class="string">	&quot;&quot;&quot;</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, make, model, year</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;初始化父类属性&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">super</span>().__init__(make, model, year)</span><br><span class="line">		self.battery_size = <span class="number">70</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">describe_battery</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;打印一条描述电瓶容量的消息&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;This car has a &quot;</span> + <span class="built_in">str</span>(self.battery_size) + <span class="string">&quot;-KWh battery.&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="重写父类的方法"><a href="#重写父类的方法" class="headerlink" title="重写父类的方法"></a>重写父类的方法</h3><p>对子类调用重写方法，将忽略父类中的方法。使用继承，可以让子类保留从父类那里继承而来的精华，并剔除不需要的糟粕。</p>
+<h3 id="将实例用作属性"><a href="#将实例用作属性" class="headerlink" title="将实例用作属性"></a>将实例用作属性</h3><p>使用代码模拟实物时，给类添加的细节越来越多：属性和方法清单以及文件都越来越长。<br>在这种情况下，可能需要将类的一部分作为一个独立的类提取出来。可以将大型类拆分成多个协同工作的小类。<br>为了使代码简洁易读、便于维护</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Battery</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;一次模拟电动汽车电瓶的简单尝试&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, battery_size=<span class="number">70</span></span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;初始化电瓶的属性&quot;&quot;&quot;</span></span><br><span class="line">		self.battery_size = battery_size</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">describe_battery</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;打印一条描述电瓶容量的消息&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;This car has a &quot;</span> + <span class="built_in">str</span>(self.battery_size) + <span class="string">&quot;-KWh battery.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">ElectricCar</span>(<span class="title class_ inherited__">Car</span>):</span><br><span class="line">	......</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, make, model, year</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;初始化父类属性&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">super</span>().__init__(make, model, year)</span><br><span class="line">		self.battery = Battery()</span><br></pre></td></tr></table></figure>
+<h2 id="导入类"><a href="#导入类" class="headerlink" title="导入类"></a>导入类</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;导入单个类&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> car <span class="keyword">import</span> Car</span><br><span class="line"><span class="comment">#import语句让Python打开模块car,并导入其中Car类</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;在一个模块中存储多个类&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;从一个模块中导入多个类&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> car <span class="keyword">import</span> Car, ElectricCar</span><br><span class="line"><span class="string">&quot;&quot;&quot;导入整个模块&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> car</span><br><span class="line">my_beetle = car.Car(<span class="string">&#x27;volkswagen&#x27;</span>, <span class="string">&#x27;beetle&#x27;</span>, <span class="number">2016</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;导入模块中的所有类&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> module_name <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;在一个模块中导入另一个模块&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;一个模块中的类依赖于另一个模块中的类&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment">#electric_car.py</span></span><br><span class="line"><span class="keyword">from</span> car <span class="keyword">import</span> Car</span><br></pre></td></tr></table></figure>
+
+<h2 id="Python标准库"><a href="#Python标准库" class="headerlink" title="Python标准库"></a>Python标准库</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;模块collections中的一个类————OrderedDict&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;OrderedDict类记录了键-值对的添加顺序,兼具列表和字典的主要优点&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> collections inport OrderedDict</span><br><span class="line">favorite_languages = OrderedDict()</span><br><span class="line"></span><br><span class="line"><span class="string">&quot;&quot;&quot;模块random包含以各种方式生成随机数的函数&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;randint返回一个位于指定范围内的整数&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">from</span> random <span class="keyword">import</span> randint</span><br><span class="line">x = randint(<span class="number">1</span>, <span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="类编码风格"><a href="#类编码风格" class="headerlink" title="类编码风格"></a>类编码风格</h2><ul>
+<li>类名应采用<code>驼峰命名法</code>，即将类名中的每个单词的首字母都大写，而不使用下划线。实例名和模块名都采用小写格式，并在单词之间加上下划线。</li>
+<li>对于每个类，都应紧跟在类定义后面包含一个文档字符串，简要描述类的功能，并遵循编写函数的文档字符串时采用的格式约定。每个模块也都应包含一个文档字符串，对其中的类可用于做什么进行描述。</li>
+<li>类中，可使用一个空行来分隔方法；在模块中。可使用两个空行来分隔类。</li>
+<li>编写导入标准模板库的import语句和编写导入你自己编写的模块的import语句之间应该间隔一个空行。</li>
+</ul>
+<hr>
+<h1 id="文件和异常"><a href="#文件和异常" class="headerlink" title="文件和异常"></a>文件和异常</h1><h2 id="从文件中读取数据"><a href="#从文件中读取数据" class="headerlink" title="从文件中读取数据"></a>从文件中读取数据</h2><h3 id="读取整个文件"><a href="#读取整个文件" class="headerlink" title="读取整个文件"></a>读取整个文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;pi_digits.txt&quot;&quot;&quot;</span></span><br><span class="line"><span class="number">3.1415926535</span></span><br><span class="line">  <span class="number">8979323846</span></span><br><span class="line">  <span class="number">2643383279</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;file_reader.py&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;pi_digits.txt&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">	contents = file_object.read()</span><br><span class="line">	<span class="built_in">print</span>(contents)</span><br><span class="line">	<span class="comment">#print(contents.rstrip())</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">使用文件之前要打开文件，函数open()接受一个参数：要打开的文件的名称</span></span><br><span class="line"><span class="string">python在当前执行的文件所在目录中查找指定的文件</span></span><br><span class="line"><span class="string">函数open()返回一个表示文件的对象</span></span><br><span class="line"><span class="string">关键字with在不再需要访问文件时将其关闭，比close()更好用更安全</span></span><br><span class="line"><span class="string">read()读取文件内容，到达文件末尾时返回一个空字符串，也会显示</span></span><br><span class="line"><span class="string">如果想要删除可以在print语句中使用rstrip()</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+<h3 id="文件路径"><a href="#文件路径" class="headerlink" title="文件路径"></a>文件路径</h3><p>python只会在当前文件夹下查找，而不会在其子文件夹中查找。可以采用<strong>相对路径</strong>或<strong>绝对路径</strong>。<br>由于在Python中反斜杠()被视为转义标记，为确保在Windows系统中万无一失，应以<strong>原始字符串</strong>的方式指定路径，即<strong>在开头的单引号前加上r</strong>。<br><code>file_path = r&#39;C:\Users\...\text_files\filename.txt&#39;</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;使用相对文件路径&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment">#在Linux和OS X中</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;text_files/pi_digits.txt&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line"><span class="comment">#在Windows中(反斜杠)</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;text_files\pi_digits.txt&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line"><span class="string">&quot;&quot;&quot;使用绝对路径&quot;&quot;&quot;</span></span><br><span class="line"><span class="comment">#在Linux和OS X中</span></span><br><span class="line">file_path = <span class="string">&#x27;/home/ehmatthes/other_files/text_files/filename.txt&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_path) <span class="keyword">as</span> file_object:</span><br><span class="line"><span class="comment">#在Windows中</span></span><br><span class="line">file_path = <span class="string">&#x27;C:\Users\ehmatthes\other_files\text_files\filename.txt&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(file_path) <span class="keyword">as</span> file_object:</span><br></pre></td></tr></table></figure>
+<h3 id="逐行读取"><a href="#逐行读取" class="headerlink" title="逐行读取"></a>逐行读取</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">	<span class="keyword">for</span> line <span class="keyword">in</span> file_object:</span><br><span class="line">		<span class="built_in">print</span>(line)</span><br><span class="line">		<span class="built_in">print</span>(line.rstrip())</span><br><span class="line"><span class="comment">#文件每行的末尾都有一个看不见的换行符,print()语句也会加上一个换行符</span></span><br></pre></td></tr></table></figure>
+<h3 id="创建一个包含文件各行内容的列表"><a href="#创建一个包含文件各行内容的列表" class="headerlink" title="创建一个包含文件各行内容的列表"></a>创建一个包含文件各行内容的列表</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">	lines = file_object.readlines()</span><br><span class="line">	<span class="comment">#从文件中读取每一行，存储在一个列表中</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">	<span class="built_in">print</span>(line.rstrip())</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用文件的内容"><a href="#使用文件的内容" class="headerlink" title="使用文件的内容"></a>使用文件的内容</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;pi_digits.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> file_object:</span><br><span class="line">	lines = file_object.readlines()</span><br><span class="line"></span><br><span class="line">pi_string = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> line <span class="keyword">in</span> lines:</span><br><span class="line">	pi_string += line.strip()</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(pi_string)</span><br><span class="line"><span class="built_in">print</span>(<span class="built_in">len</span>(pi_string))</span><br></pre></td></tr></table></figure>
+
+<h3 id="圆周率值中包含你的生日吗"><a href="#圆周率值中包含你的生日吗" class="headerlink" title="圆周率值中包含你的生日吗"></a>圆周率值中包含你的生日吗</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">birthday = <span class="built_in">input</span>(<span class="string">&quot;Enter your birthday, in the form mmddyy:&quot;</span>)</span><br><span class="line"><span class="keyword">if</span> birthday <span class="keyword">in</span> pi_string:</span><br><span class="line">	xxxx</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	xxxx</span><br></pre></td></tr></table></figure>
+
+<h2 id="写入文件"><a href="#写入文件" class="headerlink" title="写入文件"></a>写入文件</h2><h3 id="写入空文件"><a href="#写入空文件" class="headerlink" title="写入空文件"></a>写入空文件</h3><p>要将文本写入文件，需要在调用open()函数时提供另一个实参，告诉python你要写入打开的文件。<br>| 文件打开模式 | ‘r’      | ‘w’      | ‘a’      | ‘r+’       | 忽略模式实参 |<br>| ———— | ——– | ——– | ——– | ———- | ———— |<br>|              | 读取模式 | 写入模式 | 附加模式 | 读取和写入 | 默认只读     |</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;programming.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> file_object:</span><br><span class="line">	file_object.write(<span class="string">&quot;I love gramming.&quot;</span>)</span><br><span class="line">	<span class="comment">#写入多行</span></span><br><span class="line">	<span class="comment">#file_object.write(&quot;I love creating new games.&quot;)</span></span><br><span class="line">	<span class="comment">#write()不会在写入的文件末尾添加换行符，需要自己加上&#x27;\n&#x27;</span></span><br></pre></td></tr></table></figure>
+<h3 id="附加到文件"><a href="#附加到文件" class="headerlink" title="附加到文件"></a>附加到文件</h3><p>附加模式下，写入到文件中的内容都添加到文件末尾。如果指定的文件不存在，Python将为你创建一个空文件。</p>
+<h2 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h2><p>Python使用称为<strong>异常</strong>的特殊对象来管理程序执行期间发生的错误。<br>异常是使用try-except代码块处理的。try-except代码块让Python执行指定的操作，同时告诉Python发生异常时怎么办。<br>使用try-except代码块时，即便出现异常，程序也将继续执行：显示你编写的友好的错误消息，而不是令用户迷惑的traceback。</p>
+<h3 id="处理ZeroDivisionError异常"><a href="#处理ZeroDivisionError异常" class="headerlink" title="处理ZeroDivisionError异常"></a>处理ZeroDivisionError异常</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="number">5</span>/<span class="number">0</span>)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;You can&#x27;t divide by zero!&quot;</span>)</span><br><span class="line"><span class="string">&quot;&quot;&quot;如果try-except代码块后面还有其他代码，程序将接着运行&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用异常避免崩溃"><a href="#使用异常避免崩溃" class="headerlink" title="使用异常避免崩溃"></a>使用异常避免崩溃</h3><p>程序崩溃可不好。但让用户看到traceback也不是好主意。<br>不懂技术的用户会被它们搞糊涂，而且如果用户怀有恶意，<strong>他会通过traceback获悉你不希望他知道的信息</strong>。<br>例如，他将知道你的程序文件的名称，还将看到部分不能正确运行的代码。有时候，训练有素的攻击者可根据这些信息判断出可对你的代码发起什么样的攻击。</p>
+<h3 id="else代码块"><a href="#else代码块" class="headerlink" title="else代码块"></a>else代码块</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	answer = <span class="built_in">int</span>(a) / <span class="built_in">int</span>(b)</span><br><span class="line"><span class="keyword">except</span> ZeroDivisionError:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;You can&#x27;t divide by zero!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span>(answer)</span><br></pre></td></tr></table></figure>
+
+<h3 id="处理FileNotFoundError异常"><a href="#处理FileNotFoundError异常" class="headerlink" title="处理FileNotFoundError异常"></a>处理FileNotFoundError异常</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">filename = <span class="string">&#x27;alice.txt&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f_obj:</span><br><span class="line">		contents = f_obj.read()</span><br><span class="line"><span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">	msg = <span class="string">&quot;Sorry, the file &quot;</span> + filename + <span class="string">&quot; does not exist.&quot;</span></span><br><span class="line">	<span class="built_in">print</span>(msg)	</span><br><span class="line">	<span class="comment">#pass </span></span><br><span class="line"><span class="string">&quot;&quot;&quot;什么都不做的话，except中可以使用pass&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="存储数据"><a href="#存储数据" class="headerlink" title="存储数据"></a>存储数据</h2><p>使用模块json(JavaScript Object Notation)来存储数据。<br>模块json让你能够将简单的Python数据结构转储到文件中，并在程序再次运行时加载该文件中的数据。</p>
+<h3 id="使用json-dump-和json-load"><a href="#使用json-dump-和json-load" class="headerlink" title="使用json.dump()和json.load()"></a>使用json.dump()和json.load()</h3><p>函数json.dump()接受两个实参：<code>要存储的数据</code>以及<code>可用于存储数据的文件对象</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">numbers = [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>]</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&#x27;numbers.json&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">	json.dump(numbers, f_obj)</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">查看内容，数据的存储格式与Python一样</span></span><br><span class="line"><span class="string">[2, 3, 5, 7, 11, 13]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用json.load()将这个列表读取到内存中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">filename = <span class="string">&#x27;numbers.json&#x27;</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">	numbers = json.load(f_obj)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(numbers)</span><br><span class="line"><span class="string">&quot;&quot;&quot;这是一种在程序中共享数据的简单方式&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="保存和读取用户生成的数据"><a href="#保存和读取用户生成的数据" class="headerlink" title="保存和读取用户生成的数据"></a>保存和读取用户生成的数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#remember_me.py</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果以前存储了用户名，就加载它</span></span><br><span class="line"><span class="comment">#否则，就提示用户输入用户名并存储它</span></span><br><span class="line">filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f_obj:</span><br><span class="line">		username = json.load(f_obj)</span><br><span class="line"><span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">	username = <span class="built_in">input</span>(<span class="string">&quot;What is your name? &quot;</span>)</span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">		json.dump(username, f_obj)</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;We will remember you when you come back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Welcome back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="重构"><a href="#重构" class="headerlink" title="重构"></a>重构</h2><p>你经常会遇到这样的情况：代码能够正确的运行，但可做进一步的改进——把代码划分成一系列完成具体工作的函数。这样的过程被称为<strong>重构</strong>。<br>重构可以让代码更清晰、更易于理解、更容易扩展。</p>
+<p>要重构<code>remember_me.py</code>，可以将大部分逻辑放在一个或多个函数中。<code>remember_me.py</code>的重点是问候用户，因此我们将其所有代码放在一个名为greet_user()的函数中：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet_user</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;问候用户，并指出其名字&quot;&quot;&quot;</span></span><br><span class="line">	filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f_obj:</span><br><span class="line">			username = json.load(f_obj)</span><br><span class="line">	<span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">		username = <span class="built_in">input</span>(<span class="string">&quot;What is your name? &quot;</span>)</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">			json.dump(username, f_obj)</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;We will remember you when you come back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Welcome back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line"></span><br><span class="line">greet_user()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>下面重构**greet_user()**，让其不执行那么多任务。为此，我们首先将获取存储的用户名的代码移到另一个函数中：</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_stored_username</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;如果存储了用户名，就获取它&quot;&quot;&quot;</span></span><br><span class="line">	filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f_obj:</span><br><span class="line">			username = json.load(f_obj)</span><br><span class="line">	<span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> username</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet_user</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;问候用户，并指出其名字&quot;&quot;&quot;</span></span><br><span class="line">	username = get_stored_username()</span><br><span class="line">	<span class="keyword">if</span> username:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Welcome back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		username = <span class="built_in">input</span>(<span class="string">&quot;What is your name? &quot;</span>)</span><br><span class="line">		filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">			json.dump(username, f_obj)</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&quot;We will remember you when you come back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">	</span><br><span class="line">greet_user()</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们还需要将<strong>greet_user()</strong> 中的另一个代码块提取出来，将没有存储用户名时提示用户输入的代码放到一个独立的函数中。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_stored_username</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;如果存储了用户名，就获取它&quot;&quot;&quot;</span></span><br><span class="line">	filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line">	<span class="keyword">try</span>:</span><br><span class="line">		<span class="keyword">with</span> <span class="built_in">open</span>(filename) <span class="keyword">as</span> f_obj:</span><br><span class="line">			username = json.load(f_obj)</span><br><span class="line">	<span class="keyword">except</span> FileNotFoundError:</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		<span class="keyword">return</span> username</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">get_new_username</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;提示用户输入用户名&quot;&quot;&quot;</span></span><br><span class="line">	username = <span class="built_in">input</span>(<span class="string">&quot;What is your name? &quot;</span>)</span><br><span class="line">	filename = <span class="string">&#x27;username.json&#x27;</span></span><br><span class="line">	<span class="keyword">with</span> <span class="built_in">open</span>(filename, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f_obj:</span><br><span class="line">		json.dump(username, f_obj)</span><br><span class="line">	<span class="keyword">return</span> username</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">greet_user</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;问候用户，并指出其名字&quot;&quot;&quot;</span></span><br><span class="line">	username = get_stored_username()</span><br><span class="line">	<span class="keyword">if</span> username:</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Welcome back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">	<span class="keyword">else</span>:</span><br><span class="line">		username = get_new_username()</span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;We will remember you when you come back, &quot;</span> + username + <span class="string">&quot;!&quot;</span>)</span><br><span class="line">	</span><br><span class="line">greet_user()</span><br></pre></td></tr></table></figure>
+<hr>
+<h1 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h1><h2 id="测试函数"><a href="#测试函数" class="headerlink" title="测试函数"></a>测试函数</h2><ul>
+<li>Python标准库中的模块<code>unittest</code>提供了代码测试工具。</li>
+<li>单元测试用于核实函数的某个方面没有问题；测试用例是一组单元测试，这些单元测试一起核实函数在各种情形下的行为都符合要求。良好的测试样例考虑到了函数可能收到的各种输入，包含针对所有这些情形的测试。</li>
+<li><strong>全覆盖式</strong>测试样例包含一整套单元测试，涵盖了各种可能的函数使用方式。对于大型项目，要实现全覆盖可能很难。通常，最初只要针对代码的重要行为编写测试即可，等项目被广泛使用时再考虑全覆盖。</li>
+</ul>
+<h3 id="可通过的测试"><a href="#可通过的测试" class="headerlink" title="可通过的测试"></a>可通过的测试</h3><blockquote>
+<p>创建测试样例的语法需要一段时间才能习惯，但测试样例创建后，再添加针对函数的单元测试就简单了。<br>要为函数编写测试样例，可先导入模块unittest以及要测试的函数，再创建一个继承unittest.TestCase的类，并编写一系列方法对函数行为的不同方面进行测试。</p>
+</blockquote>
+<p>test_name_function.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> name_function <span class="keyword">import</span> get_formatted_name</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">NamesTestCase</span>(unittest.TestCase):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;测试name_function.py&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">test_first_last_name</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;能够正确地处理像Janis Joplin这样的名字吗?&quot;&quot;&quot;</span></span><br><span class="line">		formatted_name = get_formatted_name(<span class="string">&#x27;Janis&#x27;</span>, <span class="string">&#x27;Joplin&#x27;</span>)</span><br><span class="line">		self.assertEqule(formatted_name, <span class="string">&#x27;Janis Joplin&#x27;</span>)</span><br><span class="line"></span><br><span class="line">unittest.main()</span><br></pre></td></tr></table></figure>
+<ol>
+<li>我们运行test_name_function.py时，所有以<code>test_</code>打头的方法都将自动运行。</li>
+<li>  unittest类最常用的功能之一：一个<strong>断言</strong>方法。<br>断言方法用来核实得到的结果是否与期望的结果一致。</li>
+<li>代码行<code>unittest.main()</code>让Python运行这个文件中的测试</li>
+</ol>
+<h3 id="不可通过的测试"><a href="#不可通过的测试" class="headerlink" title="不可通过的测试"></a>不可通过的测试</h3><p><strong>测试未通过时怎么办呢？</strong><br>如果你检查的条件没错，测试通过了，意味着函数的行为是对的，而测试未通过，意味着你编写的新代码有错，因此测试未通过时不要修改测试，而应修复导致测试不能通过的代码：检查刚对函数所做的修改，找出导致函数行为不符合预期的修改。</p>
+<h3 id="添加新测试"><a href="#添加新测试" class="headerlink" title="添加新测试"></a>添加新测试</h3><p><code>def test_first_last_middle_name(self):</code></p>
+<h2 id="测试类"><a href="#测试类" class="headerlink" title="测试类"></a>测试类</h2><h3 id="各种断言方法"><a href="#各种断言方法" class="headerlink" title="各种断言方法"></a>各种断言方法</h3><p>python在unittest.TestCase类中提供了很多断言方法。<em>断言方法检查你认为应该满足的条件是否确实满足。</em><br>以下列出常用的6个断言方法，你只能在继承unittest.TestCase的类中使用这些方法。<br>| 方法                    | 用途               |<br>| ———————– | —————— |<br>| assertEqual(a,b)        | 核实ab             |<br>| assertNotFound(a,b)     | 核实a!=b           |<br>| assertTrue(x)           | 核实x为True        |<br>| assertFalse(x)          | 核实x为False       |<br>| assertIn(item, list)    | 核实item在list中   |<br>| assertNotIn(item, list) | 核实item不在list中 |</p>
+<h3 id="一个要测试的类"><a href="#一个要测试的类" class="headerlink" title="一个要测试的类"></a>一个要测试的类</h3><p>类的测试和函数的测试相似——你所做的大部分工作都是测试类中方法的行为，但存在一些不同之处，下面来编写一个类进行测试。<br>来看一个帮助管理匿名调查的类：<br>survey.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">AnnoymousSurvey</span>():</span><br><span class="line">	<span class="string">&quot;&quot;&quot;收集匿名调查问卷的答案&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, question</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;存储一个问题，并为存储答案做准备&quot;&quot;&quot;</span></span><br><span class="line">		self.question = question</span><br><span class="line">		self.responses = []</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">show_questions</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;显示调查问卷&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(self.question)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">store_quesion</span>(<span class="params">self, new_response</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;存储单份调查答卷&quot;&quot;&quot;</span></span><br><span class="line">		self.response.append(new_response)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">show_results</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;显示收集到的所有答卷&quot;&quot;&quot;</span></span><br><span class="line">		<span class="built_in">print</span>(<span class="string">&quot;Survey results:&quot;</span>)</span><br><span class="line">		<span class="keyword">for</span> response <span class="keyword">in</span> self.responses:</span><br><span class="line">			<span class="built_in">print</span>(<span class="string">&#x27;- &#x27;</span> + response)</span><br></pre></td></tr></table></figure>
+<h3 id="测试AnonymousSurvey类"><a href="#测试AnonymousSurvey类" class="headerlink" title="测试AnonymousSurvey类"></a>测试AnonymousSurvey类</h3><p>test_survey.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> survey <span class="keyword">import</span> AnonymousSurvey</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestAnnoymousSurvey</span>(unittest.TestCase):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;针对AnnoymousSurvey类的测试&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">test_store_single_response</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;测试单个答案会被妥善地存储&quot;&quot;&quot;</span></span><br><span class="line">		question = <span class="string">&quot;What language did you first learn to speak?&quot;</span></span><br><span class="line">		my_survey = AnnoymousSurvey(question)</span><br><span class="line">		my_survey.store_response(<span class="string">&#x27;English&#x27;</span>)</span><br><span class="line"></span><br><span class="line">		self.assertIn(<span class="string">&#x27;English&#x27;</span>, my_survey.responses)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">test_store_three_responses</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;测试三个答案会被妥善地存储&quot;&quot;&quot;</span></span><br><span class="line">		question = <span class="string">&quot;What language did you first learn to speak?&quot;</span></span><br><span class="line">		my_survey = AnnoymousSurvey(question)</span><br><span class="line">		responses = [<span class="string">&#x27;English&#x27;</span>, <span class="string">&#x27;Spanish&#x27;</span>, <span class="string">&#x27;Mandarin&#x27;</span>]</span><br><span class="line">		<span class="keyword">for</span> response <span class="keyword">in</span> responses:</span><br><span class="line">			my_survey.store_response(response)</span><br><span class="line">		<span class="keyword">for</span> response <span class="keyword">in</span> responses:</span><br><span class="line">			self.assertIn(response, my_survey.responses)</span><br><span class="line"></span><br><span class="line">unittest.main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法setUp"><a href="#方法setUp" class="headerlink" title="方法setUp()"></a>方法setUp()</h3><p><code>unittest.TestCase</code>类包含方法**setUp()**，让我们只需创建这些对象一次，并在每个测试方法中使用它们。如果你在<code>TestCase</code>类中包含了方法setUp()，Python将先运行它，再运行各个以test_打头的方法。这样你编写的每个测试方法都可以使用在方法setUp()中创建的对象了。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> unittest</span><br><span class="line"><span class="keyword">from</span> survey <span class="keyword">import</span> AnonymousSurvey</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">TestAnnoymousSurvey</span>(unittest.TestCase):</span><br><span class="line">	<span class="string">&quot;&quot;&quot;针对AnnoymousSurvey类的测试&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">setUp</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">		创建一个调查对象和一组答案，供使用的测试方法使用</span></span><br><span class="line"><span class="string">		&quot;&quot;&quot;</span></span><br><span class="line">		question = <span class="string">&quot;What language did you first learn to speak?&quot;</span></span><br><span class="line">		self.my_survey = AnnoymousSurvey(question)</span><br><span class="line">		self.responses = [<span class="string">&#x27;English&#x27;</span>, <span class="string">&#x27;Spanish&#x27;</span>, <span class="string">&#x27;Mandarin&#x27;</span>]</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">test_store_single_response</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;测试单个答案会被妥善地存储&quot;&quot;&quot;</span></span><br><span class="line">		self.my_survey.store_response(self.response[<span class="number">0</span>])</span><br><span class="line">		self.assertIn(self.response[<span class="number">0</span>], self.my_survey.responses)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">def</span> <span class="title function_">test_store_three_responses</span>(<span class="params">self</span>):</span><br><span class="line">		<span class="string">&quot;&quot;&quot;测试三个答案会被妥善地存储&quot;&quot;&quot;</span></span><br><span class="line">		<span class="keyword">for</span> response <span class="keyword">in</span> self.responses:</span><br><span class="line">			self.my_survey.store_response(response)</span><br><span class="line">		<span class="keyword">for</span> response <span class="keyword">in</span> self.responses:</span><br><span class="line">			self.assertIn(response, self.my_survey.responses)</span><br><span class="line"></span><br><span class="line">unittest.main()</span><br></pre></td></tr></table></figure>
+
+<p>方法setUp()做了两件事情：</p>
+<ul>
+<li>创建一个调查对象 </li>
+<li> 创建一个答案列表</li>
+</ul>
+<p>存储这两个东西的变量名包含前缀self(即存储在属性中)，因此可以在类的任何地方使用。</p>
+<blockquote>
+<p>运行测试用例时，每完成一个单元测试,，Python都会打印一个字符：测试通过时打印一个句点；测试引发错误时打印一个E；测试导致断言失败时打印一个F。这就是你运行测试用例时，在输出的第一行中看到的句点和字符数量各不相同的原因。</p>
+</blockquote>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/python/" class="">
+              python
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>Jan</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/03/24/python-bian-cheng-cong-ru-men-dao-shi-jian/" target="_blank" title="《Python编程：从入门到实践》">https://Jan-nku.github.io/2023/03/24/python-bian-cheng-cong-ru-men-dao-shi-jian/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" class="lazyload placeholder" data-srcset="https://pic4.zhimg.com/80/v2-83ea273b88e119d9615aed0d89aad4ab_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/03/24/pandas-xue-xi/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">pandas学习</div>
+      </div>
+      
+      <!-- <div class="content">
+        Pandas学习Pandas应用1234567import pandas as pdmydataset = &#123;
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/03/22/pytorch-shen-du-xue-xi/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">Pytorch深度学习</div>
+      </div>
+      <!-- <div class="content">
+        Pytorch学习Python学习法宝函数学会使用dir()和help()
+Pytorch加载数据
+Dataset：提供
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-ctn"></div> 
+
+<!-- 修改css与js文件如下即可-->
+<!-- <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script> -->
+<link rel='stylesheet' href='https://unpkg.com/gitment@0.0.3/style/default.css'>
+
+
+<style>
+  .gitment-comment-header {
+    margin: 0;
+    padding: 5px;
+  }
+</style>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  
+<aside id='l_side'>
+  
+    
+      
+        <section class="widget side_blogger">
+  <div class='content'>
+    
+    
+      <div class='text'>
+        
+          <h2>NKU-Jan</h2>
+        
+        
+          <p>CS Blog</p>
+
+        
+        
+          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/jan_nku@163.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+      
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%88%97%E8%A1%A8"><span class="toc-text">列表</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%92%8C%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="toc-text">添加和删除元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E7%BB%87%E5%88%97%E8%A1%A8"><span class="toc-text">组织列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E5%AD%97%E5%88%97%E8%A1%A8"><span class="toc-text">创建数字列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%88%97%E8%A1%A8%E7%9A%84%E4%B8%80%E9%83%A8%E5%88%86"><span class="toc-text">使用列表的一部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%83%E7%BB%84"><span class="toc-text">元组</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AD%97%E5%85%B8"><span class="toc-text">字典</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%AD%97%E5%85%B8"><span class="toc-text">遍历字典</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B5%8C%E5%A5%97"><span class="toc-text">嵌套</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E5%85%B8%E5%88%97%E8%A1%A8"><span class="toc-text">字典列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E5%AD%98%E5%82%A8%E5%88%97%E8%A1%A8"><span class="toc-text">在字典中存储列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8%E5%AD%97%E5%85%B8%E4%B8%AD%E5%AD%98%E5%82%A8%E5%AD%97%E5%85%B8"><span class="toc-text">在字典中存储字典</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E4%B8%8E%E5%BE%AA%E7%8E%AF"><span class="toc-text">输入与循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%A0%87%E5%BF%97"><span class="toc-text">使用标志</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-text">函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%AE%9E%E5%8F%82"><span class="toc-text">传递实参</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E5%88%97%E8%A1%A8"><span class="toc-text">传递列表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A6%81%E6%AD%A2%E5%87%BD%E6%95%B0%E4%BF%AE%E6%94%B9%E5%88%97%E8%A1%A8"><span class="toc-text">禁止函数修改列表</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E9%80%92%E4%BB%BB%E6%84%8F%E6%95%B0%E9%87%8F%E7%9A%84%E5%AE%9E%E5%8F%82"><span class="toc-text">传递任意数量的实参</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E5%87%BD%E6%95%B0%E5%AD%98%E5%82%A8%E5%9C%A8%E6%A8%A1%E5%9D%97%E4%B8%AD"><span class="toc-text">将函数存储在模块中</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-text">类</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%92%8C%E4%BD%BF%E7%94%A8%E7%B1%BB"><span class="toc-text">创建和使用类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BADog%E7%B1%BB"><span class="toc-text">创建Dog类</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B9%E6%B3%95-init"><span class="toc-text">方法__init__()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E7%B1%BB%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B"><span class="toc-text">根据类创建实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%B1%BB%E5%92%8C%E5%AE%9E%E4%BE%8B"><span class="toc-text">使用类和实例</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%99%E5%B1%9E%E6%80%A7%E6%8C%87%E5%AE%9A%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="toc-text">给属性指定默认值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E5%B1%9E%E6%80%A7%E7%9A%84%E5%80%BC"><span class="toc-text">修改属性的值</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%A7%E6%89%BF"><span class="toc-text">继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%90%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95-init"><span class="toc-text">子类的方法__init__()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%86%99%E7%88%B6%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">重写父类的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86%E5%AE%9E%E4%BE%8B%E7%94%A8%E4%BD%9C%E5%B1%9E%E6%80%A7"><span class="toc-text">将实例用作属性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E7%B1%BB"><span class="toc-text">导入类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Python%E6%A0%87%E5%87%86%E5%BA%93"><span class="toc-text">Python标准库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B1%BB%E7%BC%96%E7%A0%81%E9%A3%8E%E6%A0%BC"><span class="toc-text">类编码风格</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%92%8C%E5%BC%82%E5%B8%B8"><span class="toc-text">文件和异常</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8E%E6%96%87%E4%BB%B6%E4%B8%AD%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">从文件中读取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E5%8F%96%E6%95%B4%E4%B8%AA%E6%96%87%E4%BB%B6"><span class="toc-text">读取整个文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84"><span class="toc-text">文件路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%90%E8%A1%8C%E8%AF%BB%E5%8F%96"><span class="toc-text">逐行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8C%85%E5%90%AB%E6%96%87%E4%BB%B6%E5%90%84%E8%A1%8C%E5%86%85%E5%AE%B9%E7%9A%84%E5%88%97%E8%A1%A8"><span class="toc-text">创建一个包含文件各行内容的列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%96%87%E4%BB%B6%E7%9A%84%E5%86%85%E5%AE%B9"><span class="toc-text">使用文件的内容</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%86%E5%91%A8%E7%8E%87%E5%80%BC%E4%B8%AD%E5%8C%85%E5%90%AB%E4%BD%A0%E7%9A%84%E7%94%9F%E6%97%A5%E5%90%97"><span class="toc-text">圆周率值中包含你的生日吗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E6%96%87%E4%BB%B6"><span class="toc-text">写入文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E5%85%A5%E7%A9%BA%E6%96%87%E4%BB%B6"><span class="toc-text">写入空文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%99%84%E5%8A%A0%E5%88%B0%E6%96%87%E4%BB%B6"><span class="toc-text">附加到文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%82%E5%B8%B8"><span class="toc-text">异常</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86ZeroDivisionError%E5%BC%82%E5%B8%B8"><span class="toc-text">处理ZeroDivisionError异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%BC%82%E5%B8%B8%E9%81%BF%E5%85%8D%E5%B4%A9%E6%BA%83"><span class="toc-text">使用异常避免崩溃</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#else%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">else代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86FileNotFoundError%E5%BC%82%E5%B8%B8"><span class="toc-text">处理FileNotFoundError异常</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%95%B0%E6%8D%AE"><span class="toc-text">存储数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8json-dump-%E5%92%8Cjson-load"><span class="toc-text">使用json.dump()和json.load()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%9D%E5%AD%98%E5%92%8C%E8%AF%BB%E5%8F%96%E7%94%A8%E6%88%B7%E7%94%9F%E6%88%90%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-text">保存和读取用户生成的数据</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E6%9E%84"><span class="toc-text">重构</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-text">测试代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%87%BD%E6%95%B0"><span class="toc-text">测试函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E9%80%9A%E8%BF%87%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="toc-text">可通过的测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8D%E5%8F%AF%E9%80%9A%E8%BF%87%E7%9A%84%E6%B5%8B%E8%AF%95"><span class="toc-text">不可通过的测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%B0%E6%B5%8B%E8%AF%95"><span class="toc-text">添加新测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E7%B1%BB"><span class="toc-text">测试类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%84%E7%A7%8D%E6%96%AD%E8%A8%80%E6%96%B9%E6%B3%95"><span class="toc-text">各种断言方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E8%A6%81%E6%B5%8B%E8%AF%95%E7%9A%84%E7%B1%BB"><span class="toc-text">一个要测试的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95AnonymousSurvey%E7%B1%BB"><span class="toc-text">测试AnonymousSurvey类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B9%E6%B3%95setUp"><span class="toc-text">方法setUp()</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-31</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/">ch6实战网络层，自定义拓扑结构</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/30/ch5-shi-zhan-lian-lu-ceng/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-30</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/30/ch5-shi-zhan-lian-lu-ceng/">ch5实战链路层</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/30/ch4-shi-zhan-reflector-repeater/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-30</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/30/ch4-shi-zhan-reflector-repeater/">ch4实战 Reflector &amp; Repeater</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/29/ch3-kong-zhi-luo-ji-yu-wan-zheng-de-gong-zuo-liu/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-29</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/29/ch3-kong-zhi-luo-ji-yu-wan-zheng-de-gong-zuo-liu/">ch3控制逻辑与完整的工作流</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/28/ch2-ji-chu-yu-fa-he-parser/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-e5c15010b8ba4608a1974403a02a2da0_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-e5c15010b8ba4608a1974403a02a2da0_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-28</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/28/ch2-ji-chu-yu-fa-he-parser/">ch2基础语法和parser</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2019 - 2020 <a target="_blank" rel="noopener" href="https://github.com/yuang01">yuang01</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/yuang01/theme">Bamboo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="/js/fancybox/jquery.fancybox.min.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+   
+
+<!-- 评论所需js -->
+
+  
+    <script src='https://unpkg.com/gitment@0.0.3/dist/gitment.browser.js'></script>
+
+<script>
+comment_el = '#gitment-ctn';
+load_gitment = function () {
+  if ($(comment_el).length) {
+    var gitment = new Gitment({
+      id: "2023/03/24/python-bian-cheng-cong-ru-men-dao-shi-jian/",
+      owner: '',
+      repo: '',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitment-ctn')
+  }
+}
+$(document).ready(load_gitment);
+document.addEventListener('pjax:complete', function () {
+    load_gitment();
+});
+</script>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>
