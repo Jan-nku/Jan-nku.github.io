@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-03-31T04:52:02.228Z</updated>
+  <updated>2023-04-15T11:13:35.011Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sketch调研</title>
+    <link href="https://jan-nku.github.io/2023/04/15/sketch-diao-yan/"/>
+    <id>https://jan-nku.github.io/2023/04/15/sketch-diao-yan/</id>
+    <published>2023-04-15T06:45:52.000Z</published>
+    <updated>2023-04-15T11:13:35.011Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;Sketch调研&quot;&gt;&lt;a href=&quot;#Sketch调研&quot; class=&quot;headerlink&quot; title=&quot;Sketch调研&quot;&gt;&lt;/a&gt;Sketch调研&lt;/h1&gt;&lt;h2 id=&quot;Measurement-Tasks&quot;&gt;&lt;a</summary>
+        
+      
+    
+    
+    
+    <category term="sketch" scheme="https://jan-nku.github.io/categories/sketch/"/>
+    
+    
+    <category term="sketch" scheme="https://jan-nku.github.io/tags/sketch/"/>
+    
+    <category term="网络测量" scheme="https://jan-nku.github.io/tags/%E7%BD%91%E7%BB%9C%E6%B5%8B%E9%87%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>ch6实战网络层，自定义拓扑结构</title>
@@ -498,33 +525,6 @@
     
     
     <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>无线网安全性</title>
-    <link href="https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/"/>
-    <id>https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/</id>
-    <published>2023-03-15T16:00:00.000Z</published>
-    <updated>2023-03-21T03:41:59.599Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;无线局域网标准&quot;&gt;&lt;a href=&quot;#无线局域网标准&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
-    
-    <category term="无线网" scheme="https://jan-nku.github.io/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/"/>
     
   </entry>
   
