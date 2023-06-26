@@ -1,0 +1,2887 @@
+<!DOCTYPE html>
+<html>
+  <!-- meta/link... -->
+  
+
+
+
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+  <title>数据安全概述 | Jan&#39;s Blog</title>
+
+  <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://at.alicdn.com/t/font_1911880_c1nvbyezg17.css">
+  <link href="https://unpkg.com/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
+  <link href="/js/swiper/swiper@5.4.1.min.css" rel="stylesheet">
+  
+  
+    <script>
+        var themeModelId = '';
+        if (themeModelId) {
+            localStorage.setItem('modelId', themeModelId);
+        }
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/gh/yuang01/live2d-widget@latest/autoload.js"></script>
+    <script>
+        var live2dOpen = eval('true') || false;
+        if (!live2dOpen) {
+            localStorage.setItem('waifu-display', 1609323474481);
+        }
+    </script>
+  
+  
+  
+<link rel="stylesheet" href="/css/animate.min.css">
+
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/fancybox/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="/js/shareJs/share.min.css">
+
+  
+  <style>
+        @media (max-width: 992px) {
+            #waifu {
+                display: none;
+            }
+        }
+    </style>
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+
+    
+
+    <!-- import link -->
+    
+        
+            
+        
+            
+        
+    
+    <!-- import script -->
+    
+        
+            
+        
+            
+        
+    
+
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="Jan's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+  
+  <!-- 依赖于jquery和vue -->
+  
+    
+<script src="https://unpkg.com/jquery@3.5.1/dist/jquery.min.js"></script>
+
+  
+
+  
+    
+<script src="https://unpkg.com/vue@2.6.11/dist/vue.min.js"></script>
+
+  
+  
+  <!-- 预加载动画 -->
+  <!-- 页面预加载动画 -->
+
+  
+    <div class="preloader_2" id="loader">
+  <div class="loader"></div>
+</div>
+
+  
+<script>
+  var endLoading = function () {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loader').classList.add("loading");
+  }
+  window.addEventListener('DOMContentLoaded',endLoading);
+</script>
+
+  <body>
+    <!-- 判断是否为暗黑风格 -->
+    <!-- 判断是否为黑夜模式 -->
+<script>
+  let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+
+  if (isDark) {
+    $(document.body).addClass('darkModel');
+  }
+</script>
+
+    <!-- 需要在上面加载的js -->
+    <script>
+  function loadScript(src, cb) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var HEAD = document.getElementsByTagName("head")[0] || document.documentElement;
+        var script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        if (cb) {
+          if (JSON.stringify(cb)) {
+            for (let p in cb) {
+              if (p == "onload") {
+                script[p] = () => {
+                  cb[p]()
+                  resolve()
+                }
+              } else {
+                script[p] = cb[p]
+                script.onload = resolve
+              }
+            }
+          } else {
+            script.onload = () => {
+              cb()
+              resolve()
+            };
+          }
+        } else {
+          script.onload = resolve
+        }
+        script.setAttribute("src", src);
+        HEAD.appendChild(script);
+      });
+    });
+  }
+
+  //https://github.com/filamentgroup/loadCSS
+  var loadCSS = function (src) {
+    return new Promise(resolve => {
+      setTimeout(function () {
+        var link = document.createElement('link');
+        link.rel = "stylesheet";
+        link.href = src;
+        link.onload = resolve;
+        document.getElementsByTagName("head")[0].appendChild(link);
+      });
+    });
+  };
+
+</script> 
+
+<!-- 轮播图所需要的js -->
+<script src="/js/swiper/swiper.min.js"></script>
+<script src="/js/swiper/vue-awesome-swiper.js"></script>
+<script src="/js/swiper/swiper.animate1.0.3.min.js"></script>
+
+<script type="text/javascript">
+  Vue.use(window.VueAwesomeSwiper)
+</script>
+
+
+  <script src="/js/vue-typed-js/index.js"></script>
+
+
+<!-- 首页的公告滚动插件的js需要重新加载 -->
+<script src="/js/vue-seamless-scroll/index.js"></script>
+
+<!-- 打字机效果js -->
+<script src="https://unpkg.com/typed.js@2.0.11"></script>
+
+
+    <div id="safearea">
+      <main class="main" id="pjax-container">
+        <!-- 头部导航 -->
+        
+<header class="header  " 
+  id="navHeader"
+  style="position: fixed;
+  left: 0; top: 0; z-index: 10;width: 100%;"
+>
+  <div class="header-content">
+    <div class="bars">
+      <div id="appDrawer" class="sidebar-image">
+  <div class="drawer-box-icon">
+    <i class="fas fa-bars" aria-hidden="true" @click="showDialogDrawer"></i>
+  </div>
+  
+  <transition name="fade">
+    <div class="drawer-box_mask" v-cloak style="display: none;" v-show="visible" @click.self="cancelDialogDrawer">
+    </div>
+  </transition>
+  <div class="drawer-box" :class="{'active': visible}">
+    <div class="drawer-box-head bg-color">
+      <img class="drawer-box-head_logo lazyload placeholder" src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+      <h3 class="drawer-box-head_title">Jan&#39;s Blog</h3>
+      <h5 class="drawer-box-head_desc">千磨万击还坚劲，任尔东西南北风</h5>
+    </div>
+    
+    <div class="drawer-box-content">
+      <ul class="drawer-box-content_menu">
+        
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/archives" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/tags" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/categories" class="drawer-menu-item-link">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/about" class="drawer-menu-item-link">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="drawer-box-content_item" style="position: relative;">
+              
+                <a href="/resume" class="drawer-menu-item-link">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+        
+          <li class="drawer-box-content_item">
+            <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io">
+              <i class="fas fa-github" aria-hidden="true"></i>
+              <span>Github</span>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appDrawer',
+    data: {
+      visible: false,
+      top: 0,
+      openArr: [],
+    },
+    computed: {
+    },
+    mounted() {
+    },
+    methods: {
+      isOpen(index) {
+        if (this.openArr.includes(index)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      openOrCloseMenu(curIndex) {
+        const index = this.openArr.indexOf(curIndex);
+        if (index !== -1) {
+          this.openArr.splice(index, 1);
+        } else {
+          this.openArr.push(curIndex);
+        }
+      },
+      showDialogDrawer() {
+        this.visible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'width: 100%; height: 100%;overflow: hidden;';
+      },
+      cancelDialogDrawer() {
+        this.visible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      }
+    },
+    created() {}
+  })
+</script>
+
+    </div>
+    <div class="blog-title" id="author-avatar">
+      
+        <div class="avatar">
+          <img src="/medias/logo.png" class="lazyload placeholder" data-srcset="/medias/logo.png" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="logo">
+        </div>
+      
+      <a href="/" class="logo">Jan&#39;s Blog</a>
+    </div>
+    <nav class="navbar">
+      <ul class="menu">
+        
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/" class="menu-item-link" title="首页">
+                  
+                    <i class="fas fa-home" aria-hidden="true"></i>
+                  
+                  <span class="name">首页</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/archives" class="menu-item-link" title="归档">
+                  
+                    <i class="fas fa-archive" aria-hidden="true"></i>
+                  
+                  <span class="name">归档</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/tags" class="menu-item-link" title="标签">
+                  
+                    <i class="fas fa-tags" aria-hidden="true"></i>
+                  
+                  <span class="name">标签</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/categories" class="menu-item-link" title="分类">
+                  
+                    <i class="fas fa-bookmark" aria-hidden="true"></i>
+                  
+                  <span class="name">分类</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/about" class="menu-item-link" title="关于">
+                  
+                  <span class="name">关于</span>
+                </a>
+              
+            </li>
+          
+            <li class="menu-item" style="position: relative;">
+              
+                <a href="/resume" class="menu-item-link" title="简历">
+                  
+                  <span class="name">简历</span>
+                </a>
+              
+            </li>
+          
+        
+      </ul>
+      
+      
+        <div id="appSearch">
+  <div class="search"  @click="showDialog()"><i class="fas fa-search" aria-hidden="true"></i></div>
+  <transition name="fade">
+    <div class="message-box_wrapper" style="display: none;" v-cloak v-show="dialogVisible" @click.self="cancelDialogVisible()">
+      <div class="message-box animated bounceInDown">
+        <h2>
+          <span>
+            <i class="fas fa-search" aria-hidden="true"></i>
+            <span class="title">本地搜索</span>
+          </span>
+          <i class="fas fa-times close" pointer style="float:right;" aria-hidden="true" @click.self="cancelDialogVisible()"></i>
+        </h2>
+        <form class="site-search-form">
+          <input type="text"
+            placeholder="请输入关键字"
+            id="local-search-input" 
+            @click="getSearchFile()"
+            class="st-search-input"
+            v-model="searchInput"
+          />
+        </form>
+        <div class="result-wrapper">
+          <div id="local-search-result" class="local-search-result-cls"></div>
+        </div>
+      </div>
+    </div>
+  </transition>
+</div>
+<script src="/js/local_search.js"></script>
+<script>
+  var body = document.body || document.documentElement || window;
+  var vm = new Vue({
+    el: '#appSearch',
+    data: {
+      dialogVisible: false,
+      searchInput: '',
+      top: 0,
+    },
+    computed: {
+    },
+    mounted() {
+      window.addEventListener('pjax:complete', () => {
+        this.cancelDialogVisible();
+      })
+    },
+    methods: {
+      showDialog() {
+        this.dialogVisible = true;
+        // 防止页面滚动，只能让弹框滚动
+        this.top = $(document).scrollTop()
+        body.style.cssText = 'overflow: hidden;';
+      },
+      getSearchFile() {
+        if (!this.searchInput) {
+          getSearchFile("/search.xml");
+        }
+      },
+      cancelDialogVisible() {
+        this.dialogVisible = false;
+        body.removeAttribute('style');
+        $(document).scrollTop(this.top)
+      },
+    },
+    created() {}
+  })
+</script>
+<!-- 解决刷新页面闪烁问题，可以在元素上添加display: none, 或者用vue.extend方法，详情：https://blog.csdn.net/qq_31393401/article/details/81017912 -->
+<!-- 下面是搜索基本写法 -->
+<!-- <script type="text/javascript" id="local.search.active">
+  var inputArea = document.querySelector("#local-search-input");
+  inputArea.onclick   = function(){ getSearchFile(); this.onclick = null }
+  inputArea.onkeydown = function(){ if(event.keyCode == 13) return false }
+</script> -->
+
+      
+
+    </nav>
+  </div>
+  
+    <a target="_blank" rel="noopener" href="https://github.com/Jan-nku/Jan-nku.github.io" class="github-corner color-primary" aria-label="View source on GitHub"><svg width="60" height="60" viewBox="0 0 250 250" style="fill:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+  
+  
+</header>
+        <!-- 内容区域 -->
+        
+ <!-- prismjs 代码高亮 -->
+ 
+
+
+<div class="bg-dark-floor" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -1;"></div>
+
+
+  <!-- 文章详情页顶部图片和标题 -->
+
+
+
+
+<div class="post-detail-header" id="thumbnail_canvas" style="background-repeat: no-repeat; background-size: cover; 
+  background-position: center center;position: relative;background-image:url('https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp')">
+  <div class="post-detail-header-mask"></div>
+  <canvas id="header_canvas"style="position:absolute;bottom:0;pointer-events:none;"></canvas>
+  
+  <div class="post-detail-header_info-box">
+    <div class="title-box">
+      <span class="title">
+        数据安全概述
+      </span>
+    </div>
+    
+    
+      
+        <span class="post-detail-header_date">
+          <i class="fas fa-calendar"></i> 发表于：2023-06-22 |
+        </span>
+      
+
+      
+        <span class="post-detail-header_categories">
+          <i class="iconfont iconbookmark1"></i> 分类：
+          
+            <a href="/categories/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" class="post-detail-header_category">
+              数据安全
+            </a>
+          
+        </span>
+      
+
+      
+        <div class="post-detail-header_wordcount">
+          <span class="totalcount">
+            <i class="fas fa-file-text-o"></i> 字数统计: 6.4k |
+          </span>
+  
+          <span class="min2read">
+            <i class="fas fa-clock"></i> 阅读时长: 22分钟 |
+          </span>
+  
+          
+            <span class="reading">
+              <i class="fas fa-eye"></i> 阅读量：<span id="busuanzi_value_page_pv"></span>
+            </span>
+          
+        </div>
+      
+    
+  </div>
+  
+  
+    <script src="/js/bubble/bubble.js"></script>
+  
+</div>
+
+
+
+
+
+<div class="post-detail-content post-row" 
+  style="padding-top: 0px;">
+  <div class="main-content">
+    <article class="post post-detail">
+      <div class="post-content">
+        <h1 id="密码技术篇"><a href="#密码技术篇" class="headerlink" title="密码技术篇"></a>密码技术篇</h1><h2 id="密码基础"><a href="#密码基础" class="headerlink" title="密码基础"></a>密码基础</h2><ul>
+<li>基本概念<ul>
+<li>学术内涵<ul>
+<li>数据、数据处理、数据安全、隐私信息、隐私保护</li>
+<li>可信计算、机密计算、密文计算、安全多方计算、隐私计算</li>
+</ul>
+</li>
+<li>常见符号<ul>
+<li>模p整数域、字符串相关、随机采样</li>
+</ul>
+</li>
+<li>算法复杂度<ul>
+<li>多项式时间、指数时间、亚指数时间</li>
+</ul>
+</li>
+<li>P和NP问题</li>
+<li>密码概念</li>
+</ul>
+</li>
+<li>对称密码<ul>
+<li>分组密码、序列密码</li>
+<li>基本设计思想<ul>
+<li>混淆：是一种使密钥与密文之间的关系尽可能模糊的加密操作</li>
+<li>扩散：是一种为了隐藏明文的统计特性而将一个明文符号的影响扩散到多个密文符号的加密操作</li>
+</ul>
+</li>
+<li>分组密码工作模式</li>
+</ul>
+</li>
+<li>公钥密码<ul>
+<li>基本概念<ul>
+<li>加解密</li>
+<li>数字签名</li>
+<li>对称密码、非对称密码优缺点</li>
+<li>安全性</li>
+</ul>
+</li>
+<li>RSA算法</li>
+<li>Elgamal算法</li>
+<li>椭圆曲线密码</li>
+</ul>
+</li>
+<li>哈希函数<ul>
+<li>哈希函数性质<ul>
+<li>压缩、易计算、单向性、抗碰撞性、高灵敏性</li>
+</ul>
+</li>
+<li>哈希函数应用<ul>
+<li>消息认证</li>
+<li>数字签名</li>
+<li>口令的安全性</li>
+<li>数据完整性</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安全性概念<ul>
+<li>安全参数<ul>
+<li>计算安全参数</li>
+<li>统计安全参数</li>
+</ul>
+</li>
+<li>完美安全和计算安全</li>
+<li>敌手能力<ul>
+<li>唯密文攻击</li>
+<li>已知明文攻击</li>
+<li>选择明文攻击</li>
+<li>选择密文攻击</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安全性定义<ul>
+<li>完美保密性</li>
+<li>一次一密</li>
+<li>不可区分性<ul>
+<li>IND-CPA:star:</li>
+<li>IND-CCA</li>
+</ul>
+</li>
+<li>语义安全性<ul>
+<li>等价于IND-CPA</li>
+<li>概率加密是实现IND-CPA安全目标不可缺少的条件</li>
+<li>RSA没有实现IND-CPA</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安全性证明<ul>
+<li>流密码<ul>
+<li>基于不可区分性的目标，通过设计不可区分性实验，定义安全模型</li>
+<li>通过反证法、规约法等方式，来证明不可区分性</li>
+<li>如果难以直接证明，可以拆分为不同实验，逐步传递，来完成证明</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>安全性模型<ul>
+<li>语义安全性模型<ul>
+<li>LOR模型</li>
+<li>比特随机猜测模型</li>
+<li>Real-Random模型</li>
+</ul>
+</li>
+<li>随机预言机模型</li>
+</ul>
+</li>
+</ul>
+<h2 id="同态加密"><a href="#同态加密" class="headerlink" title="同态加密"></a>同态加密</h2><ul>
+<li><p>基本概念</p>
+<ul>
+<li><p>定义</p>
+<ul>
+<li>同态加密方案由KeyGen、Encrypt、Decrypt、Evaluate四个函数组成</li>
+<li>同态加密方案应满足正确性、语义安全性和简短性</li>
+</ul>
+</li>
+<li><p>分类</p>
+<ul>
+<li><p>半同态加密</p>
+<ul>
+<li>仅支持单一类型的密文域同态运算</li>
+<li>RSA：非随机化加密，具有乘法同态性的原始算法面临选择明文攻击</li>
+<li>Elgamal：随机化加密，乘法同态</li>
+<li>Paillier：加法同态，在联邦学习中广泛采用</li>
+</ul>
+</li>
+<li><p>类同态加密</p>
+<ul>
+<li>能够支持密文域有限次数的加法和乘法同态运算</li>
+<li>由于它生成的密文随着操作次数的增加而逐渐增大，能够在密文上执行的同态操作次数是有上限的</li>
+<li>BGN：支持任意次加法和一次乘法操作的同态运算</li>
+</ul>
+</li>
+<li><p>层级同态加密（Leveled Homomorphic Encryption）</p>
+<ul>
+<li>能同时支持多种同态操作（加或乘同态），并可以在安全参数中定义能够执行的操作次数上限。一般允许的操作次数越大，该同态加密方案的密文空间开销及各类操作的时间复杂度就越大</li>
+</ul>
+</li>
+<li><p>全同态加密</p>
+<ul>
+<li><p>能够实现任意次密文的加、乘同态运算</p>
+</li>
+<li><p>第一代</p>
+<ul>
+<li>Gentry方案：自举操作，性能差</li>
+</ul>
+</li>
+<li><p>第二代</p>
+<ul>
+<li>BGV方案：基于算术电路，基于模规约提升了自举性能</li>
+<li>BFV方案：基于算术电路，使用SIMD操作提升了自举性能</li>
+</ul>
+</li>
+<li><p>第三代</p>
+<ul>
+<li>GSW方案：支持任意布尔电路，基于近似特征向量</li>
+<li>FHEW方案：支持任意布尔电路，可实现快速比较</li>
+<li>TFHE方案：支持任意布尔电路，基于近似特征向量</li>
+</ul>
+</li>
+<li><p>第四代</p>
+<ul>
+<li>CKKS方案：可实现浮点数近似计算</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>半同态Paillier方案:star:</p>
+<ul>
+<li><p>卡迈尔克函数</p>
+</li>
+<li><p>判定复合剩余假设</p>
+<ul>
+<li>剩余类、复合剩余类（n阶剩余类）、判定复合剩余假设</li>
+</ul>
+</li>
+<li><p>算法描述</p>
+<ul>
+<li>密钥生成、加密算法、解密算法</li>
+<li>加法同态性</li>
+<li>标量乘法同态性</li>
+</ul>
+</li>
+<li><p>典型应用</p>
+<ul>
+<li>联邦学习</li>
+<li>隐私集合求和</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Paillier应用实践</p>
+<ul>
+<li>基于Python的phe库完成隐私信息获取的功能：服务器端拥有多个数值，要求客户端能基于Paillier实现从服务器读取一个指定的数值并正确解密，但服务器不知道所读取的是哪一个</li>
+<li>对Paillier的标量乘的性质进行扩展，我们知道：<ul>
+<li>数值“0”的密文与任意数值的标量乘也是0</li>
+<li>数值“1”的密文与任意数值的标量乘将是数值本身</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>类同态BGN方案</p>
+<ul>
+<li><p>群</p>
+<ul>
+<li>封闭性、结合律、单位元、逆元素</li>
+<li>交换群、循环群、生成元、元素的阶</li>
+<li>由生成元g构建的循环群很容易满足加法同态</li>
+</ul>
+</li>
+<li><p>环</p>
+<ul>
+<li>在新的运算符号上满足：封闭性、结合律、单位元、分配律</li>
+<li>满足封闭性和结合律构成半群，再加上单位元构成幺半群</li>
+<li>(R,+,*)构成一个环，当(R,+)构成交换群、(R,*)构成幺半群、R(+,*)满足分配率</li>
+<li>理想：对内具有乘法封闭性、对外具有乘法吸收性</li>
+</ul>
+</li>
+<li><p>双线性映射</p>
+<ul>
+<li>可采纳的双线性映射：双线性、非退化性、可计算性</li>
+</ul>
+</li>
+<li><p>子群决策问题：一个阶为<code>n = p * q</code>的合数阶群里，判定一个元素是否属于某个阶为p的子群的问题</p>
+</li>
+<li><p>方案构造</p>
+<ul>
+<li>密钥生成、加密、解密</li>
+<li>密文上的同态加法</li>
+<li>密文上的同态乘法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>全同态典型方案</p>
+<ul>
+<li><p>格</p>
+<ul>
+<li><p>格基、格的维度</p>
+</li>
+<li><p>格上的难题</p>
+<ul>
+<li><p>最近向量问题</p>
+<ul>
+<li>将正交程度差的基作为公钥，将正交程度好的基作为私钥</li>
+<li>将解密系统设计为解决格上的最短向量问题或者最近向量问题</li>
+</ul>
+</li>
+<li><p>最短向量问题</p>
+</li>
+</ul>
+</li>
+<li><p>循环格、理想格</p>
+</li>
+</ul>
+</li>
+<li><p>Gentry方案</p>
+<ul>
+<li>自举：解密操作本身能够做到同态操作，就能在全程不解密情况下完成“刷新”操作</li>
+<li>密钥生成、加密、解密、正确性</li>
+<li>同态性</li>
+<li>安全性：规约到最近向量问题（CVP）的求解上</li>
+</ul>
+</li>
+<li><p>CKKS方案</p>
+<ul>
+<li><p>LWE问题</p>
+<ul>
+<li>密钥生成函数、加密函数、解密函数</li>
+</ul>
+</li>
+<li><p>RLWE问题</p>
+<ul>
+<li>将问题扩展到环结构上</li>
+<li>公钥大小从O(n^2)下降到O(n)级，基于多项式的乘法可以使用离散傅里叶变换算法达到O(nlog(n))的计算复杂度</li>
+</ul>
+</li>
+<li><p>CKKS方案</p>
+<ul>
+<li>密钥生成函数、加密、解密</li>
+<li>再线性化和再缩放（造成密文模数下降）</li>
+<li>自举（提高密文模数，成本高，有研究针对CKKS方案的自举操作做了精度和效率的提升）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>开发框架SEAL</p>
+<ul>
+<li>客户端将一组数据的计算外包到云服务器上，云服务器不能得知密文相关的信息，客户端可以正确完成密文运算结果的解密。</li>
+<li>CKKS算法由五个模块组成：密钥生成器、加密模块、解密模块、密文计算模块、编码器（实现数据和环上元素的相互转换）</li>
+</ul>
+</li>
+</ul>
+<h2 id="典型密码原语"><a href="#典型密码原语" class="headerlink" title="典型密码原语"></a>典型密码原语</h2><h3 id="承诺和零知识证明"><a href="#承诺和零知识证明" class="headerlink" title="承诺和零知识证明"></a>承诺和零知识证明</h3><ul>
+<li>哈希承诺</li>
+<li>加法同态承诺</li>
+<li>零知识证明</li>
+<li>零知识证明应用示例</li>
+</ul>
+<h3 id="秘密共享和茫然传输"><a href="#秘密共享和茫然传输" class="headerlink" title="秘密共享和茫然传输"></a>秘密共享和茫然传输</h3><ul>
+<li>基本概念</li>
+<li>Shamir方案</li>
+<li>秘密共享应用实践</li>
+<li>茫然传输</li>
+</ul>
+<h3 id="混淆电路"><a href="#混淆电路" class="headerlink" title="混淆电路"></a>混淆电路</h3><ul>
+<li>姚氏百万富翁问题</li>
+<li>混淆电路构造思想</li>
+<li>混淆电路求解示例</li>
+<li>姚氏乱码电路协议</li>
+</ul>
+<h1 id="数据发布篇"><a href="#数据发布篇" class="headerlink" title="数据发布篇"></a>数据发布篇</h1><blockquote>
+<p>保留格式加密、隐私数据发布、差分隐私</p>
+</blockquote>
+<h2 id="隐私保护数据发布"><a href="#隐私保护数据发布" class="headerlink" title="隐私保护数据发布"></a>隐私保护数据发布</h2><ul>
+<li><p>隐私保护数据发布</p>
+<ul>
+<li><p>发布框架</p>
+<ul>
+<li>交互式数据发布框架</li>
+<li>非交互式数据发布框架</li>
+</ul>
+</li>
+<li><p>属性分类</p>
+<ul>
+<li>格式表D(显示标识属性，准标识属性，敏感属性，非敏感属性)</li>
+<li>等价类：准标识属性完全相同的多条记录，称为一个等价类</li>
+</ul>
+</li>
+<li><p>背景知识</p>
+<ul>
+<li>外部数据、常用知识、匿名算法、过去发布的数据</li>
+</ul>
+</li>
+<li><p>相关攻击</p>
+<ul>
+<li>记录链接、属性链接、表格链接</li>
+</ul>
+</li>
+<li><p>基本匿名方法</p>
+<ul>
+<li>泛化、抑制、解剖、扰动（DP）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>K-匿名模型</p>
+<ul>
+<li><p>K-匿名</p>
+<ul>
+<li>泛化、抑制</li>
+</ul>
+</li>
+<li><p>I-多样化</p>
+<ul>
+<li>抵御同质性攻击</li>
+</ul>
+</li>
+<li><p>T-相近</p>
+<ul>
+<li>抵御倾斜攻击、相似性攻击</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据脱敏与溯源</p>
+<ul>
+<li><p>数据脱敏</p>
+<ul>
+<li>掩码、替换、混合掩码、截断、加密</li>
+</ul>
+</li>
+<li><p>数据脱敏</p>
+<ul>
+<li>静态数据脱敏、动态数据脱敏</li>
+</ul>
+</li>
+<li><p>数据朔源</p>
+<ul>
+<li>基于标注技术的朔源方法</li>
+<li>基于数据库水印的朔源方法</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>保留格式加密及应用:star:</p>
+<ul>
+<li><p>保留格式加密定义</p>
+<ul>
+<li>保留格式加密(format-preserving encryption,简称FPE)能确保密文与明文具有相同的格式，可以提供可逆脱敏的能力。</li>
+</ul>
+</li>
+<li><p>基本方法</p>
+<ul>
+<li>Prefix</li>
+<li>Cycle-walking</li>
+<li>Generalized-Feistel</li>
+</ul>
+</li>
+<li><p>基本模型</p>
+<ul>
+<li>FFSEM模型</li>
+<li>FFX模型</li>
+</ul>
+</li>
+<li><p>保留格式加密应用：数据库水印</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="差分隐私"><a href="#差分隐私" class="headerlink" title="差分隐私"></a>差分隐私</h2><ul>
+<li><p>概念和性质</p>
+<ul>
+<li><p>差分攻击</p>
+</li>
+<li><p>差分隐私</p>
+<ul>
+<li>纯差分隐私、近似差分隐私</li>
+<li>隐私参数ε可以用来控制算法M在两个相邻数据集上输出相同结果的概率比值，体现了差分隐私的保护水平</li>
+<li>ε≥0，越小表示隐私保护水平越高，相反数值越大表示隐私损失越大。一般来讲，ε在小于1的情况下能提供较高的隐私保障。ε的取值也反映了数据的可用性，越小，数据可用性越低。</li>
+</ul>
+</li>
+<li><p>差分隐私性质</p>
+<ul>
+<li>串行组合性、并行组合性</li>
+</ul>
+</li>
+<li><p>差分隐私模型</p>
+<ul>
+<li>交互式</li>
+<li>非交互式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>拉普拉斯机制</p>
+<ul>
+<li><p>拉普拉斯机制</p>
+<ul>
+<li>全局灵敏度、拉普拉斯分布、拉普拉斯机制</li>
+</ul>
+</li>
+<li><p>拉普拉斯噪声</p>
+</li>
+</ul>
+</li>
+<li><p>差分隐私实践</p>
+<ul>
+<li>统计查询应用</li>
+<li>直方图发布</li>
+</ul>
+</li>
+<li><p>指数机制</p>
+<ul>
+<li><p>适用场景</p>
+<ul>
+<li>对于查询结果为实体对象，如一种选择或一个方案，我们通常使用指数机制来进行处理。</li>
+</ul>
+</li>
+<li><p>工作原理</p>
+</li>
+</ul>
+</li>
+<li><p>随机响应机制</p>
+<ul>
+<li><p>适用场景</p>
+<ul>
+<li>前两种机制属于中心化差分隐私的范畴，即数据收集者是可信的</li>
+</ul>
+</li>
+<li><p>工作原理</p>
+<ul>
+<li>利用对敏感问题响应的不确定性对原始数据进行隐私保护，保证不同的单个记录之间的不可区分性</li>
+<li>扰动性统计和校正</li>
+</ul>
+</li>
+<li><p>形式化定义</p>
+<ul>
+<li>(二值)随机响应机制</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据收集应用</p>
+<ul>
+<li><p>RAPPOR方案:star:</p>
+<ul>
+<li>随机聚合隐私保护顺序响应(Randomized Aggregatable Privacy-Preserving Ordinal Response)算法是谷歌于2014年提出的本地化差分隐私算法</li>
+<li>两阶段随机响应算法：先产生一个伪向量、基于伪向量进行响应</li>
+<li>推理攻击：多次采集+无监督聚类-&gt;倒推B？</li>
+</ul>
+</li>
+<li><p>ESA方案:star:</p>
+<ul>
+<li>ESA(Encode-Shuffle-Analyze)模型在用户和不可信的数据收集者之间引述了一个洗牌器shuffler：洗牌器将用户扰动后的数据进行混洗，以打乱用户与数据之间的对应关系。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>直方图发布</p>
+<ul>
+<li><p>直方图发布存在的问题</p>
+<ul>
+<li>为了阻止直方图统计信息带来的隐私泄露，需要一定的隐私机制对其进行保护。目前，差分隐私模型成为了热门的隐私保护标准，基于该模型出现了很多直方图保护方法。其中，最基础的方法是在每个桶内添加基于差分隐私模型的拉普拉斯噪音。</li>
+<li>目前仍待解决的问题在于：只关注直方图下每个桶内计数的场景，对计数值较小的桶添加较多的噪音会严重影响数据的可用性，需要一种既能满足隐私需求，又能将噪音控制在较小范围内的算法。</li>
+</ul>
+</li>
+<li><p>基本方法</p>
+<ul>
+<li>基于数据相关的分组方法是差分隐私下直方图发布的主要研究方向</li>
+<li>有关直方图差分隐私的改进协议，实验结果表明现提出的算法无法大幅提高精确度</li>
+</ul>
+</li>
+<li><p>直方图协议设计:star:</p>
+<ul>
+<li>设计思路：利用RAPPORT两次随机响应的思想设计直方图协议</li>
+<li>隐私分析、参数设置和实验结果</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>数据合成应用</p>
+<ul>
+<li><p>数据合成</p>
+<ul>
+<li>合成与原始数据相似但不完全相同的合成数据集</li>
+<li>使得其在保护原始数据的隐私的同时，能够支持理论无限次的查询而不会产生额外的隐私泄露累积问题，且对同一个查询能产生完全一致的查询</li>
+</ul>
+</li>
+<li><p>原始数据集和合成数据集</p>
+</li>
+<li><p>数据集的图模型化表示:star:</p>
+<ul>
+<li>当前的数据合成算法中较为常用的方法主要有两类：一类是基于机器学习的算法，一类是基于图模型的算法</li>
+<li>其中，基于机器学习的算法虽然能有效分析和学习数据集中各属性的分布，但是往往需要大量性能开销和复杂的超参数选择过程</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据查询篇"><a href="#数据查询篇" class="headerlink" title="数据查询篇"></a>数据查询篇</h1><blockquote>
+<p>密文查询、可搜索加密、密态数据库</p>
+</blockquote>
+<h2 id="密文查询"><a href="#密文查询" class="headerlink" title="密文查询"></a>密文查询</h2><ul>
+<li><p>基本概念</p>
+<ul>
+<li>可搜索加密（Searchable Encryption，简称SE）<ul>
+<li>加密过程、陷门生成过程、检索过程、解密过程</li>
+<li>对称可搜索加密（Symmetric searchable encryption，SSE）</li>
+<li>非对称可搜索加密（Asymmetric searchable encryption，ASE）</li>
+<li>动态可搜索加密（Dynamic Searchable Encryption，DSE）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>SSE基本构造</p>
+<ul>
+<li><p>基于正向索引的构造</p>
+<ul>
+<li><p>SWP方案</p>
+<ul>
+<li><p>基本构造思路</p>
+<ul>
+<li>将文件进行分词；对每个关键词进行加密处理</li>
+<li>在搜索的时候，提交密文关键词或者可以匹配密文关键词的中间项作为陷门，进而得到一个包含待查找的关键词的密文文件</li>
+</ul>
+</li>
+<li><p>优点</p>
+<ul>
+<li>SWP方案通过植入“单词”位置信息，能够支持受控检索(检索关键词的同时，识别其在文件中出现的位置)</li>
+</ul>
+</li>
+<li><p>缺陷</p>
+<ul>
+<li>效率较低，单个单词的查询需要扫描整个文件，占用大量服务器计算资源</li>
+<li>在安全性方面存在统计攻击的威胁。例如，攻击者可通过统计关键词在文件中出现的次数来猜测该关键词是否为某些常用词汇</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Z-IDX方案:star:</p>
+<ul>
+<li>使用Bloom filter作为文件索引</li>
+<li>不足<ul>
+<li>空间代价上，服务器除存储密文文件本身外，还需记录文件索引，当文件较短时，其索引可能是文件长度的数倍，空间利用率较低</li>
+<li>时间代价上，服务器检索需逐个文件计算和判断，整个关键词查询操作时间消耗为O(n)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>基于倒排索引的构造</p>
+</li>
+<li><p>模式泄露</p>
+<ul>
+<li>查询模式(Search Pattern)泄露：泄露是否是相同关键词的查询</li>
+<li>访问模式（(Access Pattern)泄露：泄露了文件的访问行为，进而可以鉴别是否是相同关键词的查询、相同文件被访问了多少次等</li>
+<li>大小模式(Size Pattern)泄露：泄露了查询的结果大小、更新操作影响的文件多少或者文件包含的关键词个数等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>前向安全SSE</p>
+<ul>
+<li>文件注入攻击、层次搜索攻击:star:</li>
+<li>前向安全</li>
+<li>2016年，第一个前向安全的可搜索加密方案提出《∑ oφoς: Forward secure searchable encryption》:star:</li>
+</ul>
+</li>
+<li><p>前向查询安全SSE</p>
+<ul>
+<li><p>前向查询安全</p>
+<ul>
+<li>前向安全仅能阻止更新操作中查询模式的泄露，但是对于数据库之类的应用而言，查询是常见的操作，前向安全无法抵御查询过程中的查询模式泄露</li>
+<li>强前向查询安全</li>
+<li>弱前向查询安全</li>
+</ul>
+</li>
+<li><p>《Searchable Symmetric Encryption with Forward Search Privacy》TDSC21:star:</p>
+<ul>
+<li>分区技术</li>
+<li>隐藏指针技术</li>
+<li>问题<ul>
+<li>如何实现相同查询关键词，支持页内或整体查询？——尾块链表</li>
+<li>如何支持立即删除？删除一个文档删除所有关联的块。——前向索引</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>具有前向查询安全的对称可搜索加密在密态数据库中具有广泛的应用前景<ul>
+<li>全文检索&amp;模糊查询：直接适用数据库大文本的全文检索&amp;短文本的模糊查询问题（关键词组合）</li>
+<li>[语义安全]的相等查询和连接查询：语义安全要求相同明文多个密文，前向安全性与语义安全要求相匹配</li>
+<li>范围查询：通过将待查询的范围转化为范围内的多个关键词的查询，可以实现范围查询</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>非对称可搜索加密</p>
+<ul>
+<li><p>非对称可搜索加密（public key encryption with keyword search，PEKS）</p>
+</li>
+<li><p>典型应用：不可信赖邮件服务器路由问题的解决思路</p>
+</li>
+<li><p>典型构造:star:</p>
+<ul>
+<li>2004年，Boneh提出了第一个非对称的可搜索加密方案《Public Key Encryption with Keyword Search》</li>
+</ul>
+</li>
+<li><p>关键词猜测攻击</p>
+</li>
+</ul>
+</li>
+<li><p>保留顺序加密</p>
+<ul>
+<li><p>保留顺序加密(Order Preserving Encryption)</p>
+<ul>
+<li>理想安全性：IND-OCPA(indistinguishability under ordered chosen-plaintext attack)</li>
+<li>只允许泄露密文的顺序、不允许泄露其它信息。攻击者在执行一定次数查询后，提交两个有顺序的明文：猜测返回的密文是哪个明文的密文的概率是可忽略的</li>
+<li>典型OPE方案：《Order-Preserving Symmetric Encryption》BCLO-09:star:<ul>
+<li>利用超几何分布使得产生的密文距离变的随机，密文扩充</li>
+<li>达到理想ND-OCPA：要求指数级密文长度，让密文距离差异变的可忽略，不可推测</li>
+<li>存在泄露：任意明文近似值以及任意两个明文之间的近似距离，精度约为域大小的平方根；当密文域是明文域的平方倍和立方倍的时候，该方案泄露高位的一半明文比特</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>保留顺序编码(Order Preserving Encoding)</p>
+<ul>
+<li><p>密文不要求有顺序和可比较、服务器端维护密文和其对应的编码、服务端通常还维护额外的索引树</p>
+</li>
+<li><p>通常具有较理想的安全性，可以达到ND-OCPA安全性</p>
+</li>
+<li><p>客户端与服务器端存在交互</p>
+<ul>
+<li>插入时：多次交互遍历索引树生成密文编码，更新编码表并将编码插入数据库</li>
+<li>查询时：基于编码表得到密文对应的编码，然后再进行范围查询</li>
+</ul>
+</li>
+<li><p>mOPE方案《An Ideal-Security Protocol for Order-Preserving Encoding》:star:</p>
+<ul>
+<li>服务器端维护排序树：节点值为数据的对称加密密文，左子树中的密文小于右子树密文</li>
+<li>服务器端维护编码表：节点路径编码是密文对应OPE编码，插入操作会同时更新编码表</li>
+<li>操作有交互：确定插入位置、查询可以通过索引树确定范围、树存在平衡的调整且需交互</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>顺序揭示加密</p>
+<ul>
+<li><p>顺序揭示加密(Order Revealing Encryption)</p>
+<ul>
+<li><p>定义：密文不直接泄露顺序，允许通过一个比较函数计算密文的顺序</p>
+</li>
+<li><p>理想安全性：比较的时候除了顺序，其它不泄露</p>
+</li>
+<li><p>数据库应用模式</p>
+<ul>
+<li><p>直接存储ORE密文</p>
+<ul>
+<li>缺点：范围查询需要对所有密文进行线性扫描</li>
+</ul>
+</li>
+<li><p>融合保留顺序编码用于构建密文索引树</p>
+<ul>
+<li>思路：类似mOPE用于建立索引树，通过ORE来替代客户端与服务器端的交互</li>
+<li>挑战：数值比较的时候不能泄露除了顺序之外的信息（理想ND-OCPA的方案才可用）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>典型ORE方案</p>
+<ul>
+<li><p>CLWW</p>
+</li>
+<li><p>《Order-Revealing Encryption: New Constructions,Applications, and Lower Bounds》:star:</p>
+<ul>
+<li>Lewi-WU Small</li>
+<li>Lewi-WU Normal</li>
+</ul>
+</li>
+<li><p>混合模型</p>
+<ul>
+<li>《EncodeORE: reducing leakage and preserving practicality in order-revealing encryption》:star:<ul>
+<li>Hybird ORE</li>
+<li>Encode ORE</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>频率隐藏OPE</p>
+<ul>
+<li><p>频率推理攻击</p>
+</li>
+<li><p>频率隐藏保序加密方案</p>
+<ul>
+<li>FH-OPE：无交互的纯客户端的频率隐藏OPE</li>
+<li>降低客户端存储的思路：在服务器端保存状态（编码）</li>
+</ul>
+</li>
+<li><p>基于编码树的FH-OPE</p>
+<ul>
+<li>《Frequency-Hiding Order-Preserving Encryption with Small Client Storage》</li>
+</ul>
+</li>
+<li><p>部署FH-OPE到数据库</p>
+<ul>
+<li>客户端SQL改写；服务器端用户自定义函数UDF进行功能封装</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>FH-OPE实践</p>
+<ul>
+<li>用户自定义函数<ul>
+<li>UDF(user-defined function)用户自定义函数是数据库提供给开发者的扩展接口，使开发者不局限于数据库提供的功能，可以根据自身需求，利用UDF定制不同的功能函数。</li>
+<li>编写C++程序文件、编译生成动态链接库、在数据库中创建函数、调用函数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>密态数据库基础</p>
+<ul>
+<li><p>定义</p>
+</li>
+<li><p>模型架构</p>
+<ul>
+<li><p>服务器磁盘加密</p>
+</li>
+<li><p>加密代理</p>
+</li>
+<li><p>可信执行环境</p>
+<ul>
+<li><p>性能约束</p>
+<ul>
+<li>可信执行环境内存有限(SGX Enclave 128M)</li>
+<li>状态切换开销大</li>
+</ul>
+</li>
+<li><p>安全约束</p>
+<ul>
+<li>可信执行环境是暴露面：攻击面大，容易遭受侧信道攻击、服务器同驻攻击等，安全性难以量化</li>
+<li>不保护访问行为模式：访问行为模式泄露已被证明可以用来完成敏感信息的推理。数据茫然(隐藏访问的数据)和程序茫然（隐藏执行分支）成为安全性基本要求，但是会带来额外的性能开销。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>两端模式</p>
+<ul>
+<li>两端模式也反应出密态数据库的理想工作模式：客户端有密钥，服务器端做计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>密态数据库的理想目标和工作模式</p>
+<ul>
+<li><p>基于可证明安全的密码原语，构建安全性可衡量的算法级密态数据库</p>
+</li>
+<li><p>密态数据库的密码原语</p>
+<ul>
+<li>确定性加密算法(DET)</li>
+<li>随机加密算法(RND)</li>
+<li>保序加密算法(OPE)</li>
+<li>同态加密算法(HOM)</li>
+<li>可搜索加密算法(SSE)</li>
+</ul>
+</li>
+<li><p>密态数据库的安全目标</p>
+<ul>
+<li>透明加密数据库（确定性加密、磁盘存储加密)-&gt;语义安全数据库(随机化加密、一次一密)-&gt;茫然操作数据库(一次一密、茫然读写)</li>
+</ul>
+</li>
+<li><p>密态数据库的技术挑战</p>
+<ul>
+<li>难题：随机化加密与功能（存储明文对应的密文）和性能（低存储、无交互)的冲突</li>
+<li>现状：2016年陷入瓶颈，语义安全的数据库密文查询算法难有高效的解决办法</li>
+<li>更高安全级别的茫然操作数据库成为未来自主创新的重要方向</li>
+<li>现状：探索阶段，基于茫然随机存储模型的解决方案性能都很低</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>CryptDB数据库:star:</p>
+<ul>
+<li>系统架构</li>
+<li>加密策略</li>
+<li>SQL解释</li>
+<li>洋葱加密</li>
+<li>索引</li>
+<li>连接查询</li>
+</ul>
+</li>
+</ul>
+<h1 id="数据计算篇"><a href="#数据计算篇" class="headerlink" title="数据计算篇"></a>数据计算篇</h1><blockquote>
+<p>安全多方计算、隐私机器学习、访问模式保护</p>
+</blockquote>
+<h2 id="安全多方计算"><a href="#安全多方计算" class="headerlink" title="安全多方计算"></a>安全多方计算</h2><h2 id="密文集合运算"><a href="#密文集合运算" class="headerlink" title="密文集合运算"></a>密文集合运算</h2><ul>
+<li><p>基础知识</p>
+<ul>
+<li><p>隐私集合交集(PSI:Privacy Set Intersect)</p>
+</li>
+<li><p>集合相关运算</p>
+<ul>
+<li>平衡PSI:两方集合数量大体相等</li>
+<li>非平衡PSI:两方集合元素个数差异很大，具体表现在一大一小</li>
+</ul>
+</li>
+<li><p>基础知识</p>
+<ul>
+<li>哈希函数、布隆过滤器、可交换加密</li>
+<li>不经意伪随机函数(Oblivious Pseudorandom Function,OPRF)<ul>
+<li>OPRF的底层实现一般为不经意传输技术(Oblivious transfer)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>朴素哈希PSI</p>
+<ul>
+<li>算法</li>
+<li>安全性</li>
+</ul>
+</li>
+<li><p>Google PSI</p>
+<ul>
+<li><p>典型PSI协议(2017年提出)</p>
+</li>
+<li><p>用来构建PSI-CA协议</p>
+</li>
+<li><p>安全性</p>
+<ul>
+<li>半诚实模型(Honest but curious)，可证明安全</li>
+<li>选择明文安全</li>
+</ul>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>通信量2(|A|+|B|)</li>
+<li>加解密|A|+|B|</li>
+<li>现实应用场景两方数据大小和计算能力不一定均等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>非平衡PSI优化</p>
+<ul>
+<li>低通信量隐私集合交集求势算法</li>
+<li>进一步降低通信量：通过发送布隆过滤器取代完整集合降低通信量</li>
+</ul>
+</li>
+<li><p>基于OPRF的PSI</p>
+<ul>
+<li><p>从隐私比较到OPRF</p>
+<ul>
+<li><p>基于OT的两方字符串比较算法</p>
+<ul>
+<li>不经意伪随机函数(Oblivious Pseudorandom Function,OPRF)</li>
+</ul>
+</li>
+<li><p>可以使用不经意伪随机函数，来构建了一个隐私比较算法</p>
+</li>
+<li><p>如何使用不经意伪随机函数，来构建隐私集合求交</p>
+</li>
+</ul>
+</li>
+<li><p>基于OPRF的PSI</p>
+</li>
+<li><p>基于布谷哈希的优化方案</p>
+</li>
+<li><p>高效OPRF设计</p>
+<ul>
+<li>OT扩展IKNP协议《Extending Oblivious Transfers Efficiently》:star:<ul>
+<li>通过固定次数的2选1 OT达到n次的2选1 OT的效果</li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/565419975">高效的不经意传输（Oblivious Transfer）扩展协议-IKNP - 知乎 (zhihu.com)</a></li>
+<li>IKNP的思想很好解决了需要海量OT交互下的实际场景，并且在隐匿集合求交(Private Set Intersection，PSI)中也有借鉴，具体可参考：<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/558657476">隐匿集合求交（private set intersection，PSI）算法：KKRT - 知乎 (zhihu.com)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="隐私保护机器学习"><a href="#隐私保护机器学习" class="headerlink" title="隐私保护机器学习"></a>隐私保护机器学习</h2><h3 id="联邦机器学习研究新进展"><a href="#联邦机器学习研究新进展" class="headerlink" title="联邦机器学习研究新进展"></a>联邦机器学习研究新进展</h3><ul>
+<li>联邦机器学习安全风险</li>
+<li>分类隐私推理攻击</li>
+<li>聚合可验证联邦学习</li>
+</ul>
+<h2 id="不经意随机存取模型"><a href="#不经意随机存取模型" class="headerlink" title="不经意随机存取模型"></a>不经意随机存取模型</h2><h3 id="密码应用与访问行为模式保护"><a href="#密码应用与访问行为模式保护" class="headerlink" title="密码应用与访问行为模式保护"></a>密码应用与访问行为模式保护</h3><ul>
+<li><p>密码应用面临的新挑战</p>
+<ul>
+<li>数据加密面临新挑战：加密已不足以保护隐私，访问行为模式会泄露明文信息</li>
+</ul>
+</li>
+<li><p>如何保护访问行为模式</p>
+<ul>
+<li><p>基本思路就是茫然读、茫然写，隐藏块的访问模式</p>
+</li>
+<li><p>ORAM基本数据结构类型-层次结构</p>
+<ul>
+<li>读操作</li>
+<li>写操作</li>
+</ul>
+</li>
+<li><p>ORAM基本数据结构类型-树型结构</p>
+</li>
+<li><p>分区ORAM</p>
+</li>
+<li><p>多云ORAM</p>
+<ul>
+<li>NewMCOS模型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>ORAM实际应用</p>
+<ul>
+<li>利用ORAM思想抵御非适应性文件注入攻击</li>
+<li>Holding区域数据的茫然读</li>
+<li>ObliviousRead Algorithm</li>
+</ul>
+</li>
+</ul>
+
+      </div>
+      <div class="post-tags-categories">
+        
+        <div class="tags">
+          
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E5%AE%89%E5%85%A8/" class="">
+              数据安全
+            </a>
+          
+        </div>
+        
+      </div>
+      
+        <div class="copyright">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+    <strong>作者:  </strong>Jan</a>
+    </li>
+    <li class="post-copyright-link">
+    <strong>文章链接:  </strong>
+    <a href="/2023/06/22/shu-ju-an-quan-gai-shu/" target="_blank" title="数据安全概述">https://Jan-nku.github.io/2023/06/22/shu-ju-an-quan-gai-shu/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong>版权声明:   </strong>
+      本网站所有文章除特别声明外,均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">CC BY-NC-ND 4.0</a>
+      许可协议。转载请注明出处!
+    </li>
+  </ul>
+<div>
+      
+    </article>
+    <!-- 上一篇文章和下一篇文章 -->
+    
+      <!-- 文章详情页的上一页和下一页 -->
+<div class="post-nav">
+
+
+
+  
+  <div class="post-nav-prev post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+    </div>
+    <a href="/2023/06/26/analysing-and-patching-speke-in-iso-iec/" class="post-nav-link">
+      <div class="title">
+        <i class="fas fa-angle-left"></i> 上一篇:
+        <div class="title-text">Analysing and Patching SPEKE in ISO/IEC</div>
+      </div>
+      
+      <!-- <div class="content">
+        Abstract
+      </div> -->
+    </a>
+  </div>
+
+
+
+  
+  <div class="post-nav-next post-nav-item">
+    <div class="post-nav-img" style="background-size: cover; 
+      background-position: center center;">
+      <img class="lazyload lazyload placeholder" src="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" class="lazyload placeholder" data-srcset="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" src="" alt="">
+    </div>
+    <a href="/2023/06/22/mi-ma-xie-yi/" class="post-nav-link">
+      <div class="title">
+        下一篇: <i class="fas fa-angle-right"></i>
+        <div class="title-text">密码协议</div>
+      </div>
+      <!-- <div class="content">
+        密码学基础RSA加密针对RSA的中间人相遇攻击
+破坏IND-CPA安全性
+利用RSA的可乘特性，明文分解等于密文分解
+
+
+      </div> -->
+    </a>
+  </div>
+
+</div>
+
+    
+    
+
+    <!-- 打赏 -->
+    
+
+    <!-- 分享 -->
+    
+      <!-- https://github.com/overtrue/share.js -->
+<!-- 文章详情页的分享 -->
+<div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+
+<script src="/js/shareJs/social-share.min.js"></script>
+</script>
+
+<style>
+  .social-share {
+    margin: 20px 0;
+  }
+</style>
+
+
+    
+    
+    <!-- 评论 -->
+    <!-- 评论 -->
+
+  <div id="myComment">
+    
+      <div id="gitment-ctn"></div> 
+
+<!-- 修改css与js文件如下即可-->
+<!-- <link rel="stylesheet" href="https://billts.site/extra_css/gitment.css">
+<script src="https://billts.site/js/gitment.js"></script> -->
+<link rel='stylesheet' href='https://unpkg.com/gitment@0.0.3/style/default.css'>
+
+
+<style>
+  .gitment-comment-header {
+    margin: 0;
+    padding: 5px;
+  }
+</style>
+
+    
+  </div>
+
+<!-- comment script in themes\hexo-theme-bamboo\layout\_partial\scripts\index.ejs -->
+
+
+  </div>
+
+  <!-- 目录 -->
+  
+<aside id='l_side'>
+  
+    
+      
+        <section class="widget side_blogger">
+  <div class='content'>
+    
+    
+      <div class='text'>
+        
+          <h2>NKU-Jan</h2>
+        
+        
+          <p>CS Blog</p>
+
+        
+        
+          <p><span id="jinrishici-sentence">Jan's Blog</span></p>
+          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/atom.xml"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/jan_nku@163.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/Jan-nku/Jan-nku.github.io"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="tencent://AddContact/?fromId=50&amp;fromSubId=1&amp;subcmd=all&amp;uin=2643292013"
+              class="social fab fa-qq flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
+
+      
+    
+  
+  
+  
+    
+  
+
+  <div class="layout_sticky">    
+    
+      
+<section class="widget side_toc">
+  
+  <header>
+    
+      <i style="color: " class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="toc-main">
+      <div class="toc-content">
+        <!-- <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E6%8A%80%E6%9C%AF%E7%AF%87"><span class="toc-text">密码技术篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%9F%BA%E7%A1%80"><span class="toc-text">密码基础</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%90%8C%E6%80%81%E5%8A%A0%E5%AF%86"><span class="toc-text">同态加密</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%B8%E5%9E%8B%E5%AF%86%E7%A0%81%E5%8E%9F%E8%AF%AD"><span class="toc-text">典型密码原语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%BF%E8%AF%BA%E5%92%8C%E9%9B%B6%E7%9F%A5%E8%AF%86%E8%AF%81%E6%98%8E"><span class="toc-text">承诺和零知识证明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%A7%98%E5%AF%86%E5%85%B1%E4%BA%AB%E5%92%8C%E8%8C%AB%E7%84%B6%E4%BC%A0%E8%BE%93"><span class="toc-text">秘密共享和茫然传输</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E6%B7%86%E7%94%B5%E8%B7%AF"><span class="toc-text">混淆电路</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83%E7%AF%87"><span class="toc-text">数据发布篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%95%B0%E6%8D%AE%E5%8F%91%E5%B8%83"><span class="toc-text">隐私保护数据发布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%AE%E5%88%86%E9%9A%90%E7%A7%81"><span class="toc-text">差分隐私</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%9F%A5%E8%AF%A2%E7%AF%87"><span class="toc-text">数据查询篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E6%96%87%E6%9F%A5%E8%AF%A2"><span class="toc-text">密文查询</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%AE%A1%E7%AE%97%E7%AF%87"><span class="toc-text">数据计算篇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%A4%9A%E6%96%B9%E8%AE%A1%E7%AE%97"><span class="toc-text">安全多方计算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%86%E6%96%87%E9%9B%86%E5%90%88%E8%BF%90%E7%AE%97"><span class="toc-text">密文集合运算</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E7%A7%81%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-text">隐私保护机器学习</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%81%94%E9%82%A6%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%A0%94%E7%A9%B6%E6%96%B0%E8%BF%9B%E5%B1%95"><span class="toc-text">联邦机器学习研究新进展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E9%9A%8F%E6%9C%BA%E5%AD%98%E5%8F%96%E6%A8%A1%E5%9E%8B"><span class="toc-text">不经意随机存取模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E7%A0%81%E5%BA%94%E7%94%A8%E4%B8%8E%E8%AE%BF%E9%97%AE%E8%A1%8C%E4%B8%BA%E6%A8%A1%E5%BC%8F%E4%BF%9D%E6%8A%A4"><span class="toc-text">密码应用与访问行为模式保护</span></a></li></ol></li></ol></li></ol> -->
+        <div class="toc"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- 手机端目录按钮 -->
+<div id="toc-mobile-btn">
+  <i class="fas fa-list-ul" aria-hidden="true"></i>
+</div>
+
+      
+  <section class="widget side_recent_post">
+    
+  <header>
+    
+      <a style="color: " href='/tags/'><i class="fas fa-book fa-fw" aria-hidden="true"></i><span class='name'>最新文章</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      
+      <!-- hash算法 -->
+      
+      <div class="aside-list">
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/06/26/analysing-and-patching-speke-in-iso-iec/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-85c31120acff76826ab53ea8934ef4bb_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">06-26</span>
+                
+              </div>
+              <a class="post-title" href="/2023/06/26/analysing-and-patching-speke-in-iso-iec/">Analysing and Patching SPEKE in ISO/IEC</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/06/22/shu-ju-an-quan-gai-shu/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">06-22</span>
+                
+              </div>
+              <a class="post-title" href="/2023/06/22/shu-ju-an-quan-gai-shu/">数据安全概述</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/06/22/mi-ma-xie-yi/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" class="lazyload placeholder" data-srcset="https://pic1.zhimg.com/80/v2-03a22891ccba9bccf6424dfd7cbf4be7_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">06-22</span>
+                
+              </div>
+              <a class="post-title" href="/2023/06/22/mi-ma-xie-yi/">密码协议</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/04/16/sketch-diao-yan/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" class="lazyload placeholder" data-srcset="https://picx.zhimg.com/80/v2-b44931ea513e5f7b3b06f2703f79653c_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">04-16</span>
+                
+              </div>
+              <a class="post-title" href="/2023/04/16/sketch-diao-yan/">sketch调研</a>
+            </div>
+          </div>
+        
+          <div class="aside-list-item">
+            
+            
+            
+
+            <div class="post-img-box">
+              <a href="/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/" class="post-img " style="background-size: cover; 
+                background-position: center center;">
+                <img class="lazyload lazyload placeholder" style="width:100%;height:100%;object-fit:cover;" data-src="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" class="lazyload placeholder" data-srcset="https://pic3.zhimg.com/80/v2-5f7cb7e900b9dcf5354c3d4d2c5cc3c2_1440w.webp" srcset="https://pic1.zhimg.com/v2-cd38920285d125be80b3eb504052c550_b.webp" alt="">
+              </a>
+            </div>
+            <div class="post-date-title">
+              <div>
+                
+                  <span class="post-date">03-31</span>
+                
+              </div>
+              <a class="post-title" href="/2023/03/31/ch6-shi-zhan-wang-luo-ceng-zi-ding-yi-tuo-bu-jie-gou/">ch6实战网络层，自定义拓扑结构</a>
+            </div>
+          </div>
+        
+      </div>
+    </div>
+  </section>
+
+    
+  </div>
+</aside>
+
+
+  <!-- 图片放大 Wrap images with fancybox support -->
+  <script src="/js/wrapImage.js"></script>
+</div>
+
+<!-- 文章详情页背景图 -->
+<div id="appBgSwiper" style="position: fixed;left: 0;top: 0;width: 100%;height: 100%;z-index: -2;"
+	:style="{'background-color': bgColor ? bgColor : 'transparent'}">
+	<transition-group tag="ul" :name="names">
+		<li v-for='(image,index) in img' :key='index' v-show="index === mark" class="bg-swiper-box">
+			<img :src="image" class="bg-swiper-img no-lazy">
+		</li>
+	</transition-group>
+</div>
+<script>
+	var vm = new Vue({
+		el: '#appBgSwiper',
+		data: {
+			names: '' || 'fade' || 'fade', // translate-fade fade
+			mark: 0,
+			img: [],
+			bgColor: '',
+			time: null
+		},
+		methods: {   //添加方法
+			change(i, m) {
+				if (i > m) {
+					// this.names = 'fade';
+				} else if (i < m) {
+					// this.names = 'fade';
+				} else {
+					return;
+				}
+				this.mark = i;
+			},
+			prev() {
+				// this.names = 'fade';
+				this.mark--;
+				if (this.mark === -1) {
+					this.mark = 3;
+					return
+				}
+			},
+			next() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			autoPlay() {
+				// this.names = 'fade';
+				this.mark++;
+				if (this.mark === this.img.length) {
+					this.mark = 0;
+					return
+				}
+			},
+			play() {
+				let bgImgDelay = '' || '180000'
+				let delay = parseInt(bgImgDelay) || 180000;
+				this.time = setInterval(this.autoPlay, delay);
+			},
+			enter() {
+				clearInterval(this.time);
+			},
+			leave() {
+				this.play();
+			}
+		},
+		created() {
+			this.play()
+		},
+		beforeDestroy() {
+			clearInterval(this.time);
+		},
+		mounted() {
+			let prop = '' || '';
+			let isImg = prop.includes('.bmp') || prop.includes('.jpg') || prop.includes('.png') || prop.includes('.tif') || prop.includes('.gif') || prop.includes('.pcx') || prop.includes('.tga') || prop.includes('.exif') || prop.includes('.fpx') || prop.includes('.psd') || prop.includes('.cdr') || prop.includes('.pcd') || prop.includes('.dxf') || prop.includes('.ufo') || prop.includes('.eps') || prop.includes('.ai') || prop.includes('.raw') || prop.includes('.WMF') || prop.includes('.webp') || prop.includes('.jpeg') || prop.includes('http://') || prop.includes('https://')
+			if (isImg) {
+				let img = prop.split(',');
+				let configRoot = '/'
+				let arrImg = [];
+				img.forEach(el => {
+					var Expression = /http(s)?:\/\/([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/;
+					var objExp = new RegExp(Expression);
+
+					if (objExp.test(el)) {
+						// http or https
+						arrImg.push(el);
+					} else {
+						// 非http or https开头
+						// 本地文件
+						let firstStr = el.charAt(0);
+						if (firstStr == '/') {
+							el = el.substr(1); // 删除第一个字符 '/',因为 configRoot最后一个字符为 /
+						}
+						el = configRoot + el;
+						arrImg.push(el);
+					}
+				})
+				this.img = arrImg;
+			} else {
+				this.bgColor = prop;
+			}
+		}
+	})
+</script>
+
+<style>
+	.bg-swiper-box {
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.bg-swiper-img {
+		object-fit: cover;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+
+
+
+
+  <script>
+  function loadMermaid() {
+    if (document.getElementsByClassName('mermaid').length) {
+      if (window.mermaidJsLoad) mermaid.init()
+      else {
+        loadScript('https://unpkg.com/mermaid/dist/mermaid.min.js').then(() => {
+          window.mermaidJsLoad = true
+          mermaid.initialize({
+            theme: 'default',
+          })
+          if ('true') {
+            mermaid.init();
+          }
+        })
+      }
+    }
+  };
+  document.addEventListener("DOMContentLoaded", function () {
+    loadMermaid();
+  })
+
+  document.addEventListener('pjax:complete', function () {
+    loadMermaid();
+  })
+  
+</script>
+
+
+      </main>
+    </div>
+
+    <!-- 页脚 -->
+    
+  
+  
+    <!-- 底部鱼儿跳动效果，依赖于jquery-->
+<div id="j-fish-skip" style=" position: relative;height: 153px;width: auto;"></div>
+<script>
+  var RENDERER = {
+    POINT_INTERVAL: 5,
+    FISH_COUNT: 3,
+    MAX_INTERVAL_COUNT: 50,
+    INIT_HEIGHT_RATE: .5,
+    THRESHOLD: 50,
+    FISH_COLOR: '',
+    init: function () {
+      this.setFishColor(); this.setParameters(), this.reconstructMethods(), this.setup(), this.bindEvent(), this.render()
+    },
+    setFishColor: function () {
+      let isDark = JSON.parse(localStorage.getItem('dark')) || JSON.parse('false');
+      if (isDark) {
+        this.FISH_COLOR = '#222'; // 暗黑色，有时间把这整成一个变量
+      } else {
+        this.FISH_COLOR = '' || 'rgba(66, 185, 133, 0.8)';
+      }
+    },
+    setParameters: function () {
+      this.$window = $(window), this.$container = $("#j-fish-skip"), this.$canvas = $("<canvas />"), this.context = this.$canvas.appendTo(this.$container).get(0).getContext("2d"), this.points = [], this.fishes = [], this.watchIds = []
+    },
+    createSurfacePoints: function () {
+      var t = Math.round(this.width / this.POINT_INTERVAL);
+      this.pointInterval = this.width / (t - 1), this.points.push(new SURFACE_POINT(this, 0));
+      for (var i = 1; i < t; i++) {
+        var e = new SURFACE_POINT(this, i * this.pointInterval),
+          h = this.points[i - 1];
+        e.setPreviousPoint(h), h.setNextPoint(e), this.points.push(e)
+      }
+    },
+    reconstructMethods: function () {
+      this.watchWindowSize = this.watchWindowSize.bind(this), this.jdugeToStopResize = this.jdugeToStopResize.bind(this), this.startEpicenter = this.startEpicenter.bind(this), this.moveEpicenter = this.moveEpicenter.bind(this), this.reverseVertical = this.reverseVertical.bind(this), this.render = this.render.bind(this)
+    },
+    setup: function () {
+      this.points.length = 0, this.fishes.length = 0, this.watchIds.length = 0, this.intervalCount = this.MAX_INTERVAL_COUNT, this.width = this.$container.width(), this.height = this.$container.height(), this.fishCount = this.FISH_COUNT * this.width / 500 * this.height / 500, this.$canvas.attr({
+        width: this.width,
+        height: this.height
+      }), this.reverse = !1, this.fishes.push(new FISH(this)), this.createSurfacePoints()
+    },
+    watchWindowSize: function () {
+      this.clearTimer(), this.tmpWidth = this.$window.width(), this.tmpHeight = this.$window.height(), this.watchIds.push(setTimeout(this.jdugeToStopResize, this.WATCH_INTERVAL))
+    },
+    clearTimer: function () {
+      for (; this.watchIds.length > 0;) clearTimeout(this.watchIds.pop())
+    },
+    jdugeToStopResize: function () {
+      var t = this.$window.width(),
+        i = this.$window.height(),
+        e = t == this.tmpWidth && i == this.tmpHeight;
+      this.tmpWidth = t, this.tmpHeight = i, e && this.setup()
+    },
+    bindEvent: function () {
+      this.$window.on("resize", this.watchWindowSize), this.$container.on("mouseenter", this.startEpicenter), this.$container.on("mousemove", this.moveEpicenter)
+    },
+    getAxis: function (t) {
+      var i = this.$container.offset();
+      return {
+        x: t.clientX - i.left + this.$window.scrollLeft(),
+        y: t.clientY - i.top + this.$window.scrollTop()
+      }
+    },
+    startEpicenter: function (t) {
+      this.axis = this.getAxis(t)
+    },
+    moveEpicenter: function (t) {
+      var i = this.getAxis(t);
+      this.axis || (this.axis = i), this.generateEpicenter(i.x, i.y, i.y - this.axis.y), this.axis = i
+    },
+    generateEpicenter: function (t, i, e) {
+      if (!(i < this.height / 2 - this.THRESHOLD || i > this.height / 2 + this.THRESHOLD)) {
+        var h = Math.round(t / this.pointInterval);
+        h < 0 || h >= this.points.length || this.points[h].interfere(i, e)
+      }
+    },
+    reverseVertical: function () {
+      this.reverse = !this.reverse;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].reverseVertical()
+    },
+    controlStatus: function () {
+      for (var t = 0, i = this.points.length; t < i; t++) this.points[t].updateSelf();
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].updateNeighbors();
+      this.fishes.length < this.fishCount && 0 == --this.intervalCount && (this.intervalCount = this.MAX_INTERVAL_COUNT, this.fishes.push(new FISH(this)))
+    },
+    render: function () {
+      requestAnimationFrame(this.render), this.controlStatus(), this.context.clearRect(0, 0, this.width, this.height), this.context.fillStyle = this.FISH_COLOR;
+      for (var t = 0, i = this.fishes.length; t < i; t++) this.fishes[t].render(this.context);
+      this.context.save(), this.context.globalCompositeOperation = "xor", this.context.beginPath(), this.context.moveTo(0, this.reverse ? 0 : this.height);
+      for (t = 0, i = this.points.length; t < i; t++) this.points[t].render(this.context);
+      this.context.lineTo(this.width, this.reverse ? 0 : this.height), this.context.closePath(), this.context.fill(), this.context.restore()
+    }
+  },
+  SURFACE_POINT = function (t, i) {
+    this.renderer = t, this.x = i, this.init()
+  };
+  SURFACE_POINT.prototype = {
+    SPRING_CONSTANT: .03,
+    SPRING_FRICTION: .9,
+    WAVE_SPREAD: .3,
+    ACCELARATION_RATE: .01,
+    init: function () {
+      this.initHeight = this.renderer.height * this.renderer.INIT_HEIGHT_RATE, this.height = this.initHeight, this.fy = 0, this.force = {
+        previous: 0,
+        next: 0
+      }
+    },
+    setPreviousPoint: function (t) {
+      this.previous = t
+    },
+    setNextPoint: function (t) {
+      this.next = t
+    },
+    interfere: function (t, i) {
+      this.fy = this.renderer.height * this.ACCELARATION_RATE * (this.renderer.height - this.height - t >= 0 ? -1 : 1) * Math.abs(i)
+    },
+    updateSelf: function () {
+      this.fy += this.SPRING_CONSTANT * (this.initHeight - this.height), this.fy *= this.SPRING_FRICTION, this.height += this.fy
+    },
+    updateNeighbors: function () {
+      this.previous && (this.force.previous = this.WAVE_SPREAD * (this.height - this.previous.height)), this.next && (this.force.next = this.WAVE_SPREAD * (this.height - this.next.height))
+    },
+    render: function (t) {
+      this.previous && (this.previous.height += this.force.previous, this.previous.fy += this.force.previous), this.next && (this.next.height += this.force.next, this.next.fy += this.force.next), t.lineTo(this.x, this.renderer.height - this.height)
+    }
+  };
+  var FISH = function (t) {
+    this.renderer = t, this.init()
+  };
+  FISH.prototype = {
+    GRAVITY: .4,
+    init: function () {
+      this.direction = Math.random() < .5, this.x = this.direction ? this.renderer.width + this.renderer.THRESHOLD : -this.renderer.THRESHOLD, this.previousY = this.y, this.vx = this.getRandomValue(4, 10) * (this.direction ? -1 : 1), this.renderer.reverse ? (this.y = this.getRandomValue(1 * this.renderer.height / 10, 4 * this.renderer.height / 10), this.vy = this.getRandomValue(2, 5), this.ay = this.getRandomValue(.05, .2)) : (this.y = this.getRandomValue(6 * this.renderer.height / 10, 9 * this.renderer.height / 10), this.vy = this.getRandomValue(-5, -2), this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1, this.theta = 0, this.phi = 0
+    },
+    getRandomValue: function (t, i) {
+      return t + (i - t) * Math.random()
+    },
+    reverseVertical: function () {
+      this.isOut = !this.isOut, this.ay *= -1
+    },
+    controlStatus: function (t) {
+      this.previousY = this.y, this.x += this.vx, this.y += this.vy, this.vy += this.ay, this.renderer.reverse ? this.y > this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy -= this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(.05, .2)), this.isOut = !1) : this.y < this.renderer.height * this.renderer.INIT_HEIGHT_RATE ? (this.vy += this.GRAVITY, this.isOut = !0) : (this.isOut && (this.ay = this.getRandomValue(-.2, -.05)), this.isOut = !1), this.isOut || (this.theta += Math.PI / 20, this.theta %= 2 * Math.PI, this.phi += Math.PI / 30, this.phi %= 2 * Math.PI), this.renderer.generateEpicenter(this.x + (this.direction ? -1 : 1) * this.renderer.THRESHOLD, this.y, this.y - this.previousY), (this.vx > 0 && this.x > this.renderer.width + this.renderer.THRESHOLD || this.vx < 0 && this.x < -this.renderer.THRESHOLD) && this.init()
+    },
+    render: function (t) {
+      t.save(), t.translate(this.x, this.y), t.rotate(Math.PI + Math.atan2(this.vy, this.vx)), t.scale(1, this.direction ? 1 : -1), t.beginPath(), t.moveTo(-30, 0), t.bezierCurveTo(-20, 15, 15, 10, 40, 0), t.bezierCurveTo(15, -10, -20, -15, -30, 0), t.fill(), t.save(), t.translate(40, 0), t.scale(.9 + .2 * Math.sin(this.theta), 1), t.beginPath(), t.moveTo(0, 0), t.quadraticCurveTo(5, 10, 20, 8), t.quadraticCurveTo(12, 5, 10, 0), t.quadraticCurveTo(12, -5, 20, -8), t.quadraticCurveTo(5, -10, 0, 0), t.fill(), t.restore(), t.save(), t.translate(-3, 0), t.rotate((Math.PI / 3 + Math.PI / 10 * Math.sin(this.phi)) * (this.renderer.reverse ? -1 : 1)), t.beginPath(), this.renderer.reverse ? (t.moveTo(5, 0), t.bezierCurveTo(10, 10, 10, 30, 0, 40), t.bezierCurveTo(-12, 25, -8, 10, 0, 0)) : (t.moveTo(-5, 0), t.bezierCurveTo(-10, -10, -10, -30, 0, -40), t.bezierCurveTo(12, -25, 8, -10, 0, 0)), t.closePath(), t.fill(), t.restore(), t.restore(), this.controlStatus(t)
+    }
+  }, $(function () {
+    RENDERER.init()
+    $('.dark').click(function () {
+      setTimeout(() => {
+        RENDERER.setFishColor();
+        RENDERER.context.fill();
+      });
+    })
+  });
+</script>
+  
+  <div class="footer bg-color">
+    <div class="footer-main">
+      
+        
+          <div class="link">
+            
+          </div>
+        
+      
+        
+          <div class="footer-copyright">
+            <p>Copyright © 2019 - 2020 <a target="_blank" rel="noopener" href="https://github.com/yuang01">yuang01</a> | Powered by <a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/">Hexo</a> | Theme <a target="_blank" rel="noopener" href="https://github.com/yuang01/theme">Bamboo</a> </p>
+
+          </div>
+        
+      
+        
+          
+            <!-- 不蒜子统计 -->
+            <!-- 不蒜子统计 -->
+<span id="busuanzi_container_site_pv">
+      <i class="fas fa-eye" aria-hidden="true"></i>本站总访问量：<span id="busuanzi_value_site_pv"></span> 次
+</span>
+<span class="post-meta-divider">|</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+      <i class="fas fa-users" aria-hidden="true"></i>本站访客数：<span id="busuanzi_value_site_uv"></span> 人
+</span>
+
+          
+        
+      
+        
+          <div class="footer-custom">
+            
+          </div>
+        
+      
+    </div>
+  </div>
+
+
+
+    <!-- 渲染暗黑按钮 -->
+    
+      <div class="dark">
+  <div class="dark-content">
+    <i class="fas fa-moon" aria-hidden="true"></i>
+    <!-- <span>关灯</span> -->
+  </div>
+  
+</div>
+
+<script>
+  $(function() {
+    let isDark = JSON.parse(localStorage.getItem('dark'))  || JSON.parse('false');
+    if (isDark) {
+      $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+    }
+    $('.dark').click(function() {
+      if ($(document.body).is('.darkModel')) {
+        $(document.body).removeClass('darkModel');
+        localStorage.setItem('dark', false);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-moon" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      } else {
+        $(document.body).addClass('darkModel');
+        localStorage.setItem('dark', true);
+        $(".dark-content").replaceWith(
+          `
+          <div class='dark-content'>
+            <i class="fas fa-lightbulb" aria-hidden="true"></i>
+          </div>
+          `
+        );
+      }
+    })
+  })
+</script>
+    
+    <!-- 渲染回到顶部按钮 -->
+    
+      <div class="goTop top-btn-color" pointer>
+  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+</div>
+<script src="/js/goTop.js"></script>
+
+    
+    <!-- 渲染左下角音乐播放器 -->
+    
+
+    <!-- 图片放大 -->
+    
+      <script src="/js/fancybox/jquery.fancybox.min.js"></script>
+    
+
+    <!-- 百度解析 -->
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <!-- 背景彩带 -->
+    
+      <script type="text/javascript" size="100" alpha='0.4' zIndex="-1" src="/js/ribbon.min.js"></script>
+    
+
+    <script src="/js/utils/index.js"></script>
+    <script src="/js/app.js"></script>
+    
+    <!-- 文章目录所需js -->
+<!-- <link href="/js/tocbot/tocbot.css" rel="stylesheet">
+<script src="/js/tocbot/tocbot.min.js"></script> -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.min.js"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.18.2/tocbot.css">
+
+<script>
+  var headerEl = 'h2, h3, h4',  //headers 
+    content = '.post-detail',//文章容器
+    idArr = {};  //标题数组以确定是否增加索引id
+  //add #id
+  var option = {
+    // Where to render the table of contents.
+    tocSelector: '.toc',
+    // Where to grab the headings to build the table of contents.
+    contentSelector: content,
+    // Which headings to grab inside of the contentSelector element.
+    headingSelector: headerEl,
+    scrollSmooth: true,
+    scrollSmoothOffset: -70,
+    // headingsOffset: -($(window).height() * 0.4 - 45),
+    headingsOffset: -($(window).height() * 0.4 - 70),
+    // positionFixedSelector: '.toc-main',
+    // positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    activeLinkClass: 'is-active-link',
+    orderedList: true,
+    collapseDepth: 20,
+    // onClick: function (e) {},
+  }
+  if ($('.toc').length > 0) {
+
+    $(content).children(headerEl).each(function () {
+      //去除空格以及多余标点
+      var headerId = $(this).text().replace(/[\s|\~|`|\!|\@|\#|\$|\%|\^|\&|\*|\(|\)|\_|\+|\=|\||\|\[|\]|\{|\}|\;|\:|\"|\'|\,|\<|\.|\>|\/|\?|\：|\，|\。]/g, '');
+
+      headerId = headerId.toLowerCase();
+      if (idArr[headerId]) {
+        //id已经存在
+        $(this).attr('id', headerId + '-' + idArr[headerId]);
+        idArr[headerId]++;
+      }
+      else {
+        //id未存在
+        idArr[headerId] = 1;
+        $(this).attr('id', headerId);
+      }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      tocbot.init(option);
+      mobileTocClick();
+    });
+
+  }
+
+  window.tocScrollFn = function () {
+    return bamboo.throttle(function () {
+      findHeadPosition();
+    }, 100)()
+  }
+  window.addEventListener('scroll', tocScrollFn);
+
+  const findHeadPosition = function (top) {
+    if ($('.toc-list').length <= 0) {
+      return false;
+    }
+    setTimeout(() => {  // or DOMContentLoaded 
+      autoScrollToc();
+    }, 0);
+  }
+
+  const autoScrollToc = function () {
+    const $activeItem = document.querySelector('.is-active-link');
+    const $cardToc = document.querySelector('.toc-content');
+    const activePosition = $activeItem.getBoundingClientRect().top
+    const sidebarScrollTop = $cardToc.scrollTop
+    if (activePosition > (document.documentElement.clientHeight - 100)) {
+      $cardToc.scrollTop = sidebarScrollTop + 150
+    }
+    if (activePosition < 150) {
+      $cardToc.scrollTop = sidebarScrollTop - 150
+    }
+  }
+
+  document.addEventListener('pjax:send', function () {
+    if ($('.toc').length) {
+      tocbot.destroy();
+    }
+  });
+
+  document.addEventListener('pjax:complete', function () {
+    if ($('.toc').length) {
+      tocbot.init(option);
+      mobileTocClick();
+    }
+  });
+  
+  // 手机端toc按钮点击出现目录
+  const mobileTocClick = function () {
+    const $cardTocLayout = document.getElementsByClassName('side_toc')[0];
+    const $cardToc = $cardTocLayout.getElementsByClassName('toc-content')[0];
+    let right = '45px';
+    if (window.innerWidth >= 551 && window.innerWidth <= 992) {
+      right = '100px'
+    }
+    const mobileToc = {
+      open: () => {
+        $cardTocLayout.style.cssText = 'animation: toc-open .3s; opacity: 1; right: ' + right
+      },
+
+      close: () => {
+        $cardTocLayout.style.animation = 'toc-close .2s'
+        setTimeout(() => {
+          $cardTocLayout.style.cssText = "opacity:''; animation: ''; right: ''"
+        }, 100)
+      }
+    }
+    document.getElementById('toc-mobile-btn').addEventListener('click', () => {
+      if (window.getComputedStyle($cardTocLayout).getPropertyValue('opacity') === '0') mobileToc.open()
+      else mobileToc.close()
+    })
+
+    $cardToc.addEventListener('click', (e) => {
+      if (window.innerWidth < 992) { // 小于992px的时候
+        mobileToc.close()
+      }
+    })
+  }
+</script>
+
+<style>
+  /* .is-position-fixed {
+    position: sticky !important;
+    top: 74px;
+  }
+
+  .toc-main ul {
+    counter-reset: show-list;
+  }
+
+  .toc-main ul li::before {
+    content: counter(item)".";
+    display: block;
+    position: absolute;
+    left: 12px;
+    top: 0;
+  } */
+</style>
+ 
+
+<!-- 设置导航背景 -->
+<script>
+  let setHeaderClass = () => {
+    const nav = $('#navHeader');
+    const navTop = nav.outerHeight();
+    const winTop = $(window).scrollTop();
+    if(winTop > navTop) {
+      nav.addClass('header-bg-color');
+    }
+    else {
+      nav.removeClass('header-bg-color');
+    }
+  };
+
+  let scrollCollect = () => {
+    return bamboo.throttle(function (e) {
+      setHeaderClass();
+    }, 200)()
+  }
+
+  let initHeaderBg = () => {
+    setHeaderClass();
+  }
+
+  setHeaderClass();
+  window.addEventListener('scroll', scrollCollect);
+
+  document.addEventListener('pjax:send', function () {
+    window.removeEventListener('scroll', scrollCollect)
+  })
+  document.addEventListener('pjax:complete', function () {
+    window.addEventListener('scroll', scrollCollect);
+    setHeaderClass();
+  })
+</script> 
+
+<!-- 渲染issues标签里的内容 -->
+<script>
+  function loadIssuesJS() {
+    if ($(".post-detail").find(".issues-api").length == 0) {
+      return;
+    } 
+    loadScript('/js/issues/index.js');
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  document.addEventListener('pjax:complete', function () {
+    if (typeof IssuesAPI == "undefined") {
+      loadIssuesJS();
+    }
+  })
+</script>
+
+<!-- 输入框打字特效 -->
+<!-- 输入框打字特效 -->
+
+  <script src="/js/activate-power-mode.js"></script>
+  <script>
+    POWERMODE.colorful = true;  // 打开随机颜色特效
+    POWERMODE.shake = false;    // 关闭输入框抖动
+    document.body.addEventListener('input', POWERMODE);//监听打字事件
+  </script>
+
+
+<!-- markdown代码一键复制功能 -->
+
+  <link rel="stylesheet" href="https://unpkg.com/v-plugs-ayu/lib/ayu.css">
+  <script src="https://unpkg.com/v-plugs-ayu/lib/ayu.umd.min.js"></script>
+  <script src="/js/clipboard/clipboard.min.js"></script>
+  <div id="appCopy">
+  </div>
+  <script data-pjax>
+    var vm = new Vue({
+      el: '#appCopy',
+      data: {
+      },
+      computed: {
+      },
+      mounted() {
+        const that = this;
+        var copy = '复制';
+        /* code */
+        var initCopyCode = function () {
+          var copyHtml = '';
+          copyHtml += '<button class="btn-copy" data-clipboard-snippet="" style="position:absolute;top:0;right:0;z-index:1;">';
+          copyHtml += '<i class="fas fa-copy"></i><span>' + copy + '</span>';
+          copyHtml += '</button>';
+          $(".post-detail pre").not('.gutter pre').wrap("<div class='codeBox' style='position:relative;width:100%;'></div>")
+          $(".post-detail pre").not('.gutter pre').before(copyHtml);
+          new ClipboardJS('.btn-copy', {
+            target: function (trigger) {
+              return trigger.nextElementSibling;
+            }
+          });
+        }
+        initCopyCode();
+        $('.btn-copy').unbind('click').bind('click', function () {
+          doSomething();
+        })
+        $(document).unbind('keypress').bind('keypress', function (e) {
+          if (e.ctrlKey && e.keyCode == 67) {
+            doSomething();
+          }
+        })
+
+        function doSomething() {
+          that.$notify({
+            title: "成功",
+            content: "代码已复制，请遵守相关授权协议。",
+            type: 'success'
+          })
+        }
+      },
+      methods: {
+      },
+      created() { }
+    })
+  </script>
+  
+
+<!-- 图片懒加载 -->
+<script defer src="https://unpkg.com/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+<!-- 卡片滚动动画 -->
+   
+
+<!-- 评论所需js -->
+
+  
+    <script src='https://unpkg.com/gitment@0.0.3/dist/gitment.browser.js'></script>
+
+<script>
+comment_el = '#gitment-ctn';
+load_gitment = function () {
+  if ($(comment_el).length) {
+    var gitment = new Gitment({
+      id: "2023/06/22/shu-ju-an-quan-gai-shu/",
+      owner: '',
+      repo: '',
+      oauth: {
+        client_id: '',
+        client_secret: '',
+      },
+    })
+    gitment.render('gitment-ctn')
+  }
+}
+$(document).ready(load_gitment);
+document.addEventListener('pjax:complete', function () {
+    load_gitment();
+});
+</script>
+  
+
+
+<!-- 鼠标点击特效 -->
+<!-- 爱心点击 -->
+
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 999; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" data-pjax></script>
+
+
+<!-- 轮播图标签 -->
+<script>
+  var bambooSwiperTag = {};
+  function load_swiper() {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    loadCSS("https://unpkg.com/swiper@6/swiper-bundle.min.css")
+    loadScript("https://unpkg.com/swiper@6/swiper-bundle.min.js").then(() => {
+      pjax_swiper();
+    });
+  }
+
+  load_swiper();
+
+  function pjax_swiper() {
+    bambooSwiperTag.swiper = new Swiper('.post-swiper-container', {
+      slidesPerView: 'auto',
+      spaceBetween: 8,
+      centeredSlides: true,
+      loop: true,
+      autoplay: true ? {
+        delay: 3000,
+        stopOnLastSlide: false,
+        disableOnInteraction: false,
+      } : false,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      on:{
+        init: function(){
+          swiperAnimateCache(this); //隐藏动画元素 
+          swiperAnimate(this); //初始化完成开始动画
+        }, 
+        slideChangeTransitionEnd: function(){ 
+          swiperAnimate(this); //每个slide切换结束时也运行当前slide动画
+          //this.slides.eq(this.activeIndex).find('.ani').removeClass('ani'); 动画只展现一次，去除ani类名
+        } 
+      }
+    });
+  }
+
+  document.addEventListener('pjax:complete', function () {
+    if (!document.querySelectorAll(".post-swiper-container")[0]) return;
+    if (typeof bambooSwiperTag.swiper === "undefined") {
+      load_swiper();
+    } else {
+      pjax_swiper();
+    }
+  });
+</script>
+    <!-- pjax -->
+    
+
+<!-- pjax -->
+
+
+  <script src="/js/pjax@0.2.8/index.js"></script>
+  
+    <!-- 样式位于：source/css/_third-party/pjaxanimate.styl -->
+
+<div class="pjax-animate">
+  
+    <div class="loading-circle"><div id="loader-circle"></div></div>
+    <script>
+      window.ShowLoading = function() {
+        $(".loading-circle").css("display", "block");
+      };
+      window.HideLoading = function() {
+        $(".loading-circle").css("display", "none");
+      }
+    </script>
+  
+	<script>
+    document.addEventListener('pjax:complete', function () {
+      window.HideLoading();
+    })
+    document.addEventListener('pjax:send', function () {
+      window.ShowLoading();
+    })
+    document.addEventListener('pjax:error', function () {
+      window.HideLoading();
+    })
+	</script>
+</div>
+
+  
+
+  <script>
+    var pjax = new Pjax({
+      elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([no-pjax])',   // 拦截正常带链接的 a 标签
+      selectors: ["#pjax-container","title"],                                   // 根据实际需要确认重载区域
+      cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+      timeout: 5000
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+
+    })
+    
+    document.addEventListener('pjax:complete', function () {
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+      window.location.href = e.triggerElement.href;
+    })
+    
+    // 刷新不从顶部开始
+    document.addEventListener("DOMContentLoaded", function () {
+      history.scrollRestoration = 'auto';
+    })
+  </script>
+
+
+
+  </body>
+</html>
