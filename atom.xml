@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-06-26T10:51:58.539Z</updated>
+  <updated>2023-06-26T15:10:09.163Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -17,18 +17,37 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>Two Birds with One Stone: Two-Factor Authentication with Security Beyond Conventional Bound</title>
+    <link href="https://jan-nku.github.io/2023/06/26/two-birds-with-one-stone-two-factor-authentication-with-security-beyond-conventional-bound/"/>
+    <id>https://jan-nku.github.io/2023/06/26/two-birds-with-one-stone-two-factor-authentication-with-security-beyond-conventional-bound/</id>
+    <published>2023-06-26T15:09:35.000Z</published>
+    <updated>2023-06-26T15:10:09.163Z</updated>
+    
+    
+    
+    
+    <category term="密码协议" scheme="https://jan-nku.github.io/categories/%E5%AF%86%E7%A0%81%E5%8D%8F%E8%AE%AE/"/>
+    
+    
+    <category term="密码协议" scheme="https://jan-nku.github.io/tags/%E5%AF%86%E7%A0%81%E5%8D%8F%E8%AE%AE/"/>
+    
+    <category term="PAKE" scheme="https://jan-nku.github.io/tags/PAKE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Analysing and Patching SPEKE in ISO/IEC</title>
     <link href="https://jan-nku.github.io/2023/06/26/analysing-and-patching-speke-in-iso-iec/"/>
     <id>https://jan-nku.github.io/2023/06/26/analysing-and-patching-speke-in-iso-iec/</id>
     <published>2023-06-26T10:49:25.000Z</published>
-    <updated>2023-06-26T10:51:58.539Z</updated>
+    <updated>2023-06-26T15:08:58.690Z</updated>
     
     
       
       
         
         
-    <summary type="html">&lt;h2 id=&quot;Abstract&quot;&gt;&lt;a href=&quot;#Abstract&quot; class=&quot;headerlink&quot;</summary>
+    <summary type="html">&lt;h1 id=&quot;Part1-Paper-review&quot;&gt;&lt;a href=&quot;#Part1-Paper-review&quot; class=&quot;headerlink&quot; title=&quot;Part1: Paper review&quot;&gt;&lt;/a&gt;Part1: Paper review&lt;/h1&gt;&lt;h2</summary>
         
       
     
@@ -514,33 +533,6 @@
     
     
     <category term="WEB" scheme="https://jan-nku.github.io/tags/WEB/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>无线网安全性</title>
-    <link href="https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/"/>
-    <id>https://jan-nku.github.io/2023/03/16/wu-xian-wang-an-quan-xing/</id>
-    <published>2023-03-15T16:00:00.000Z</published>
-    <updated>2023-03-21T03:41:59.599Z</updated>
-    
-    
-      
-      
-        
-        
-    <summary type="html">&lt;h2 id=&quot;无线局域网标准&quot;&gt;&lt;a href=&quot;#无线局域网标准&quot; class=&quot;headerlink&quot;</summary>
-        
-      
-    
-    
-    
-    <category term="网络安全技术" scheme="https://jan-nku.github.io/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF/"/>
-    
-    
-    <category term="安全协议" scheme="https://jan-nku.github.io/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/"/>
-    
-    <category term="无线网" scheme="https://jan-nku.github.io/tags/%E6%97%A0%E7%BA%BF%E7%BD%91/"/>
     
   </entry>
   
