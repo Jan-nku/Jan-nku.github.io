@@ -20,17 +20,33 @@
     var CONFIG = {"hostname":"jan-nku.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="In a security system that allows people to choose their own passwords, people tend to choose passwords that can be easily guessed. This weakness exists in practically all widely used systems. Instead">
+<meta property="og:type" content="article">
 <meta property="og:title" content="Protecting Poorly Chosen Secrets from Guessing Attacks">
 <meta property="og:url" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/index.html">
 <meta property="og:site_name" content="Jan&#39;s Blog">
+<meta property="og:description" content="In a security system that allows people to choose their own passwords, people tend to choose passwords that can be easily guessed. This weakness exists in practically all widely used systems. Instead">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702232636597.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702233413467.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702233733378.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702234447033.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702234848244.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702235024922.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000209566.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000255264.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000412931.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000533886.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000619804.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703000741839.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230703001246528.png">
 <meta property="article:published_time" content="2023-07-01T00:51:35.000Z">
-<meta property="article:modified_time" content="2023-07-01T06:28:32.443Z">
+<meta property="article:modified_time" content="2023-07-02T16:28:51.701Z">
 <meta property="article:author" content="Jan_nku">
 <meta property="article:tag" content="密码协议">
 <meta property="article:tag" content="PAKE">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/image-20230702232636597.png">
 
 <link rel="canonical" href="https://jan-nku.github.io/2023/07/01/protecting-poorly-chosen-secrets-from-guessing-attacks/">
 
@@ -212,10 +228,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-07-01 08:51:35 / 修改时间：14:28:32" itemprop="dateCreated datePublished" datetime="2023-07-01T08:51:35+08:00">2023-07-01</time>
+              <time title="创建时间：2023-07-01 08:51:35" itemprop="dateCreated datePublished" datetime="2023-07-01T08:51:35+08:00">2023-07-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-03 00:28:51" itemprop="dateModified" datetime="2023-07-03T00:28:51+08:00">2023-07-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
@@ -237,7 +259,78 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <span id="more"></span>
+        <p>In a security system that allows people to choose their own passwords, people tend to choose passwords that can be easily guessed. This weakness exists in practically all widely used systems. Instead of forcing users to choose secrets that are likely to be difficult for them to remember, solutions that maintain user convenience and a high level of security at the same time are proposed. The basic idea is to <strong>ensure that data available to the attacker is sufficiently unpredictable</strong> to prevent an offline verification of whether a guess is successful or not. Common forms of guessing attacks are examined, examples of cryptographic protocols that are immune to such attacks are developed, and <strong>a systematic way to examine protocols to detect vulnerabilities to such attacks</strong> is suggested.</p>
+<span id="more"></span>
+<h2 id="Guessing-Attacks"><a href="#Guessing-Attacks" class="headerlink" title="Guessing Attacks"></a>Guessing Attacks</h2><h3 id="The-UNIX-Password-System"><a href="#The-UNIX-Password-System" class="headerlink" title="The UNIX Password System"></a>The UNIX Password System</h3><p>UNIX使用的是一个口令文件<code>/etc/passwd</code>。这个文件对于每一个用户的口令$p$进行$hash$，每个口令进行$hash$时都有一个盐值$s$，盐值$s$和$hash$值$g(p, s)$都被存在口令文件中</p>
+<p>攻击者可以猜测$p$的值然后进行$hash$，对于$hash$值进行验证来判断$p$的猜测是否正确</p>
+<p>一种解决办法是限制<code>/etc/passwd</code>文件的访问权限</p>
+<h3 id="SunOS-Secure-NFS"><a href="#SunOS-Secure-NFS" class="headerlink" title="SunOS Secure NFS"></a>SunOS Secure NFS</h3><p>去掉了<code>/etc/passwd</code>，转而使用公钥系统去加强安全性。SunOS-4.0引入了文件<code>/etc/publickey</code>，其中包括用户网络名称、用户的公钥和对应的私钥（私钥是用DES加密过的，DES的密钥由用户的口令派生）。用户登录时即可通过口令解密私钥，然后服务器<strong>验证私钥与公钥是否匹配</strong>即可验证口令的正确性。</p>
+<p>因为<code>/etc/publickey</code>是公开的，攻击者依旧可以猜测口令$p$，然后解密私钥。再随意选取一段文本，利用已知的公钥和猜测出的私钥进行加密解密，观察结果是否一致即可验证$p$猜测的正确性。</p>
+<p>一种解决方法是限制<code>/etc/publickey</code>的访问权限</p>
+<p><strong>启示</strong>：对猜测攻击的脆弱性是具有传染性的</p>
+<p><img src="image-20230702232636597.png" alt=""></p>
+<h3 id="The-Kerberos-Authentication-System"><a href="#The-Kerberos-Authentication-System" class="headerlink" title="The Kerberos Authentication System"></a>The Kerberos Authentication System</h3><p>服务器最开始给用户返回的响应中包括一些可识别的信息比如说时间戳$t$和服务器$S$，而且这个响应是由用户的口令加密得到的。</p>
+<p>所以攻击者可以对于截获的消息进行猜测攻击，解密后的数据可以通过对比，很明显地发现$t$是否是一个合理的时间或者$S$是否为合理的服务器名字符串，即可判断解密是否正确。</p>
+<h2 id="Known-Plaintext-and-Verifiable-Text"><a href="#Known-Plaintext-and-Verifiable-Text" class="headerlink" title="Known Plaintext and Verifiable Text"></a>Known Plaintext and Verifiable Text</h2><p>攻击者发动猜测攻击时，往往需要一些验证性的信息来判断其猜测是否正确。已知明文攻击主要就是利用具有验证性的文本对其猜测攻击进行验证。</p>
+<ul>
+<li><p>已知明文攻击对于对称密码系统来说，可以通过猜测密钥对已知的密文进行解密，然后判断其对应的明文是否一致，从而进行攻击</p>
+</li>
+<li><p>对于非对称密码系统来说，猜测私钥是不现实的，所以可以猜测明文文本信息，然后利用公钥进行加密，来比对对应的密文是否一致，从而验证猜测是否正确</p>
+</li>
+</ul>
+<h2 id="Protection-Techniques"><a href="#Protection-Techniques" class="headerlink" title="Protection Techniques"></a>Protection Techniques</h2><h3 id="simple-two-message-handshake-transaction"><a href="#simple-two-message-handshake-transaction" class="headerlink" title="simple two-message handshake transaction"></a>simple two-message handshake transaction</h3><p><img src="image-20230702233413467.png" alt=""></p>
+<p>n是随机数，所以${\{n\}}_k$、${\{f(n)\}}_k$各自安全，但是如果被放在一起，则可以用f$()$验证，反而不安全</p>
+<h3 id="Use-two-different-keys"><a href="#Use-two-different-keys" class="headerlink" title="Use two different keys"></a>Use two different keys</h3><p><img src="image-20230702233733378.png" alt=""></p>
+<p>必须$k1$和$k2$都猜对才能攻击成功，可能需要多次验证，大大增加难度</p>
+<p>如果$k1$已知（比如$k1$是公钥）、${\{n\}_{k1}}$已知，那么$k2$可能被比对出来结果。用$k2$解密得到$n’$，用${\{n’\}_{k1}}$与${\{n\}_{k1}}$比对。这种比对主要依赖f$()$，如果只是$f(n)=n+1$这种可逆的简单运算，攻击便可成功</p>
+<h3 id="confounder-a-sufficiently-large-random-number"><a href="#confounder-a-sufficiently-large-random-number" class="headerlink" title="confounder(a sufficiently large random number)"></a>confounder(a sufficiently large random number)</h3><p><img src="image-20230702234447033.png" alt=""></p>
+<p>引入大随机数作为公钥加密的干扰因子，从而避免公钥加密密文成为验证文本</p>
+<p>随机数$c$的加入可以形成一次一密，但是$n$或$f(n)$可能并非严格的随机数，包含$recognizable$ $data$比如时间戳，会被用来验证</p>
+<h3 id="mask"><a href="#mask" class="headerlink" title="mask"></a>mask</h3><p><img src="image-20230702234848244.png" alt=""></p>
+<p>引入掩码从而掩盖住具有含义的信息，从而解决验证文本的问题</p>
+<h2 id="Authentication-Protocols"><a href="#Authentication-Protocols" class="headerlink" title="Authentication Protocols"></a>Authentication Protocols</h2><h3 id="A-Mutual-Authentication-Protocol"><a href="#A-Mutual-Authentication-Protocol" class="headerlink" title="A Mutual Authentication Protocol"></a>A Mutual Authentication Protocol</h3><p>其中$K_a$和$K_b$是A、B与S的共享密钥，$k$是A、B之间的会话密钥，$K_s$是server的公钥，$t_a$和$t_b$代表两个时间戳</p>
+<p><img src="image-20230702235024922.png" alt=""></p>
+<ul>
+<li>$Message1、3$：这两条消息对称，以$Message1$为例，包括三个随机数$na1$，$na2$，$ca$；一个只能由A产生的新鲜性消息$\{t_a\}_{K_a}$，声明A要与B进行通信</li>
+<li><p>$Message4、5$：这两条消息对称，以$Message1$为例，$na1$代表对第一条消息的正确破解，$na1$和$na2$在多次通信中不能重用；$na2$用于隐藏$k$，防止外来攻击者（外部攻击）或者B（内部攻击）图谋不轨（没有$na2$，B可以用$k$验证对于$K_a$的猜测）。$ca$作为随机数干扰因子，也用于防止B的恶意（如果没有$ca$，一旦B截获了第四条消息，B可以去猜测$K_a$，然后B可以得到$na1$、$na2$、$k$，再加上公开的A、B、$K_s$，B可以恢复第一条消息验证是否相同，进而确认猜测是否正确）</p>
+</li>
+<li><p>$Message 6-8$：挑战应答机制</p>
+</li>
+</ul>
+<h3 id="Reducing-the-Number-of-Messages"><a href="#Reducing-the-Number-of-Messages" class="headerlink" title="Reducing the Number of Messages"></a>Reducing the Number of Messages</h3><p><img src="image-20230703000209566.png" alt=""></p>
+<p><strong>Enhanced Kerberos Protocol</strong></p>
+<p><img src="image-20230703000255264.png" alt=""></p>
+<p>由于B是服务器，因此它与服务器S共享的密钥$K_b$也可以被认为是经过精心选择的，不会造成猜测攻击</p>
+<h3 id="Using-Nonces"><a href="#Using-Nonces" class="headerlink" title="Using Nonces"></a>Using Nonces</h3><p>在某些系统中，我们可能不希望假设同步时钟的可用性。相反，我们可以使用众所周知的挑战-响应技术来确定信息的及时性</p>
+<p><img src="image-20230703000412931.png" alt=""></p>
+<h3 id="Identification"><a href="#Identification" class="headerlink" title="Identification"></a>Identification</h3><p>像ATM卡、信用卡、通行卡、电子通行、电话卡等。这种情况下通信不需要会话密钥，也不需要双向认证，只需要简单的身份认证即可</p>
+<p><img src="image-20230703000533886.png" alt=""></p>
+<h3 id="Using-Secret-Public-Keys"><a href="#Using-Secret-Public-Keys" class="headerlink" title="Using Secret Public Keys"></a>Using Secret Public Keys</h3><p>无需记录公钥，由server发送</p>
+<p>公钥要保密好，不然随意泄露出去会成为验证文本</p>
+<p><img src="image-20230703000619804.png" alt=""></p>
+<h3 id="Direct-Authentication"><a href="#Direct-Authentication" class="headerlink" title="Direct Authentication"></a>Direct Authentication</h3><p>A、B已经共享密钥$K_{ab}$，直接进行身份认证即可。$K_{ab1}$是公钥。</p>
+<p><img src="image-20230703000741839.png" alt=""></p>
+<h2 id="Detecting-Vulnerability"><a href="#Detecting-Vulnerability" class="headerlink" title="Detecting Vulnerability"></a>Detecting Vulnerability</h2><p>搜索可验证文本可以看作是图论中的寻径问题</p>
+<p>一条找到的路径对应着一种可能的攻击方式，最短路径给出了成功攻击所需的最小努力的度量</p>
+<h3 id="Compared-with-EKE-using-public-keys"><a href="#Compared-with-EKE-using-public-keys" class="headerlink" title="Compared with EKE using public keys"></a>Compared with EKE using public keys</h3><p><img src="image-20230703001246528.png" alt=""></p>
+<p>由于我们使用了<strong>混淆和随机数</strong>，因此会话密钥$k$和初始选择不佳的密钥$p$是安全隔离的，这样泄露会话密钥的影响严格限于该会话的消息</p>
+<p>然而，EKE协议中，泄露会话密钥$r$将使攻击者能够在未来的所有会话中重播$Message 2$并伪装成B。此外，它还允许猜测攻击，攻击者可以猜测$p$，解密$Message 1$获得k，并使用$p$、$k$、$r$重构$Message 2$以进行验证</p>
+<h2 id="Advantages-amp-disadvantages"><a href="#Advantages-amp-disadvantages" class="headerlink" title="Advantages &amp; disadvantages"></a>Advantages &amp; disadvantages</h2><p>优点</p>
+<ul>
+<li>提出防范由于$Verifiable$ $Text$造成猜测攻击的方法：使用混淆和随机数</li>
+<li>提出考虑到实际因素、适用于不同场景的认证协议及其变体</li>
+<li>概述一种系统方法来检查协议对猜测攻击的脆弱性</li>
+</ul>
+<p>缺点/不足</p>
+<ul>
+<li>和EKE协议一样，都容易受到数论攻击</li>
+<li><p>使一个协议对猜测攻击鲁棒需要增加多少成本，尚不清楚</p>
+</li>
+<li><p>目前还不清楚公钥加密技术的使用有多重要；如果用户不必保留巨大的常量（即使它们是公开的），那就太好了。</p>
+</li>
+<li><p>缺乏协议的安全性证明</p>
+</li>
+</ul>
 
     </div>
 
@@ -319,6 +412,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Guessing-Attacks"><span class="nav-number">1.</span> <span class="nav-text">Guessing Attacks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-UNIX-Password-System"><span class="nav-number">1.1.</span> <span class="nav-text">The UNIX Password System</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SunOS-Secure-NFS"><span class="nav-number">1.2.</span> <span class="nav-text">SunOS Secure NFS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Kerberos-Authentication-System"><span class="nav-number">1.3.</span> <span class="nav-text">The Kerberos Authentication System</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Known-Plaintext-and-Verifiable-Text"><span class="nav-number">2.</span> <span class="nav-text">Known Plaintext and Verifiable Text</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Protection-Techniques"><span class="nav-number">3.</span> <span class="nav-text">Protection Techniques</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#simple-two-message-handshake-transaction"><span class="nav-number">3.1.</span> <span class="nav-text">simple two-message handshake transaction</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Use-two-different-keys"><span class="nav-number">3.2.</span> <span class="nav-text">Use two different keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#confounder-a-sufficiently-large-random-number"><span class="nav-number">3.3.</span> <span class="nav-text">confounder(a sufficiently large random number)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mask"><span class="nav-number">3.4.</span> <span class="nav-text">mask</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Authentication-Protocols"><span class="nav-number">4.</span> <span class="nav-text">Authentication Protocols</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Mutual-Authentication-Protocol"><span class="nav-number">4.1.</span> <span class="nav-text">A Mutual Authentication Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reducing-the-Number-of-Messages"><span class="nav-number">4.2.</span> <span class="nav-text">Reducing the Number of Messages</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Nonces"><span class="nav-number">4.3.</span> <span class="nav-text">Using Nonces</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Identification"><span class="nav-number">4.4.</span> <span class="nav-text">Identification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-Secret-Public-Keys"><span class="nav-number">4.5.</span> <span class="nav-text">Using Secret Public Keys</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Direct-Authentication"><span class="nav-number">4.6.</span> <span class="nav-text">Direct Authentication</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Detecting-Vulnerability"><span class="nav-number">5.</span> <span class="nav-text">Detecting Vulnerability</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Compared-with-EKE-using-public-keys"><span class="nav-number">5.1.</span> <span class="nav-text">Compared with EKE using public keys</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advantages-amp-disadvantages"><span class="nav-number">6.</span> <span class="nav-text">Advantages &amp; disadvantages</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
