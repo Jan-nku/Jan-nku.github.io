@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"jan-nku.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":true},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="2011 年 Wei 等学者首次提出了一个基于 RSA 的可证明安全的网关口令认证密钥交换协议，并声称在随机预言模型下基于大整数素因子分解的困难性证明了协议的安全性。利用该协议中服务器端提供的预言机服务，提出一 种分离攻击，攻击者只需发起几十次假冒会话便可恢复出用户的口令。攻击结果表明，该协议无法实现所声称的口令保护这一基本安全目标，突出显示了分离攻击是针对基于 RSA 的口令认证密钥交换协议的一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于RSA的网关口令认证密钥交换协议的分析与改进">
+<meta property="og:url" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/index.html">
+<meta property="og:site_name" content="Jan&#39;s Blog">
+<meta property="og:description" content="2011 年 Wei 等学者首次提出了一个基于 RSA 的可证明安全的网关口令认证密钥交换协议，并声称在随机预言模型下基于大整数素因子分解的困难性证明了协议的安全性。利用该协议中服务器端提供的预言机服务，提出一 种分离攻击，攻击者只需发起几十次假冒会话便可恢复出用户的口令。攻击结果表明，该协议无法实现所声称的口令保护这一基本安全目标，突出显示了分离攻击是针对基于 RSA 的口令认证密钥交换协议的一">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701070745990.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701071040849.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701071908527.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701071942112.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701073118770.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701073502878.png">
+<meta property="og:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701074037149.png">
+<meta property="article:published_time" content="2023-06-28T10:17:10.000Z">
+<meta property="article:modified_time" content="2023-06-30T23:56:04.416Z">
+<meta property="article:author" content="Jan_nku">
+<meta property="article:tag" content="密码协议">
+<meta property="article:tag" content="PAKE">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/image-20230701070745990.png">
+
+<link rel="canonical" href="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于RSA的网关口令认证密钥交换协议的分析与改进 | Jan's Blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Jan's Blog" type="application/atom+xml">
+<link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Jan's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Who Am I?</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Jan_nku">
+      <meta itemprop="description" content="千磨万击还坚劲，任尔东西南北风">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jan's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于RSA的网关口令认证密钥交换协议的分析与改进
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-28 18:17:10" itemprop="dateCreated datePublished" datetime="2023-06-28T18:17:10+08:00">2023-06-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-01 07:56:04" itemprop="dateModified" datetime="2023-07-01T07:56:04+08:00">2023-07-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%AF%86%E7%A0%81%E5%8D%8F%E8%AE%AE/" itemprop="url" rel="index"><span itemprop="name">密码协议</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>2011 年 Wei 等学者首次提出了一个基于 RSA 的可证明安全的网关口令认证密钥交换协议，并声称在随机预言模型下基于大整数素因子分解的困难性证明了协议的安全性。利用该协议中服务器端提供的预言机服务，提出一 种分离攻击，攻击者只需发起几十次假冒会话便可恢复出用户的口令。攻击结果表明，该协议无法实现所声称的口令保护这一基本安全目标，突出显示了分离攻击是针对基于 RSA 的口令认证密钥交换协议的一种严重安全威胁。进一步指出了协议形式化安全证明中的失误，给出一个改进方案。分析结果表明，改进方案在提高安全性的同时保持了较高效率，更适于移动通信环境。</p>
+<span id="more"></span>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Partition-Attack"><a href="#Partition-Attack" class="headerlink" title="Partition Attack"></a>Partition Attack</h3><p>PAKE 协议易遭字典攻击。依据攻击者对所猜测口令的验证方式，字典攻击主要分为离线字典攻击、在线字典攻击。</p>
+<p>基于 RSA 的 PAKE 协议易遭受一类特殊的字典攻击——<strong>分割攻击(Partition Attack)</strong>。这种攻击将离线字典攻击和在线字典攻击结合起来</p>
+<ol>
+<li>通过仿冒合法用户参与协议运行来收集口令相关信息</li>
+<li>离线地从口令字典中过滤掉非潜在口令</li>
+</ol>
+<p>重复步骤 1、2 直到剩下最后一个潜在口令，这个口令便是受害者所使用的口令，攻击成功。需要指出的是，攻击者通过步骤 1 收集的信息，可在步骤 2 中一次过滤掉两个以上口令，这是分割攻击与在线字典攻击的本质区别。</p>
+<p>针对基于 RSA 的 PAKE 协议最典型两种分割攻击是 e 次剩余攻击 (e-Residue Attack) 和分离攻击 (Separation Attack)</p>
+<h3 id="Flaws-in-RSA-GPAKE"><a href="#Flaws-in-RSA-GPAKE" class="headerlink" title="Flaws in RSA-GPAKE"></a>Flaws in RSA-GPAKE</h3><p>2011 年，Wei 等学者<sup><a href="#fn_1" id="reffn_1">1</a></sup>指出现有基于网关的口令认证密钥协商 (Gateway-oriented PAKE, GPAKE) 协议都存在这样或那样的安全缺陷，首次提出了基于 RSA 的安全高效的 GPAKE 协议 (简称 RSA-GPAKE)， 并宣称在随机预言机模型 (Random Oracle Model, ROM)<sup><a href="#fn_2" id="reffn_2">2</a></sup>下证明了协议的安全性。</p>
+<p>但本文分析发现，RSA-GPAKE 协议对分离攻击是脆弱的，主动攻击者可在非常有限的交互次数内恢复出合法用户的口令。因此，RSA-GPAKE 协议存在严重安全缺陷，无法实现所宣称的安全性，在对该缺陷进行修正前不适于实际应用。</p>
+<p><strong>一个被形式化证明 “安全”了的协议为什么结果是不安全的？</strong>为解释这一矛盾现象，本文进一步分析了原协议形式化安全证明中的失误之处。为克服 RSA-GPAKE 协议中的上述严重安全缺陷，本文借鉴文献<sup><a href="#fn_3" id="reffn_3">3</a></sup>中 PEKEP 协议防御”有用信息泄露“的思想，提出一个改进方案，并在 ROM 模型下给出了相应的严格归约证明 (Rigorous Reduction Proof)。分析结果表明，改进方案在提高安全性的同时，保持了较高的效率，更适用实际移动应用环境。</p>
+<h2 id="GPAKE协议的安全模型"><a href="#GPAKE协议的安全模型" class="headerlink" title="GPAKE协议的安全模型"></a>GPAKE协议的安全模型</h2><h3 id="通信模型"><a href="#通信模型" class="headerlink" title="通信模型"></a>通信模型</h3><p>网关口令认证密钥交换 (GPAKE) 协议是一个由用户、网关和服务器参与的三方协议，协议的目 标是用户和网关在服务器的帮助下建立一个认证的会话密钥。</p>
+<p>用户和网关之间的通信信道是不安全的公开信道，由敌手完全控制，可以窃听、阻断、删除和窜改流经公开网络中的任何消息，也可以插入伪造的消息；网关和服务器之间的通信则存在安全通道。</p>
+<p>假设用户和服务器间事先共享一个低信息熵的口令，并且网关不知道口令的信息。GPAKE 协议的主要安全目标是通过服务器的参与，在用户和网关建立一个安全的会话密钥，并且实现用户口令对网关的私密性、会话密钥对服务器的私密性。</p>
+<h3 id="攻击者能力"><a href="#攻击者能力" class="headerlink" title="攻击者能力"></a>攻击者能力</h3><ul>
+<li>Execute($C^i$, $G^j$)：模拟攻击者的被动攻击(窃听)的能力</li>
+<li>Send($U^i$, m)：模拟攻击者的主动攻击</li>
+<li>Test($U^i$)：用来定义会话密钥的语义安全性，只对 “新鲜”的会话有效。如果实例$U^i$的会话密钥尚没有定义，返回⊥。 否则，随机选择一个比特 b，如果 b=1，向攻击者返回会话密钥 sk；如果 b=0，向攻击者返回一个等长的随机串。</li>
+<li>Test($C^i$, $G^j$)：刻画会话密钥对于服务器的私密性。如果用户实例$C^i$和网关实例$G^j$之间还没有建立共享的会话密钥，返回⊥。 否则，随机选择一个比特 b，如果 b=1，向攻击者返回会话密钥 sk；如果 b=0，向攻击者返回一个等长的随机串。</li>
+</ul>
+<p>RSA-GPAKE 协议会话密钥的语义安全性通过 Real-Or-Random (ROR) 攻击游戏<sup><a href="#fn_4" id="reffn_4">4</a></sup> 而非传统的 Find-Then-Guess (FTG)来模型化。在 ROR 攻击游戏中, 敌手可以进行多次 Test 查询，ROR 模型下攻击者的攻击能力要比 FTG 模型下强，关于二者的更详细比较可参见文献<sup><a href="#fn_5" id="reffn_5">5</a></sup>。</p>
+<h3 id="安全目标"><a href="#安全目标" class="headerlink" title="安全目标"></a>安全目标</h3><p>Abdalla 等人<sup><a href="#fn_4" id="reffn_4">4</a></sup>的 GPAKE 协议安全模型中有四个安全目标，前两项是所有 PAKE 协议所应实现的基本目标<sup><a href="#fn_2" id="reffn_2">2</a></sup> , 后两项是 GPAKE 协议所独有的目标。</p>
+<ul>
+<li><p>语义安全性：一个外部攻击者不能够多项式时间内将真实的会话密钥和与之等长的随机串区分开来</p>
+</li>
+<li><p>认证性：攻击者不能仿冒协议中的真实实体</p>
+</li>
+<li><p>密钥私密性：用户和网关之间建立的会话密钥对于诚实而好奇的服务器是不可区分的(专门针对服务器)</p>
+</li>
+<li><p>口令保护： 恶意网关通过协议运行不能得到用户口令的任何信息(专门针对网关)</p>
+</li>
+</ul>
+<h2 id="RSA-GPAKE-协议的安全性分析"><a href="#RSA-GPAKE-协议的安全性分析" class="headerlink" title="RSA-GPAKE 协议的安全性分析"></a>RSA-GPAKE 协议的安全性分析</h2><h3 id="RSA-GPAKE"><a href="#RSA-GPAKE" class="headerlink" title="RSA-GPAKE"></a>RSA-GPAKE</h3><p><img src="image-20230701070745990.png" alt=""></p>
+<h3 id="分离攻击"><a href="#分离攻击" class="headerlink" title="分离攻击"></a>分离攻击</h3><p>分离攻击针对的是 RSA-GPAKE 协议的“口令保护”这一基本安全目标，该攻击只需要攻击者 (外部攻击者或内部恶意网关) 有如下两种能力</p>
+<ol>
+<li>可以窃听、阻断、删除和窜改流经公开网络中的任何消息，也可以插入伪造的消息</li>
+<li>可以多项式时间内穷举搜索口令空间</li>
+</ol>
+<p>上述两个攻击者能力假设是分析 PAKE 协议安全性的基本假设，也是所有 PAKE 协议面临的共同难题</p>
+<p><img src="image-20230701071040849.png" alt=""></p>
+<p>在上述攻击的步骤 4)中，攻击者收到来自网关G的响应消息意味着$gcd(α{^<em>}, n_{A} = 1)$，因此攻击者可以在步骤 7) 中通过检验$gcd(α{^</em>}, n_{A} = 1)$是否成立来验证所猜测的口令的正确性。</p>
+<p><img src="image-20230701071908527.png" alt=""></p>
+<p><img src="image-20230701071942112.png" alt=""></p>
+<h3 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h3><ul>
+<li><p>禁止 n 含小因子</p>
+</li>
+<li><p>限制攻击者发起假冒会话的次数</p>
+<ul>
+<li>通过限制假冒会话总次数的方式</li>
+<li>通过限制连续假冒会话次数的方式</li>
+</ul>
+</li>
+</ul>
+<font color="red">这些方案均不可行</font>
+
+<h3 id="协议形式化安全证明中的失误"><a href="#协议形式化安全证明中的失误" class="headerlink" title="协议形式化安全证明中的失误"></a>协议形式化安全证明中的失误</h3><p>RSA-GPAKE在证明其“口令保护”这一目标时，并没有采用严格的推理将攻击者对口令的猜测攻击归约到求解数学难题上 (如 RSA-GPAKE 所基于的 RSA 困难性假设)，而是在关键点下了轻率的结论——“恶意网关想要成功进行不可检测在线字典攻击，必须返回一个有效的认证值$μ$。如果恶意网关不知道 a，那么成功的概率至多为 $2^k$.”</p>
+<p>RSA-GPAKE在阐述其“口令保护”这一安全目标的证明思想时，宣称可以直接利用 PEKEP 协议<sup><a href="#fn_3" id="reffn_3">3</a></sup>的证明得到——“由 PEKEP 协议的证明可知，恶意网关每次和服务器进行交互至多排除掉一个口令.”</p>
+<p>我们进一步分析了 PEKEP 协议<sup><a href="#fn_3" id="reffn_3">3</a></sup>的安全性证明，发现 PEKEP 协议的“口令保护”这一 安全目标的相关证明并不直接适用于 RSA-GPAKE 协议。<font color="red">这表明 RSA-GPAKE 协议的“口令保护”这一安全目标的证明思想存在失误</font>，而这一失误正是导致文献<sup><a href="#fn_6" id="reffn_6">6</a></sup>形式化证明失效的根本原因。</p>
+<p><img src="image-20230701073118770.png" alt=""></p>
+<p><img src="image-20230701073502878.png" alt="image-20230701073502878"></p>
+<p><strong>警告：</strong>对协议进行形式化证明只是手段而不是结果，<font color="red">对潜在攻击的忽视和非紧致的归约常导致证明结果的失效</font>，又由于证明过程的复杂性和证明方法的技巧性，这种失效的结果往往具有很强的隐蔽性和欺骗性，只有通过具体的攻击才能使协议的脆弱性得以显现。</p>
+<p>虽然形式化方法已被很多密码学者认为是确保密码协议安全性的核心(甚至唯一)手段，但启发式分析(即传统的攻击分析)在建立和保持对密码协议的信任方面仍然具有不可替代的作用。</p>
+<h2 id="改进方案-RSA-GPAKE"><a href="#改进方案-RSA-GPAKE" class="headerlink" title="改进方案 RSA-GPAKE+"></a>改进方案 RSA-GPAKE+</h2><p><img src="image-20230701074037149.png" alt=""></p>
+<h2 id="Advantages-amp-disadvantages"><a href="#Advantages-amp-disadvantages" class="headerlink" title="Advantages &amp; disadvantages"></a>Advantages &amp; disadvantages</h2><p>优点</p>
+<ul>
+<li>指出 RSA-GPAKE 协议容易受到分离攻击，无法实现所声称的口令保护这一基本安全目标。</li>
+<li>进一步分析了 RSA-GPAKE 协议形式化安全证明中的疏漏之处，指出协议失误的根本原因，提出 一个改进方案，在未增加计算量和通信量的情况下修正了原协议的缺陷，并基于 ROM 模型给出了严格的归约证明</li>
+<li>给协议设计者的启示：对协议进行形式化证明只是手段而不是结果，<font color="red">对潜在攻击的忽视和非紧致的归约常导致证明结果的失效</font></li>
+</ul>
+<p>缺点/不足</p>
+<ul>
+<li><p>在显示协议的完备性方面没有建树，如何确保此类协议完备性将是下一步重点工作</p>
+</li>
+<li><p>GPAKE 协议适用于移动通信环境，而移动环境中用户的隐私是重要的关注对象，因此设计具有匿名性的安全高效的基于 RSA 体制的 GPAKE 协议，也是值得进一步研究的方向</p>
+</li>
+<li><p>协议假设字典空间服从均匀分布（现实场景下口令基于Zipf分布）、安全性基于 RSA 困难性假设（RSA至少要4096bit才能保障安全），低估攻击者的攻击能力？</p>
+</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p><sup><a href="#fn_1" id="reffn_1">1</a></sup>:魏福山, 马传贵, 程庆丰. 基于RSA的网关口令认证密钥交换协议[J]. 计算机学报, 2011, 34(1): 38–46.<br><sup><a href="#fn_2" id="reffn_2">2</a></sup>:Bellare M, Pointcheval D, Rogaway P: Authenticated key exchange secure against dictionary attacks[A]. Proceedings of Eurocrypt 2000[C]. Berlin : SpringerVerlag,LNCS, Vol. 1807, 2000:139–155.<br><sup><a href="#fn_3" id="reffn_3">3</a></sup>:Zhang Mu-Xiang. New approaches to password authenticated key exchange based on RSA[A]. Proceedings of Asiacrypt 2004[C]. Berlin: Springer-Verlag, LNCS, Vol.3329, 2004: 230–244.<br><sup><a href="#fn_4" id="reffn_4">4</a></sup>:Abdalla M., Chevass O., Fouque P., Pointcheval D. A simple threshold authenticated key exchange from short secrets[A]. Proceedings of Asiacrypt 2005. Berlin: Springer-Verlag, LNCS, Vol.3788, 2005: 566–584.<br><sup><a href="#fn_5" id="reffn_5">5</a></sup>:Abdalla M., Fouque P. , and Pointcheval D. Passwordbased authenticated key exchange in the three-party setting[A]. Proceedings of PKC 2005[C]. Berlin: Springer-Verlag, LNCS, Vol. 3386, 2005:65–84.<br><sup><a href="#fn_6" id="reffn_6">6</a></sup>:Wei Fu-Shan, Ma Chuan-Gui, Cheng Qing-Feng. Anonymous gateway-riented password-based authenticated key exchange based on RSA[J]. EURASIP Journal on Wireless Communications and Networking, 2012, Doi: <a target="_blank" rel="noopener" href="http://dx.doi.org/10.1186/1687-1499-2011–162">http://dx.doi.org/10.1186/1687-1499-2011–162</a>.</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E5%AF%86%E7%A0%81%E5%8D%8F%E8%AE%AE/" rel="tag"># 密码协议</a>
+              <a href="/tags/PAKE/" rel="tag"># PAKE</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/26/two-birds-with-one-stone-two-factor-authentication-with-security-beyond-conventional-bound/" rel="prev" title="Two Birds with One Stone: Two-Factor Authentication with Security Beyond Conventional Bound">
+      <i class="fa fa-chevron-left"></i> Two Birds with One Stone: Two-Factor Authentication with Security Beyond Conventional Bound
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/06/30/proverif-xue-xi/" rel="next" title="Proverif学习">
+      Proverif学习 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Partition-Attack"><span class="nav-number">1.1.</span> <span class="nav-text">Partition Attack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flaws-in-RSA-GPAKE"><span class="nav-number">1.2.</span> <span class="nav-text">Flaws in RSA-GPAKE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GPAKE%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">GPAKE协议的安全模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">通信模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%94%BB%E5%87%BB%E8%80%85%E8%83%BD%E5%8A%9B"><span class="nav-number">2.2.</span> <span class="nav-text">攻击者能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E5%85%A8%E7%9B%AE%E6%A0%87"><span class="nav-number">2.3.</span> <span class="nav-text">安全目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSA-GPAKE-%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%AE%89%E5%85%A8%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">RSA-GPAKE 协议的安全性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA-GPAKE"><span class="nav-number">3.1.</span> <span class="nav-text">RSA-GPAKE</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E7%A6%BB%E6%94%BB%E5%87%BB"><span class="nav-number">3.2.</span> <span class="nav-text">分离攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E5%BE%A1%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">防御方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE%E5%BD%A2%E5%BC%8F%E5%8C%96%E5%AE%89%E5%85%A8%E8%AF%81%E6%98%8E%E4%B8%AD%E7%9A%84%E5%A4%B1%E8%AF%AF"><span class="nav-number">3.4.</span> <span class="nav-text">协议形式化安全证明中的失误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%94%B9%E8%BF%9B%E6%96%B9%E6%A1%88-RSA-GPAKE"><span class="nav-number">4.</span> <span class="nav-text">改进方案 RSA-GPAKE+</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Advantages-amp-disadvantages"><span class="nav-number">5.</span> <span class="nav-text">Advantages &amp; disadvantages</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E7%8C%AE"><span class="nav-number">6.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Jan_nku</p>
+  <div class="site-description" itemprop="description">千磨万击还坚劲，任尔东西南北风</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Jan-nku" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Jan-nku" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:jan_nku@163.com" title="E-Mail → mailto:jan_nku@163.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jan_nku</span>
+</div>
+
+
+<!--
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+-->
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      loader: {
+          load: ['[tex]/mhchem'],
+        source: {
+          '[tex]/amsCd': '[tex]/amscd',
+          '[tex]/AMScd': '[tex]/amscd'
+        }
+      },
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+          packages: {'[+]': ['mhchem']},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+  <script src="//cdn.jsdelivr.net/npm/quicklink@1/dist/quicklink.umd.js"></script>
+  <script>
+      window.addEventListener('load', () => {
+      quicklink({
+        timeout : 3000,
+        priority: true,
+        ignores : [uri => uri.includes('#'),uri => uri === 'https://jan-nku.github.io/2023/06/28/ji-yu-rsa-de-wang-guan-kou-ling-ren-zheng-mi-yao-jiao-huan-xie-yi-de-fen-xi-yu-gai-jin/',]
+      });
+      });
+  </script>
+
+</body>
+</html>
