@@ -153,7 +153,7 @@
 <p>由于人类固有的有限内存和安全预算，用户选择的密码的分布高度倾斜</p>
 <p>更糟糕的是，用户倾向于使用相同的密码（或轻微的变化）来访问多台服务器，一台服务器的泄露将导致失败所有其他服务器，这被描述为密码重用的“多米诺骨牌效应”。</p>
 <p><strong>Related works</strong></p>
-<p>为了解决受感染服务器的密码泄漏问题，最近提出了<code>threshold password-only authentication scheme</code>（<sup><a href="#fn_1" id="reffn_1">1</a></sup>）。在这种方案中，密码文件和用户数据分布在多个服务器上，因此达到一定阈值的服务器联盟都无法了解有关密码的任何信息。然而，它们本质上无法应对用户端出现的另一个新出现的密码泄露问题（例如隐藏摄像头、键盘记录器和网络钓鱼）。</p>
+<p>为了解决受感染服务器的密码泄漏问题，最近提出了<code>threshold password-only authentication scheme</code><sup><a href="#fn_1" id="reffn_1">1</a></sup>。在这种方案中，密码文件和用户数据分布在多个服务器上，因此达到一定阈值的服务器联盟都无法了解有关密码的任何信息。然而，它们本质上无法应对用户端出现的另一个新出现的密码泄露问题（例如隐藏摄像头、键盘记录器和网络钓鱼）。</p>
 <p>为了防止用户侧密码泄露，人们提出了<code>leakage-resilient password systems (LRPS)</code><sup><a href="#fn_2" id="reffn_2">2</a></sup>。在此类方案中，用户需要间接输入密码，这给普通用户带来了额外的负担。最近，有研究表明<sup><a href="#fn_3" id="reffn_3">3</a></sup>，为了获得合理的安全性和可接受的可用性，LRPS方案必须采用某些可信设备来很好地解决用户侧密码泄漏的安全威胁。</p>
 <p>阈值和 LRPS 方案的局限性巩固了第三种方法——引入智能卡作为“第二道防线”。这就产生了基于智能卡的密码身份验证，通常称为“双因素身份验证”。一般包含两个参与者：用户U和服务器S，四个阶段：用户注册、登录、认证、口令更新。</p>
 <p>核心安全目标——真正双因子安全性</p>
@@ -629,7 +629,7 @@
   <entry>
     <title>Encrypted Key Exchange: Password-Based Protocols Secure Against Dictionary Attacks</title>
     <url>/2023/07/01/encrypted-key-exchange-password-based-protocols-secure-against-dictionary-attacks/</url>
-    <content><![CDATA[<p>Classical cryptographic protocols based on user-chosen keys allow an attacker to mount password-guessing attacks. We introduce <strong>a novel combination of asymmetric (public-key) and symmetric (secret-key) cryptography</strong> that allow two parties sharing a common password to exchange confidential and authenticated information over an insecure network. These protocols are secure <strong>against active attacks</strong>, and have the property that the password is protected <strong>against off-line “dictionary”attacks</strong>. There are a number of other useful applications as well,including secure public telephones.</p>
+    <content><![CDATA[<p>Classical cryptographic protocols based on user-chosen keys allow an attacker to mount password-guessing attacks. We introduce <strong>a novel combination of asymmetric (public-key) and symmetric (secret-key) cryptography</strong> that allow two parties sharing a common password to exchange confidential and authenticated information over an insecure network. These protocols are secure <strong>against active attacks</strong>, and have the property that the password is protected <strong>against off-line “dictionary”attacks</strong>. There ar <a href="Device-Enhanced-Password-Protocols-with-Optimal-Online-Offline-Protection.md">Device-Enhanced-Password-Protocols-with-Optimal-Online-Offline-Protection.md</a> e a number of other useful applications as well,including secure public telephones.</p>
 <span id="more"></span>
 <h2 id="Classical-key-negotiation"><a href="#Classical-key-negotiation" class="headerlink" title="Classical key negotiation"></a>Classical key negotiation</h2><p>预先共享password P，打算协商会话密钥R，T代表终端类型。用会话密钥加密返回一个终端类型表示会话密钥协商成功</p>
 <p><img src="image-20230701142959098.png" alt=""></p>
@@ -821,5 +821,23 @@
         <tag>密码协议</tag>
         <tag>PAKE</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>躬行之路</title>
+    <url>/2050/07/03/gong-xing-zhi-lu/</url>
+    <content><![CDATA[<h3 id="Research-Weekly-starting-on-October-16th-2023"><a href="#Research-Weekly-starting-on-October-16th-2023" class="headerlink" title="Research Weekly, starting on October 16th, 2023"></a>Research Weekly, starting on October 16th, 2023</h3><span id="more"></span>
+<h2 id="第1周（2023-10-16-2023-10-22）"><a href="#第1周（2023-10-16-2023-10-22）" class="headerlink" title="第1周（2023.10.16-2023.10.22）"></a>第1周（2023.10.16-2023.10.22）</h2><blockquote>
+<p>主要工作：</p>
+</blockquote>
+<ul>
+<li>Day1：</li>
+<li>Day2：</li>
+<li>Day3：</li>
+<li>Day4：</li>
+<li>Day5：</li>
+<li>Day6：</li>
+<li>Day7：</li>
+</ul>
+]]></content>
   </entry>
 </search>

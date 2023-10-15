@@ -6,7 +6,7 @@
   <link href="https://jan-nku.github.io/atom.xml" rel="self"/>
   
   <link href="https://jan-nku.github.io/"/>
-  <updated>2023-07-02T16:28:51.701Z</updated>
+  <updated>2023-10-15T16:43:38.322Z</updated>
   <id>https://jan-nku.github.io/</id>
   
   <author>
@@ -15,6 +15,21 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>躬行之路</title>
+    <link href="https://jan-nku.github.io/2050/07/03/gong-xing-zhi-lu/"/>
+    <id>https://jan-nku.github.io/2050/07/03/gong-xing-zhi-lu/</id>
+    <published>2050-07-02T16:00:00.000Z</published>
+    <updated>2023-10-15T16:43:38.322Z</updated>
+    
+    
+    <summary type="html">&lt;h3 id=&quot;Research-Weekly-starting-on-October-16th-2023&quot;&gt;&lt;a href=&quot;#Research-Weekly-starting-on-October-16th-2023&quot; class=&quot;headerlink&quot; title=&quot;Research Weekly, starting on October 16th, 2023&quot;&gt;&lt;/a&gt;Research Weekly, starting on October 16th, 2023&lt;/h3&gt;</summary>
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>Protecting Poorly Chosen Secrets from Guessing Attacks</title>
@@ -42,10 +57,10 @@
     <link href="https://jan-nku.github.io/2023/07/01/encrypted-key-exchange-password-based-protocols-secure-against-dictionary-attacks/"/>
     <id>https://jan-nku.github.io/2023/07/01/encrypted-key-exchange-password-based-protocols-secure-against-dictionary-attacks/</id>
     <published>2023-07-01T00:41:06.000Z</published>
-    <updated>2023-07-02T14:34:34.186Z</updated>
+    <updated>2023-07-09T01:28:37.144Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Classical cryptographic protocols based on user-chosen keys allow an attacker to mount password-guessing attacks. We introduce &lt;strong&gt;a novel combination of asymmetric (public-key) and symmetric (secret-key) cryptography&lt;/strong&gt; that allow two parties sharing a common password to exchange confidential and authenticated information over an insecure network. These protocols are secure &lt;strong&gt;against active attacks&lt;/strong&gt;, and have the property that the password is protected &lt;strong&gt;against off-line “dictionary”attacks&lt;/strong&gt;. There are a number of other useful applications as well,including secure public telephones.&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;Classical cryptographic protocols based on user-chosen keys allow an attacker to mount password-guessing attacks. We introduce &lt;strong&gt;a novel combination of asymmetric (public-key) and symmetric (secret-key) cryptography&lt;/strong&gt; that allow two parties sharing a common password to exchange confidential and authenticated information over an insecure network. These protocols are secure &lt;strong&gt;against active attacks&lt;/strong&gt;, and have the property that the password is protected &lt;strong&gt;against off-line “dictionary”attacks&lt;/strong&gt;. There ar &lt;a href=&quot;Device-Enhanced-Password-Protocols-with-Optimal-Online-Offline-Protection.md&quot;&gt;Device-Enhanced-Password-Protocols-with-Optimal-Online-Offline-Protection.md&lt;/a&gt; e a number of other useful applications as well,including secure public telephones.&lt;/p&gt;</summary>
     
     
     
@@ -105,7 +120,7 @@
     <link href="https://jan-nku.github.io/2023/06/26/two-birds-with-one-stone-two-factor-authentication-with-security-beyond-conventional-bound/"/>
     <id>https://jan-nku.github.io/2023/06/26/two-birds-with-one-stone-two-factor-authentication-with-security-beyond-conventional-bound/</id>
     <published>2023-06-26T15:09:35.000Z</published>
-    <updated>2023-07-03T07:19:26.078Z</updated>
+    <updated>2023-07-03T07:21:27.285Z</updated>
     
     
     <summary type="html">&lt;p&gt;As the most prevailing two-factor authentication mechanism, smart-card-based password authentication has been a subject of intensive research in the past two decades, and hundreds of this type of schemes have wave upon wave been proposed. In most of these studies, there is &lt;strong&gt;no comprehensive and systematical metric available for schemes to be assessed objectively&lt;/strong&gt;, and the authors present new schemes with assertions of the superior aspects over previous ones, while overlooking dimensions on which their schemes fare poorly. Unsurprisingly, most of them are far from satisfactory—either are found &lt;strong&gt;short of important security goals or lack of critical properties&lt;/strong&gt;, especially being stuck with the security-usability tension. To overcome this issue, in this work we first &lt;strong&gt;explicitly define a security model&lt;/strong&gt; that can accurately capture the practical capabilities of an adversary and then suggest &lt;strong&gt;a broad set of twelve properties framed as a systematic methodology for comparative evaluation&lt;/strong&gt;, allowing schemes to be rated across a common spectrum. As our main contribution, &lt;strong&gt;a new scheme is advanced&lt;/strong&gt; to resolve the various issues arising from user corruption and server compromise, and it is formally proved secure under the harshest adversary model so far. In particular, by integrating &lt;strong&gt;“honeywords”&lt;/strong&gt;, traditionally the purview of system security, with a &lt;strong&gt;“fuzzy-verifier”&lt;/strong&gt;, our scheme hits “two birds”: it not only &lt;strong&gt;eliminates the long-standing security-usability conflict&lt;/strong&gt; that is considered intractable in the literature, but also &lt;strong&gt;achieves security guarantees beyond the conventional optimal security bound&lt;/strong&gt;.&lt;br&gt;</summary>
